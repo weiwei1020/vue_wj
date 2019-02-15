@@ -6,12 +6,12 @@
       size="small"
       highlight-current-row
       :data="getPage.records"
-      style="width: 100%;margin-bottom: 10px"
+      style="width: 100%;"
       :height="tableHeight"
-      :row-class-name="tableRowClassName"
+      v-loading="loading"
       @select-all="_selectAll"
       @selection-change="_selectRowChange"
-      @row-click="_clickRow"
+      @cell-click="_cellClick"
       @row-dblclick="_dbClickRow"
       ref="moveTable"
     >
@@ -20,7 +20,7 @@
         width="55"
         fixed="left"
         align="center"
-        v-if="hideCheckbox===undefined?true:false">
+        v-if="hideCheckbox===undefined">
       </el-table-column>
       <slot></slot>
       <el-table-column
@@ -32,6 +32,7 @@
           <IconList :msg="iconMsg" @on-result-change="_iconClick" :rowData="scope.row"></IconList>
         </template>
       </el-table-column>
+      <slot name="col"></slot>
     </el-table>
   </div>
 </template>
@@ -50,27 +51,64 @@
       getPage: null,
       iconMsg: null,
       warnKey: '',
+      selectData: null,
+      clickValue: null,
+      dbClickRow:null
     },
     data() {
       return {
-        selectIds: [],
+        loading: true,
         rowData: {},
+        extendsData: {},//扩展数据，数据传不过来使用
       }
     },
     methods: {
-      //选中行的同时选中checkbox
-      _clickRow(row) {
-        this.$refs.moveTable.toggleRowSelection(row)
+      //点击单元格触发
+      _cellClick(row, event, column) {
+        if ((event.label === '操作')) {
+
+        } else{
+          this._rowClickChange(row);
+        }
       },
-      _page(formId, uri) {
+      _rowClickChange(row) {
+        if (this.clickValue === undefined) {
+          //默认选中该行数据
+          this.$refs.moveTable.toggleRowSelection(row);
+        } else {
+          //有clickValue参数时执行
+          this.$emit('on-result-change', 'select', row);
+        }
+      },
+      _checkAll() {
+        this.$refs.moveTable.toggleAllSelection();
+      },
+      _page(formId, uri,extendsData) {
         this.formId = formId;
-        this.$store.dispatch(uri).then(() => {
+        let data = this.$serialize(this.formId);
+        if (extendsData) {
+          this.extendsData = extendsData;
+          Object.assign(data, this.extendsData);
+        }
+        this.$store.dispatch(uri, data).then(() => {
+          this.loading = false;
           this.$emit("on-result-change", 'page', '')
         });
       },
       //多选
       _selectRowChange(data) {
-        this.$emit("on-result-change", 'selectData', data);
+        if (this.selectData !== undefined) {
+          this.$emit("on-result-change", 'selectData', data);
+        } else {
+          var idList = [];
+          for (var i = 0; i < data.length; i++) {
+            idList.push(data[i].id);
+          }
+          if (this.hideCheckbox === undefined) {
+            //有checkbox 则返回选中的id数组
+            this.$emit("on-result-change", 'selectIds', idList);
+          }
+        }
       },
       _selectAll: function (data) {
         this._selectRowChange(data);
@@ -86,6 +124,13 @@
       //打开loading
       _showLoading() {
         this.loading = true;
+      },
+      //双击行操作
+      _dbClickRow(row, event) {
+        if(this.dbClickRow === undefined){
+          //默认是有双击操作的，若此参数有值，则不返回
+          this.$emit("on-result-change", 'dbSelect', row);
+        }
       },
     }
   }

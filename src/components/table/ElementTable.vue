@@ -9,12 +9,12 @@
       style="width: 100%"
       :height="tableHeight"
       :default-sort="{prop: 'date', order: 'descending'}"
-      :row-class-name="_tableRowClassName"
       v-loading="loading"
       @select-all="_selectAll"
       @selection-change="_selectRowChange"
       @cell-click="_cellClick"
       @row-dblclick="_dbClickRow"
+      :cell-class-name="_tableCellClassName"
       ref="moveTable">
       <el-table-column
         type="selection"
@@ -25,12 +25,13 @@
       </el-table-column>
       <slot></slot>
       <el-table-column
-        :label="$t('operation')"
+        label="操作"
         align="center"
         :width="optColWidth"
         fixed="right" v-if="optColWidth?true:false">
         <template slot-scope="scope">
-          <IconList :msg="iconMsg" @on-result-change="_iconClick" :rowData="scope.row"></IconList>
+          <IconList :msg="iconMsg" @on-result-change="_iconClick" :rowData="scope.row"
+                    :rowIndex="scope.$index"></IconList>
         </template>
       </el-table-column>
       <slot name="col"></slot>
@@ -64,7 +65,8 @@
       clickValue: null,//单击返回值
       noWarning: null, //不显示警告提示
 
-      isDataTest: null,//判断是否是数据检测
+      isReport: null,//判断是否是报告
+      isDataInput:null,//判断数据录入
     },
     data() {
       return {
@@ -72,7 +74,7 @@
         loading: false,
         isRowClick: false,
         pageParams: {
-          rows: 20,
+          rows: this.$defRow,
         },
         extendsData: {},//扩展数据，数据传不过来使用
         rowData: {},
@@ -80,21 +82,10 @@
       }
     },
     methods: {
-      //行变色
-      _tableRowClassName({row, rowIndex}) {
-        if (1 === row[this.warnKey]) {
-          return 'warning-row';
-        } else if (0 === row[this.warnKey]) {
-          return '';
-        } else if (new Date(row[this.warnKey]) < new Date()) {
-          return 'warning-row';
-        } else {
-          return '';
-        }
-      },
       //点击单元格触发
       _cellClick(row, event, column) {
-        if ((event.label === '操作'||event.label ==='operation')) {
+        if ((event.label === '操作')) {
+
         } else {
           this._rowClickChange(row);
         }
@@ -108,14 +99,60 @@
           this.$emit('on-result-change', 'select', row);
         }
       },
+      _checkAll() {
+        this.$refs.moveTable.toggleAllSelection();
+      },
+      _tableCellClassName({row, column, rowIndex, columnIndex}) {
+        if (this.isReport !== undefined) {
+          //报告管理
+          if (column.property ==='sampleProgress'&&row['sampleProgress'] && row.sampleProgress.indexOf('退回') !== -1) {//含有退回就变红
+            return 'cell-red';
+          }
+        } else if(this.isDataInput !== undefined){
+          if (column.property ==='name'&&row['progress'] && row.progress.display.indexOf('退回') !== -1) {//含有退回就变红
+            return 'cell-red';
+          }
+        }else {
+          //其他列表状态
+          if (column.property === 'progress') {
+
+            if (undefined===row['progress']){
+              return 'cell-blue-color';
+            } else if (undefined!=row['progress']&&undefined!=row['progress'].display ){
+              if (row['progress'].display.indexOf('退回') !== -1){
+                return 'cell-red-color';
+              }else{
+                return 'cell-blue-color';
+              }
+            }else if(undefined!=row['progress']){
+              if (row['progress'].indexOf('退回') !== -1){
+                return 'cell-red-color';
+              }else{
+                return 'cell-blue-color';
+              }
+            }else{
+              return 'cell-blue-color';
+            }
+
+          } else if (column.property === 'status') {
+
+            if (row['status'] &&row.status.display!=undefined&&row.status.display.indexOf('退回') !== -1) {
+              return 'cell-red-color';
+            } else {
+              return 'cell-blue-color';
+            }
+          } else {
+            return ''
+          }
+        }
+      },
       _searchParams() {
         let data = this.$serialize(this.formId);
         Object.assign(data, this.extendsData);
         return this.$extend(data, this.pageParams);
       },
       _page(formId, uri, extendsData) {
-        // this.loading = true;
-        this.loading = false; //临时改的，有接口的时候需要改回true,才会有loading
+        this.loading = true;
         this.formId = formId;
         if (extendsData) {
           this.extendsData = extendsData;
@@ -159,8 +196,13 @@
         this._selectRowChange(data);
       },
       //操作列回调
-      _iconClick(name, rowData, componentName) {
-        this.$emit("on-result-change", 'iconClick', {name: name, rowData: rowData, componentName: componentName});
+      _iconClick(name, rowData, componentName, rowIndex) {
+        this.$emit("on-result-change", 'iconClick', {
+          name: name,
+          rowData: rowData,
+          componentName: componentName,
+          rowIndex: rowIndex
+        });
       },
       //双击行操作
       _dbClickRow(row, event) {
@@ -177,12 +219,3 @@
     }
   }
 </script>
-<style>
-  .el-table .warning-row {
-    background: LemonChiffon;
-  }
-  .el-table .warning-row>td {
-    color:#909399;
-    background: LemonChiffon !important;
-  }
-</style>

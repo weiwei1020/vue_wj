@@ -1,9 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Routes from './routes'
 
-Vue.use(Router)
+//import HelloWorld from '@/page/Home'
 
+Vue.use(Router);
+
+const router = new Router({
+  routes: Routes
+});
+
+export default router
+/*
 export default new Router({
   routes: [
     {
@@ -13,3 +21,4 @@ export default new Router({
     }
   ]
 })
+*/
