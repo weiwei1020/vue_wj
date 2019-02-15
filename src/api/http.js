@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * HTTP 请求 axios 封装
- *!/
+ */
 import axios from 'axios';
 import global from './config'
 import loading from './loading'
@@ -12,9 +11,9 @@ instance.defaults.baseURL = global.baseURL;
 instance.defaults.withCredentials = true;
 // 添加请求拦截器
 instance.interceptors.request.use((config) => {
-  if (!global.getLn()) {
+  /*if (!global.getLn()) {
     window.location.href = global.ssoURL;
-  }
+  }*/
     config.headers = global.headers;
     config.transformRequest = global.transformRequest;
     return config
@@ -58,4 +57,3 @@ instance.open = function (url, data, target) {
 
 export const http = instance;
 
-*/

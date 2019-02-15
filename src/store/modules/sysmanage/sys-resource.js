@@ -36,7 +36,7 @@ const actions = {
     });
   },
   async getNavMenu({commit}, data) {// 获取导航菜单
-    await http.post('/base/v1/resource/nav_menu_' + Global.getCode(), data).then(function (resp) {
+    await http.post('/base/v1/resource/nav_menu_' + 'gxxt', data).then(function (resp) {
       commit('NAV_MENU', resp);
     });
   },

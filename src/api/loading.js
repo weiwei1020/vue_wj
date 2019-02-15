@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * 加载
- *!/
+ */
 import iView from 'iview';
 
 function toasts(message) {
@@ -58,4 +57,3 @@ var toast = {
 export default {
   toast
 }
-*/

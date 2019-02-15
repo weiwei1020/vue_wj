@@ -26,7 +26,7 @@
     </div>
     <!--个人配置 end-->
     <!--多标签 start-->
-    <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px" @click="_changeTags"
+    <!--<div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px" @click="_changeTags"
          v-show="closeTags">
       <Tooltip :content="navTags ==='true' ? '关闭多标签' : '打开多标签'" placement="bottom-end">
         <Badge count="0">
@@ -34,7 +34,7 @@
                 color="#fff"></Icon>
         </Badge>
       </Tooltip>
-    </div>
+    </div>-->
     <!--多标签 end-->
     <!--全屏显示 start-->
     <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px" @click="_toggleScreen">
@@ -47,7 +47,7 @@
     </div>
     <!--全屏显示 end-->
     <!--皮肤 start-->
-    <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px">
+   <!-- <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px">
       <Poptip placement="bottom-end" class="info-pop">
         <Badge dot :count="dotCount">
           <Icon type="tshirt-outline" size="23" color="#fff" style="cursor: pointer;"></Icon>
@@ -64,19 +64,19 @@
           </ul>
         </div>
       </Poptip>
-    </div>
+    </div>-->
     <!--皮肤 end-->
     <!--通知 start-->
-    <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px;cursor: pointer">
+   <!-- <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px;cursor: pointer">
       <Poptip placement="bottom-end" class="info-pop">
         <Badge :count="messageCount" :overflow-count="overCount">
           <img :src="noImgUri" v-if="messageCount == 0">
           <img :src="imgUri" id="notice-flash" v-else>
         </Badge>
-        <!--有消息提醒-->
+        &lt;!&ndash;有消息提醒&ndash;&gt;
         <div slot="content" style="width:350px;">
           <Tabs value="inform" class="tabsHidden">
-            <!--通知-->
+            &lt;!&ndash;通知&ndash;&gt;
             <TabPane :label="tabs.inform" name="inform">
               <div v-if="informList.length == 0" style="position: relative;height: 350px;">
                 <img :src="noNewsUri" class="no-news-class">
@@ -99,7 +99,7 @@
                 <div class="notice-more" @click="_more">查看更多</div>
               </div>
             </TabPane>
-            <!--消息-->
+            &lt;!&ndash;消息&ndash;&gt;
             <TabPane :label="tabs.news" name="news">
               <div v-if="noticeList.length == 0" style="position: relative;height: 350px;">
                 <img :src="noNewsUri" class="no-news-class">
@@ -122,7 +122,7 @@
                 <div class="notice-more" @click="_more">查看更多</div>
               </div>
             </TabPane>
-            <!--待办-->
+            &lt;!&ndash;待办&ndash;&gt;
             <TabPane :label="tabs.todo" name="todo">
               <div v-if="todoList.length == 0" style="position: relative;height: 350px;">
                 <img :src="noNewsUri" class="no-news-class">
@@ -157,7 +157,7 @@
           </Tabs>
         </div>
       </Poptip>
-    </div>
+    </div>-->
     <!--通知 end-->
   </div>
 </template>
@@ -372,7 +372,7 @@
         localStorage.setItem("path", this.path);
       },
       _getNotice() { //获取消息数据
-        this.$store.dispatch('SysMessage/list').then(() => {
+        /*this.$store.dispatch('SysMessage/list').then(() => {
           var noticeAll = this.$store.state.SysMessage.list;
           //总数
           if (noticeAll.sum == undefined) {
@@ -407,7 +407,7 @@
             this.todoList = [];
             this.tabs.todo = '待办';
           }
-        });
+        });*/
 
       },
       _getName() {
@@ -459,14 +459,14 @@
         });
       },
       _totalTask(store) {
-        store.dispatch('FlowProcess/totalTask').then(() => {
+       /* store.dispatch('FlowProcess/totalTask').then(() => {
           var number = store.state.FlowProcess.total;
           if (number !== undefined) {
             if (this.taskObj.count !== number) {
               this._task(number); //执行第一次
             }
           }
-        });
+        });*/
       },
       _task(count) {
         this.$Notice.success({

@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * 全局相关配置
- *!/
+ */
 import Qs from 'qs'
 import Store from 'store2';
 
@@ -70,4 +69,3 @@ export default {
     }
   ],
 }
-*/

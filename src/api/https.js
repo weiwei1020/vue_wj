@@ -1,7 +1,6 @@
-/*
-/!**
+/**
  * HTTP 请求 axios dto 封装
- *!/
+ */
 import axios from 'axios';
 import global from './config'
 import loading from './loading'
@@ -44,4 +43,3 @@ instance.interceptors.response.use((response) => {
 });
 export const https = instance;
 
-*/
