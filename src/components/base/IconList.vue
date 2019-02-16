@@ -5,9 +5,8 @@
           <span v-if="item.disabled">
             <Icon :type="item.type"
                   :id="item.id"
-                  v-if="$showBtn(item.id)"
                   class="marRight-10 icons" size=20
-                  :style="objStyle"></Icon>
+                  :style="objStyle"></Icon><!-- v-if="$showBtn(item.id)"-->
           </span>
           <span v-else>
              <Icon :type="item.type"

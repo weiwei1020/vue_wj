@@ -202,7 +202,7 @@
         this._judgePanel(rel.length);
       },
       _judgePanel(val) {
-        this.treeStyleObj.height = document.documentElement.clientHeight - 110 + 'px';
+       // this.treeStyleObj.height = document.documentElement.clientHeight - 110 + 'px';
         switch (this.contLength) {
           case 0 :
             this.tableHeight = this.$tableHeight(val, this.noBtnVal, this.dVal);

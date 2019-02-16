@@ -340,7 +340,7 @@
         } else {
           this.path = '';
         }
-      //  this.themeLink.setAttribute('href', this.path);
+        this.themeLink.setAttribute('href', this.path);
         this.$emit("on-result-change", themeFile); //向父级传递数据，改变皮肤颜色
         localStorage.setItem("themeFile", this.themeFile);
         localStorage.setItem("path", this.path);

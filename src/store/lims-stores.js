@@ -1,6 +1,18 @@
 /**
  * 标准查询管理模块
  */
+//实验管理
+
+import LmsStaffLevel from "./modules/lims/lms-staff-level";
+import LmsStaffManage from "./modules/lims/lms-staff-manage";
+import LmsStaffSchedule from "./modules/lims/lms-staff-schedule";
+
+export default {
+  LmsStaffLevel,
+  LmsStaffManage,
+  LmsStaffSchedule,
+}
+
 /*import LmsChemical from "./modules/lims/lms-chemical";
 import LmsChemicalApply from "./modules/lims/lms-chemical-apply";
 import LmsChemicalUse from "./modules/lims/lms-chemical-use";
@@ -37,7 +49,6 @@ import LmsStaffInfo from "./modules/lims/lms-staff-info";
 import LmsStaffEquip from "./modules/lims/lms-staff-equip";
 import LmsStaffItem from "./modules/lims/lms-staff-item";
 import LmsStaffProfessional from "./modules/lims/lms-staff-professional";
-import LmsStaffSchedule from "./modules/lims/lms-staff-schedule";
 import LmsStaffStatus from "./modules/lims/lms-staff-status";
 import LmsStaffTask from "./modules/lims/lms-staff-task";
 import LmsStaffTrainPlan from "./modules/lims/lms-staff-train-plan";
@@ -162,8 +173,7 @@ export default {
   LmsProducyClass,
 
   //人员管理
-  LmsStaffLevel,
-  LmsStaffManage,
+
   LmsStaffInfo,
   LmsStaffEquip,
   LmsStaffItem,

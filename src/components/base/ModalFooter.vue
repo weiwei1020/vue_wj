@@ -5,8 +5,8 @@
             @click="_footerClick(item.name,index)"
             :loading="loading === true && currentIndex === index"
             v-for="(item,index) in footer"
-            v-if="item.id === undefined || item.id === '' ? true : $showBtn(item.id)"
-    >{{item.name}}
+
+    >{{item.name}}<!-- v-if="item.id === undefined || item.id === '' ? true : $showBtn(item.id) "-->
     </Button>
   </div>
 </template>

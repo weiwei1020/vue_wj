@@ -4,9 +4,9 @@
       <Tooltip v-for="item in iconNormalList" :content="item.name" :key="item.name" transfer>
         <Icon :type="item.type"
               :id="item.id"
-              v-if="$showBtn(item.id)"
+
               class="marRight-10 icons" size=20
-              @click.native="_iconClick(item.name) "></Icon>
+              @click.native="_iconClick(item.name) "></Icon><!--  v-if="$showBtn(item.id)"-->
       </Tooltip>
     </div>
     <div style="flex: 1" v-if="iconUploadList.length > 0">

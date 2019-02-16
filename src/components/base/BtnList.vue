@@ -1,10 +1,11 @@
+<!--  v-if="$showBtn(item.id)"-->
 <template>
   <div>
     <div style="position: relative;" class="btn-width">
       <span v-for="item in msg">
         <span v-if="item.upload">
           <label style="margin-bottom: 0;" class="marRight-5"
-                 :key="item.name" v-if="$showBtn(item.id)">
+                 :key="item.name" ><!--v-if="$showBtn(item.id)"-->
           <Upload
             :action="item.action"
             :on-success="_handelsuccess"
@@ -19,7 +20,6 @@
         <span v-else>
            <Button :type="item.type"
                    :id="item.id"
-                   v-if="$showBtn(item.id)"
                    :key="item.name"
                    class="marRight-5"
                    style="margin-bottom: 10px"
