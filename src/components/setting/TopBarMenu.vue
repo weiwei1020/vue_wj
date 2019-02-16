@@ -25,19 +25,8 @@
       </Poptip>
     </div>
     <!--个人配置 end-->
-    <!--多标签 start-->
-    <!--<div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px" @click="_changeTags"
-         v-show="closeTags">
-      <Tooltip :content="navTags ==='true' ? '关闭多标签' : '打开多标签'" placement="bottom-end">
-        <Badge count="0">
-          <Icon :type="navTags ==='true' ? 'toggle-filled' : 'toggle'" :size="28" style="cursor: pointer;"
-                color="#fff"></Icon>
-        </Badge>
-      </Tooltip>
-    </div>-->
-    <!--多标签 end-->
     <!--全屏显示 start-->
-    <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px" @click="_toggleScreen">
+    <div class="fr menu-hover-class header-setting-width" @click="_toggleScreen">
       <Tooltip :content="!isExpand ? '全屏' : '退出全屏'" placement="bottom-end">
         <Badge count="0">
           <Icon :type="!isExpand ? 'arrow-expand' : 'arrow-shrink'" :size="28" style="cursor: pointer;"
@@ -46,8 +35,26 @@
       </Tooltip>
     </div>
     <!--全屏显示 end-->
+    <!--国际化 start-->
+    <!--<div class="fr menu-hover-class header-setting-width">-->
+    <!--<Poptip placement="bottom-end" class="info-pop">-->
+    <!--<Badge count="0">-->
+    <!--<Icon type="ios-world-outline" size="27" color="#fff" style="cursor: pointer;"></Icon>-->
+    <!--</Badge>-->
+    <!--<div slot="content">-->
+    <!--<ul class="skin-item" v-for="(item, index) in languageList" :key="index" :name="item.name">-->
+    <!--<li @click="_setLanguage(item.value)">-->
+    <!--<Row type="flex" justify="center" align="middle">-->
+    <!--<span style="font-size: 14px;font-weight: 500">{{item.name}}</span>-->
+    <!--</Row>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</Poptip>-->
+    <!--</div>-->
+    <!--国际化 end-->
     <!--皮肤 start-->
-   <!-- <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px">
+    <div class="fr menu-hover-class header-setting-width">
       <Poptip placement="bottom-end" class="info-pop">
         <Badge dot :count="dotCount">
           <Icon type="tshirt-outline" size="23" color="#fff" style="cursor: pointer;"></Icon>
@@ -64,10 +71,10 @@
           </ul>
         </div>
       </Poptip>
-    </div>-->
+    </div>
     <!--皮肤 end-->
     <!--通知 start-->
-   <!-- <div class="fr menu-hover-class" style="width: 60px; text-align: center; line-height: 60px;cursor: pointer">
+   <!-- <div class="fr menu-hover-class header-setting-width" style="cursor: pointer">
       <Poptip placement="bottom-end" class="info-pop">
         <Badge :count="messageCount" :overflow-count="overCount">
           <img :src="noImgUri" v-if="messageCount == 0">
@@ -91,7 +98,7 @@
                       <p class="inform-item-descript" style="font-weight: bold">{{item.title}}</p>
                       <p class="inform-item-descript">{{item.content}}</p>
                       <p class="inform-item-time">
-                        {{ item.ctime | changeDate(new Date(),item.ctime)}}
+                        {{$formatDateSecond(item.ctime)}}
                       </p>
                     </div>
                   </li>
@@ -114,7 +121,7 @@
                       <p class="inform-item-descript" style="font-weight: bold">{{item.title}}</p>
                       <p class="inform-item-descript">{{item.content}}</p>
                       <p class="inform-item-time">
-                        {{item.ctime | formatDate}}
+                        {{$formatDateSecond(item.ctime)}}
                       </p>
                     </div>
                   </li>
@@ -145,9 +152,7 @@
                         </Tag>
                         {{item.title}}
                       </p>
-                      <p class="inform-item-time">
-                        {{item.ctime | formatDate}}
-                      </p>
+                      &lt;!&ndash;<p class="inform-item-time">{{$dateformat(item.ctime,'yyyy-mm-dd HH:MM')}}</p>&ndash;&gt;
                     </div>
                   </li>
                 </ul>
@@ -190,32 +195,7 @@
   import Store from 'store2';
 
   var schedule = require('node-schedule');
-  var dateFormat = require('dateformat');
   export default {
-    filters: {  //过滤器--时间转换
-      formatDate(time) {
-        var date = new Date(time);
-        return dateFormat(date, 'yyyy-mm-dd HH:MM');
-      },
-      changeDate(value, newTime, cTime) { //将ms转换成 时-分-秒
-        var newTime = new Date(newTime).getTime();
-        var cTime = new Date(cTime).getTime();
-        var mss = newTime - cTime;
-        var days = parseInt(mss / (1000 * 60 * 60 * 24));
-        var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-        //var seconds = (mss % (1000 * 60)) / 1000;
-        if (days == 0 && hours == 0 && minutes == 0) {
-          return "刚刚";
-        } else if (days == 0 && hours == 0) {
-          return minutes + " 分钟 之前";
-        } else if (days == 0) {
-          return hours + " 小时 " + minutes + " 分钟 之前";
-        } else {
-          return days + " 天 " + hours + " 小时 " + minutes + " 分钟 之前";
-        }
-      },
-    },
     data() {
       return {
         loginUser: 'http://static.patzn.com/img/loginUser.jpg',
@@ -236,6 +216,11 @@
           {name: 'light_b', element: '#1c2438', menu: '#495060',},
           {name: 'light_g', element: '#009966', menu: '#495060',},
           {name: 'black_b', element: '#0099cc', menu: '#495060',},
+          {name: 'theme-star', element: '#6600FF', menu: '#495060',},
+        ],
+        languageList: [
+          {name: '中文', value: 'China'},
+          {name: '英文', value: 'English'},
         ],
         informUri: 'http://static.patzn.com/img/notice/email.png',
         informList: [],
@@ -244,12 +229,11 @@
         todoSum: '', //待办数量
         todoList: [],
         setMenuList: [
-          {icon: 'home', name: '我的首页', url: '', element: 'myHome'},
-          {icon: 'ios-list', name: '基本资料', url: '', element: 'personal'},
-          {icon: 'compose', name: '修改密码', url: '', element: 'editPassword'},
-          // {icon: 'thumbsup', name: '会员权益', url: '', element: ''},
-          // {icon: 'social-usd', name: '会员积分', url: '', element: ''},
-          // {icon: 'qr-scanner', name: '微信授权', url: '', element: 'wechat'},
+          {icon: 'home', name: '我的首页', url: '', element: 'self_home'},
+          {icon: 'ios-list', name: '基本资料', url: '', element: 'self_info'},
+          {icon: 'compose', name: '修改密码', url: '', element: 'self_psd'},
+          {icon: 'ios-locked', name: '锁屏', url: '', element: 'locked'},
+          {icon: 'ios-toggle', name: '多标签', url: '', element: 'toggle'},
         ],
         taskObj: { //我的任务
           count: 0,
@@ -263,15 +247,16 @@
       }
     },
     mounted() {
-      this._getPermissionBtn(); //按钮权限
-      this._localStorageSkin();
-      // this.admin = Global.getLogin().username;
-      this._getNotice();
-      // 连接实时推送
-      this._connectWs();
-      this._workflow(this.$store);
+      if (Global.getLn()) {
+     //   this._getPermissionBtn(); //按钮权限
+        this._localStorageSkin();
+      }
     },
     methods: {
+      //设置语言
+      // _setLanguage(value) {
+      //
+      // },
       //获取头像
       _getMyAvatar() {
         this.$store.dispatch('SysUser/getUserInfo').then(() => {
@@ -280,7 +265,7 @@
           if (data.avatar === undefined) {
             this.loginUser = 'http://static.patzn.com/img/loginUser.jpg';
           } else {
-            this.loginUser = Global.baseURL + '/base/v1/company/logo_' + data.avatar;
+            this.loginUser = Global.baseURL + '/base/v1/company/logo?key=' + data.avatar;
           }
         });
       },
@@ -295,8 +280,6 @@
             docElm.webkitRequestFullScreen()
           } else if (docElm.msRequestFullscreen) {
             docElm.msRequestFullscreen()
-          } else {
-            this.$Message.error({content: '请升级浏览器！', duration: 3})
           }
           this.isExpand = true
         } else {
@@ -308,24 +291,16 @@
             document.webkitCancelFullScreen()
           } else if (document.msExitFullscreen) {
             document.msExitFullscreen()
-          } else {
-            this.$Message.error({content: '请升级浏览器！', duration: 3})
           }
           this.isExpand = false
         }
       },
-      _getPermissionBtn() {
+     /* _getPermissionBtn() {
         this.$store.dispatch('SysResource/getBtn').then(() => {
           this.btnlist = this.$store.state.SysResource.btnList;
           Store.session('showBtnList', this.btnlist.join(','));
         });
-      },
-      _myTask() {
-        this.$emit("on-result-change", 'my_task');
-      },
-      _more() {  //查看更多
-        this.$emit("on-result-change", 'my_notice');
-      },
+      },*/
       _goto(next) {//路由跳转
         this.$router.push(next)
       },
@@ -337,7 +312,6 @@
             // 退出登录
             this.$store.dispatch('SysSSO/logout', this.$serialize('login-form')).then(() => {
               if (this.$store.state.SysSSO.success) {
-
                 Global.logout();
                 window.location.href = Global.ssoURL;
               } else {
@@ -357,63 +331,28 @@
         }
         this.$emit("on-result-change", file);
       },
-      _getSkin(themeFile) {
+      _getSkin(themeFile) {debugger
         this.dotCount = '0';
         this.themeFile = themeFile;
         let mainTheme = themeFile.substr(-1, 1);
-        if (mainTheme !== 'b') {
-          this.path = './static/theme/' + mainTheme + '.css';
+        if (mainTheme === 'g') {
+          this.path = 'http://static.patzn.com/theme/' + mainTheme + '.css';
         } else {
           this.path = '';
         }
-        this.themeLink.setAttribute('href', this.path);
+      //  this.themeLink.setAttribute('href', this.path);
         this.$emit("on-result-change", themeFile); //向父级传递数据，改变皮肤颜色
         localStorage.setItem("themeFile", this.themeFile);
         localStorage.setItem("path", this.path);
       },
-      _getNotice() { //获取消息数据
-        /*this.$store.dispatch('SysMessage/list').then(() => {
-          var noticeAll = this.$store.state.SysMessage.list;
-          //总数
-          if (noticeAll.sum == undefined) {
-            this.allSum = '';
-            this.messageCount = '0';
-          } else {
-            this.allSum = noticeAll.sum;
-            this.messageCount = noticeAll.sum;
-          }
-          //通知
-          if (noticeAll.informList !== undefined) {
-            this.informList = noticeAll.informList.list;
-            this.tabs.inform = '通知 ' + '(' + noticeAll.informList.sum + ')';
-          } else {
-            this.informList = [];
-            this.tabs.inform = '通知';
-          }
-          //消息
-          if (noticeAll.noticeList !== undefined) {
-            this.noticeList = noticeAll.noticeList.list;
-            this.tabs.news = '消息 ' + '(' + noticeAll.noticeList.sum + ')';
-          } else {
-            this.noticeList = [];
-            this.tabs.news = '消息';
-          }
-          //待办
-          if (noticeAll.todoList !== undefined) {
-            this.todoList = noticeAll.todoList.list;
-            this.todoSum = noticeAll.todoList.sum;
-            this.tabs.todo = '待办 ' + '(' + noticeAll.todoList.sum + ')';
-          } else {
-            this.todoList = [];
-            this.tabs.todo = '待办';
-          }
-        });*/
-
-      },
-      _getName() {
-        this.$Notice.warning({
-          title: '请到系统管理中进行相关信息修改！',
-        });
+      _getName(rel) {
+        if (rel === 'toggle') {
+          //多标签
+          this._changeTags();
+        } else {
+          //其他
+          this.$emit("on-result-change", rel);
+        }
       },
       _closeTag(msg) {
         this.closeTags = msg;
@@ -430,72 +369,6 @@
           this.navTags = 'true';
         }
       },
-      _connectWs() {
-        let socket = new SockJS(Global.pushURL + '/ws');
-        let stompClient = Stomp.over(socket);
-        stompClient.connect({}, (frame) => {
-          stompClient.subscribe('/user/topic/message', (message) => {
-            if (message.body !== undefined) {
-              var data = JSON.parse(message.body);
-              this._getNotice();
-              this.$Notice.success({
-                title: '您有新的消息，请注意查收！',
-                duration: 20,
-                desc: data.content + ',【 发件人：' + data.sender + ' 】'
-              });
-            }
-          })
-        }, (error) => {
-          console.log(error);
-        });
-      },
-      _workflow(store) {
-        let that = this;
-        // 工作流消息定时任务
-        // https://www.npmjs.com/package/node-schedule
-        that._totalTask(store);
-        schedule.scheduleJob({minute: 5}, function () {
-          that._totalTask(store);
-        });
-      },
-      _totalTask(store) {
-       /* store.dispatch('FlowProcess/totalTask').then(() => {
-          var number = store.state.FlowProcess.total;
-          if (number !== undefined) {
-            if (this.taskObj.count !== number) {
-              this._task(number); //执行第一次
-            }
-          }
-        });*/
-      },
-      _task(count) {
-        this.$Notice.success({
-          title: '您有 ' + count + ' 条任务消息，请注意查收！',
-          duration: 20,
-        });
-        this.taskObj.title = '我的任务数量：' + count;
-        this.taskObj.count = count;
-        this.taskObj.ctime = dateFormat(Date(), 'yyyy-mm-dd HH:MM');
-        let todoSum = this.todoSum + count;
-        this.tabs.todo = '待办 ' + '(' + todoSum + ')';
-        this.messageCount = this.allSum + count;
-        if (this.todoList.length == 0) {
-          this.todoList.splice(0, 0, this.taskObj);//添加到数组最头上
-        } else {
-          if (this.todoList[0].count == undefined) { //没有数据
-            this.todoList.splice(0, 0, this.taskObj);//添加到数组最头上
-          } else { //已有数据
-            this.todoList.splice(0, 1);//删除第一项
-            this.todoList.splice(0, 0, this.taskObj);//添加到数组最头上
-          }
-        }
-
-      },
     }
   }
 </script>
-<style scoped>
-  .set-menu li:hover{
-    cursor: not-allowed;
-  }
-</style>

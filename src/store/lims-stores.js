@@ -1,8 +1,7 @@
-/*
-/!**
+/**
  * 标准查询管理模块
- *!/
-import LmsChemical from "./modules/lims/lms-chemical";
+ */
+/*import LmsChemical from "./modules/lims/lms-chemical";
 import LmsChemicalApply from "./modules/lims/lms-chemical-apply";
 import LmsChemicalUse from "./modules/lims/lms-chemical-use";
 import LmsChemicalUseHistory from "./modules/lims/lms-chemical-use-history";
@@ -33,9 +32,7 @@ import LmsMonitorRecord from './modules/lims/env-monitor-record'
 import LmsSupAttachment from './modules/lims/env-supplier-attachment'
 import LmsProductManage from './modules/lims/lms-product-manage'
 import LmsProducyClass from './modules/lims/lms-product-class'
-//人员管理
-import LmsStaffLevel from "./modules/lims/lms-staff-level";
-import LmsStaffManage from "./modules/lims/lms-staff-manage";
+
 import LmsStaffInfo from "./modules/lims/lms-staff-info";
 import LmsStaffEquip from "./modules/lims/lms-staff-equip";
 import LmsStaffItem from "./modules/lims/lms-staff-item";
@@ -266,5 +263,4 @@ export default {
   LmsCodeRule,
 
   LmsServiceType,
-}
-*/
+}*/

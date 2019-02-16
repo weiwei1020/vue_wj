@@ -36,7 +36,7 @@ export default {
      * 按钮授权
      *
      */
-    Vue.prototype.$showBtn = function (name) {
+   /* Vue.prototype.$showBtn = function (name) {
       var list = Store.session('showBtnList').split(',');
       // console.log("1212权限",list)
       let result;
@@ -58,7 +58,7 @@ export default {
         });
       }
       return result;
-    };
+    };*/
     /**
      * 折叠面板更改table高度
      *

@@ -2,7 +2,10 @@
  * 标准查询服务路由
  */
 import helloWorld from '../components/HelloWorld.vue' //标准查询
-
+//实验管理
+import LmsStaffLevel from "../pages/lims/staff/lms-staff-level/LmsStaffLevel.vue"//实验计划
+import LmsStaffManage from "../pages/lims/staff/lms-staff-manage/LmsStaffManage.vue"//实验管理
+import LmsStaffSchedule from "../pages/lims/staff/lms-staff-schedule/LmsStaffSchedule.vue"//实验安排
 //标准管理
 //import Labmis from '../pages/lims/Labmis.vue' //标准查询
 // 耗材管理
@@ -35,10 +38,6 @@ import helloWorld from '../components/HelloWorld.vue' //标准查询
 // import LmsChemicalUseQuery from '../pages/lims/chemical/lms-chemical-use-query/LmsChemicalUseQuery.vue'
 // import LmsChemicalReturn from '../pages/lims/chemical/lms-chemical-return/LmsChemicalReturn.vue'
 //
-// //实验管理
-// import LmsStaffLevel from "../pages/lims/staff/lms-staff-level/LmsStaffLevel.vue"//实验计划
-// import LmsStaffManage from "../pages/lims/staff/lms-staff-manage/LmsStaffManage.vue"//实验管理
-// import LmsStaffSchedule from "../pages/lims/staff/lms-staff-schedule/LmsStaffSchedule.vue"//实验安排
 //
 // import LmsStaffInfo from "../pages/lims/staff/lms-staff-info/LmsStaffInfo.vue"//人员信息
 // import LmsStaffStatus from "../pages/lims/staff/lms-staff-status/LmsStaffStatus.vue"//人员状态
@@ -137,6 +136,10 @@ import helloWorld from '../components/HelloWorld.vue' //标准查询
 
 export default [
   {path:'hello_world',component:helloWorld},
+  //实验管理
+  {path: 'staff_level', component: LmsStaffLevel},
+  {path: 'staff_manage', component: LmsStaffManage},
+  {path: 'staff_schedule', component: LmsStaffSchedule},
   // {path: '', component: Labmis},
   // {path: 'chemical_category', component: LmsChemicalCategory},
   // {path: 'role_chemical_category', component: LmsRoleChemicalCategory},
@@ -172,11 +175,7 @@ export default [
   // {path:'chemical_use_query',component:LmsChemicalUseQuery},//耗材使用查询
   // {path:'chemical_return',component:LmsChemicalReturn},//耗材归还管理
   //
-  // //实验管理
-  // {path: 'staff_level', component: LmsStaffLevel},
-  // {path: 'staff_manage', component: LmsStaffManage},
   // {path: 'staff_info', component: LmsStaffInfo},
-  // {path: 'staff_schedule', component: LmsStaffSchedule},
   // {path: 'staff_status', component: LmsStaffStatus},
   // {path: 'staff_task', component: LmsStaffTask},
   // {path: 'staff_train_plan', component: LmsStaffTrainPlan},

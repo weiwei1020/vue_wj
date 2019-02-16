@@ -40,7 +40,7 @@
               {"name":"首页","icon":"coffee","subMenus":[],"uri":"/"},
               {"name":"实验管理","icon":"person-stalker",
                 "subMenus":[
-                  {"name":"实验计划","icon":"navicon-round","code":"400110","uri":"hello_world"},
+                  {"name":"实验计划","icon":"navicon-round","code":"400110","uri":"/lims/staff_level"},
                   {"name":"实验管理","icon":"help-buoy","id":"","code":"400120","uri":"/lims/staff_manage"},
                   {"name":"实验安排","icon":"navicon","id":"","code":"400130","uri":"/lims/staff_schedule"}],"uri":"/"},
               {"name":"仪器管理","icon":"ios-barcode","id":"","code":"500000",
