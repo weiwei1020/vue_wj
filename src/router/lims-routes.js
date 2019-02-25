@@ -3,7 +3,7 @@
  */
 import helloWorld from '../components/HelloWorld.vue' //标准查询
 //实验管理
-import LmsStaffLevel from "../pages/lims/staff/lms-staff-level/LmsStaffLevel.vue"//实验计划
+import LmsTestPlan from "../pages/lims/staff/lms-test-plan/LmsTestPlan.vue"//实验计划
 import LmsStaffManage from "../pages/lims/staff/lms-staff-manage/LmsStaffManage.vue"//实验管理
 import LmsStaffSchedule from "../pages/lims/staff/lms-staff-schedule/LmsStaffSchedule.vue"//实验安排
 //标准管理
@@ -137,7 +137,7 @@ import LmsStaffSchedule from "../pages/lims/staff/lms-staff-schedule/LmsStaffSch
 export default [
   {path:'hello_world',component:helloWorld},
   //实验管理
-  {path: 'staff_level', component: LmsStaffLevel},
+  {path: 'staff_level', component: LmsTestPlan},
   {path: 'staff_manage', component: LmsStaffManage},
   {path: 'staff_schedule', component: LmsStaffSchedule},
   // {path: '', component: Labmis},

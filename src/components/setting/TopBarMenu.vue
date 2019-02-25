@@ -331,7 +331,7 @@
         }
         this.$emit("on-result-change", file);
       },
-      _getSkin(themeFile) {debugger
+      _getSkin(themeFile) {
         this.dotCount = '0';
         this.themeFile = themeFile;
         let mainTheme = themeFile.substr(-1, 1);

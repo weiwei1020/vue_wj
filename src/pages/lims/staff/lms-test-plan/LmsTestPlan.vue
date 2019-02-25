@@ -9,7 +9,7 @@
           <Col span="10">
           <div  v-show="isTree">
             <div>
-              <LevelTree ref="leveltree" @on-result-change="_levelData"></LevelTree>
+              <ProjectList ref="projectList" @on-result-change="_levelData"></ProjectList>
             </div>
           </div>
           </Col>
@@ -70,7 +70,7 @@
   import LmsStaffLevelDetail from './LmsStaffLevelDetail.vue'
   import LmsTestChangeQuery from './LmsTestChangeQuery.vue'
   import LmsTestChangeQueryById from './LmsTestChangeQueryById.vue'
-  import LevelTree from './LevelTree.vue'
+  import ProjectList from './ProjectList.vue'
   import BtnList from '../../../../components/base/BtnList.vue'
   import PageTable from '../../../../components/table/PageTable'
   import BreadCrumbs from '../../../../components/base/BreadCrumbs'
@@ -84,7 +84,7 @@
       LmsStaffLevelDetail,
       LmsTestChangeQuery,
       LmsTestChangeQueryById,
-      LevelTree,
+      ProjectList,
       BtnList,
       PageTable,
       BreadCrumbs,
@@ -156,15 +156,12 @@
             }
           },
         ],
-       /* treeStyleObj: {
-          'width': '560px',
-          'height': ''
-        },*/
-       /* tableStyleObj: {
-          'margin-left': '577px'// 575px;
-        },*/
         isTree: true,
-        getPage: {},
+        getPage: {
+          records: [
+            {testName:'111',remark:'111',beginDate:'111',endDate:'111',}
+          ]
+        },
         contLength: null,
         noBtnVal: 250,
         btnVal: 292,
@@ -212,7 +209,7 @@
         }
       },
       _page() {
-        this.$refs.pageTable._page('search-form1', 'LmsStaffStatus/Testpage');
+       this.$refs.pageTable._page('search-form1', 'LmsStaffStatus/Testpage');
       },
       _formSearch() {
         this.$refs.pageTable._pageChange(1);
@@ -281,14 +278,6 @@
         $('input[name=projectId]').val(result.id);
         this._formSearch();
       },
-      _treeHide() { //左侧树隐藏
-        this.isTree = false;
-        this.tableStyleObj.marginLeft = '15px'
-      },
-      _treeShow() {
-        this.isTree = true;
-        this.tableStyleObj.marginLeft = '625px'
-      },
       _btnClick(msg) { //列表返回的数据
         switch (msg) {
           case '添加' :
@@ -305,7 +294,11 @@
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
-            this.getPage = this.$store.state.LmsStaffStatus.page;
+            this.getPage ={
+              records: [
+                {testName:'111',remark:'111',beginDate:'111',endDate:'111',}
+              ]
+            }; //this.$store.state.LmsStaffStatus.page;
             break;
           case 'selectIds':
             this.selectIds = data;
