@@ -1,11 +1,10 @@
-<!--  v-if="$showBtn(item.id)"-->
 <template>
   <div>
     <div style="position: relative;" class="btn-width">
       <span v-for="item in msg">
         <span v-if="item.upload">
           <label style="margin-bottom: 0;" class="marRight-5"
-                 :key="item.name" ><!--v-if="$showBtn(item.id)"-->
+                 :key="item.name" v-if="$showBtn(item.id)">
           <Upload
             :action="item.action"
             :on-success="_handelsuccess"
@@ -20,28 +19,35 @@
         <span v-else>
            <Button :type="item.type"
                    :id="item.id"
+                   v-if="$showBtn(item.id)"
                    :key="item.name"
-                   class="marRight-5"
+                   :class="item.type !==''?'marRight-5':'marRight-5 no-type-btn'"
                    style="margin-bottom: 10px"
                    @click="_btnClick(item.name,item.componentName)"
            >{{item.name}}
           </Button>
         </span>
       </span>
+      <slot name="processTask"></slot>
       <span class="fold" v-if="showSearchBtn === undefined ? false : true">
         <div v-if="open" @click="_btnClick('search')">
           <img src="http://static.patzn.com/img/no-search.png">
-          <span class="no-search-bg-span">{{$t('BtnList.noSearch')}}</span>
+          <span class="no-search-bg-span">收起搜索</span>
         </div>
         <div v-else @click="_btnClick('search')">
           <img src="http://static.patzn.com/img/search.png">
-          <span class="search-bg-span">{{$t('BtnList.search')}}</span>
+          <span class="search-bg-span">条件搜索</span>
         </div>
       </span>
     </div>
   </div>
 </template>
 <style scoped>
+  .no-type-btn:hover {
+    background: #00A0E9;
+    border-color: #00A0E9;
+  }
+
   .fold {
     display: inline-block;
     position: absolute;

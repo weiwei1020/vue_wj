@@ -5,19 +5,26 @@ import Vue from 'vue'
 import App from './App'
 import router from './router/index'
 import store from './store'
+import Store from 'store2'
+
 
 import iView from 'iview';
-//import 'iview/dist/styles/iview.css';
 import plugins from './lib/plugins'
+import 'bootstrap/dist/css/bootstrap.min.css'
+// import DebugLogger from './lib/logger'
+//ztree
+import './lib/zTree_v3-3.5.29/css/metroStyle/metroStyle.css'
+import './lib/zTree_v3-3.5.29/js/jquery.ztree.all.min'
+import './lib/menuStyle.css';
+
 
 import 'element-ui/lib/theme-chalk/index.css';
-import {Checkbox, CheckboxButton, CheckboxGroup, Input, Select, Table, TableColumn, TabPane, Tabs,Loading} from 'element-ui';
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-import {Container} from 'element-ui';
+import {Table, Select, TableColumn,Checkbox,
+  CheckboxButton,Radio,
+  CheckboxGroup,Input, TabPane, Tabs,Loading} from 'element-ui';
 
-Vue.component(Container.name,Container);
 Vue.component(Table.name, Table);
+Vue.component(Select.Radio, Radio);
 Vue.component(Select.name, Select);
 Vue.component(TableColumn.name, TableColumn);
 Vue.component(Checkbox.name, Checkbox);
@@ -32,36 +39,45 @@ Vue.use(Loading.directive);
 import BtnList from "./components/base/BtnList"
 import ElementTable from "./components/table/ElementTable"
 import ElementTableData from "./components/table/ElementTableData"
-import IconList from "./components/base/IconList"
+import ElTableNoPage from "./components/table/ElTableNoPage"
 import ModalFooter from './components/base/ModalFooter'
-//中央事件总线 跨级、兄弟级通信
-//import VueBus from 'vue-bus';
+import IconList from "./components/base/IconList1"
+
+//gantt
+import './lib/dhtmlxgantt/codebase/dhtmlxgantt.js'
+import './lib/dhtmlxgantt/codebase/ext/dhtmlxgantt_tooltip.js'
+import './lib/dhtmlxgantt/codebase/dhtmlxgantt.css'
+import './lib/dhtmlxgantt/codebase/locale/locale_cn'
+
 
 Vue.component('BtnList', BtnList);
 Vue.component('ElementTable', ElementTable);
 Vue.component('ElementTableData', ElementTableData);
-Vue.component('IconList', IconList);
+Vue.component('ElTableNoPage', ElTableNoPage);
 Vue.component('ModalFooter', ModalFooter);
-//Vue.use(VueBus);
-Vue.use(plugins);
-Vue.use(ElementUI);
+Vue.component('IconList', IconList);
+
+//中央事件总线 跨级、兄弟级通信
+import VueBus from 'vue-bus';
+
+Vue.use(VueBus);
+// Vue.use(DebugLogger);
 Vue.use(iView);
+Vue.use(plugins);
 
-
-
-/* eslint-disable no-new */
-
-new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
-});
 //全局提示配置
 iView.Message.config({
   top: 50,
   duration: 3 //3s后关闭
+});
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  store,
+  template: '<App/>',
+  components: {App}
 });
 
 Array.prototype.contains = function (needle) {
@@ -71,13 +87,19 @@ Array.prototype.contains = function (needle) {
   }
   return false;
 };
+
 //加载时进度条
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
   next();
+  if(from.meta.allowBack === false){
+    Store.session('allowBack','false');
+  }else{
+    Store.session('allowBack','true');
+    Store.session('formPath',from.path);
+  }
 });
 
 router.afterEach(route => {
   iView.LoadingBar.finish();
 });
-

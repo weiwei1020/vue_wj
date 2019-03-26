@@ -24,9 +24,9 @@
 </template>
 <script>
 
-  import BreadCrumbs from '../../../../components/base/BreadCrumbs'
-  import IconList from '../../../../components/base/IconList1.vue'
-  import PageTable from '../../../../components/table/PageTable'
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
+  import IconList from '../../../components/base/IconList1.vue'
+  import PageTable from '../../../components/table/PageTable'
 
   export default {
     components: {

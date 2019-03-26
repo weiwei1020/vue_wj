@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-  import OrgZtree from '../../../../components/Ztree/single-select/OrgZtree'
+  import OrgZtree from '../../../components/Ztree/single-select/OrgZtree'
 
   let dateFormat = require('dateformat');
   export default {

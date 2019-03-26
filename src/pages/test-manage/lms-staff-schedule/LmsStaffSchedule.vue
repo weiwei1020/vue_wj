@@ -19,7 +19,7 @@
 <script>
  import LmsStaffScheduleListView from './LmsStaffScheduleListView'
  import LmsStaffScheduleMonthView from './LmsStaffScheduleMonthView'
-  import BreadCrumbs from '../../../../components/base/BreadCrumbs'
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
 
   export default {
     components: {

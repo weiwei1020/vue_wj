@@ -57,10 +57,10 @@
   </div>
 </template>
 <script>
-  import global from '../../../../api/config'
-  import BtnList from '../../../../components/base/BtnList.vue'
-  import BreadCrumbs from '../../../../components/base/BreadCrumbs'
-  import IconList from '../../../../components/base/IconList1.vue'
+  import global from '../../../api/config'
+  import BtnList from '../../../components/base/BtnList.vue'
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
+  import IconList from '../../../components/base/IconList1.vue'
   import CertificateFile from './CertificateFile.vue'
   import LmsPostil from './LmsPostil'
 

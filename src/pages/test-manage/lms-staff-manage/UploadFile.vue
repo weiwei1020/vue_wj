@@ -25,7 +25,7 @@
   /**
    * 添加编辑文件夹表
    */
-  import global from '../../../../api/config'
+  import global from '../../../api/config'
 
   export default {
     data() {

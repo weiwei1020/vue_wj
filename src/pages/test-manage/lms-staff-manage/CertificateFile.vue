@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-  import global from '../../../../api/config'
+  import global from '../../../api/config'
   import Files from './Files'
   import UploadFile from './UploadFile'
 

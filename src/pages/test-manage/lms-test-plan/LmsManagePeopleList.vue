@@ -33,9 +33,9 @@
   </div>
 </template>
 <script>
-  import AssignPerson from '../../../../components/UserInfoMulti/AssignPerson'
-  import BtnList from '../../../../components/base/BtnList.vue'
-  import IconList from '../../../../components/base/IconList1.vue'
+  import AssignPerson from '../../../components/UserInfoMulti/AssignPerson'
+  import BtnList from '../../../components/base/BtnList.vue'
+  import IconList from '../../../components/base/IconList1.vue'
   export default {
     components: {
       AssignPerson,

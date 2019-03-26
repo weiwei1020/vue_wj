@@ -25,10 +25,10 @@
 <script>
   import LmsStaffScheduleEdit from './LmsStaffScheduleEdit.vue'
   import LmsStaffScheduleDetail from './LmsStaffScheduleDetail.vue'
-  import BtnList from '../../../../components/base/BtnList.vue'
-  import PageTable from '../../../../components/table/PageTable'
-  import BreadCrumbs from '../../../../components/base/BreadCrumbs'
-  import IconList from '../../../../components/base/IconList1.vue'
+  import BtnList from '../../../components/base/BtnList.vue'
+  import PageTable from '../../../components/table/PageTable'
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
+  import IconList from '../../../components/base/IconList1.vue'
 
   export default {
     components: {

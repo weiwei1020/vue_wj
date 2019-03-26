@@ -25,8 +25,8 @@
             </div>
             <Row>
               <!--查询-->
-              <Col span="24" style="margin-top: 20px">
-              <Form id="search-form1" inline onsubmit="return false" :label-width="70">
+              <Col span="24">
+              <Form id="search-form1" inline onsubmit="return false" :label-width="70" v-show="searchOpen">
                 <label class="label-sign"></label>
                 <Form-item class="width-23" label="实验名称:">
                   <Input name="testName" placeholder="请输入实验名称" style="width: 100px;" @on-enter="_formSearch"></Input>
@@ -37,11 +37,11 @@
                 </Form-item>
               </Form>
               </Col>
-              <!--操作-->
-              <Col span="24" style="margin-bottom: 14px;">
-              <BtnList :msg="btn" class="contHide" @on-result-change="_btnClick"></BtnList>
+              <!--操作 -->
+              <Col span="24" v-bind:style="[searchOpen?'':styleObject]">
+                <BtnList :msg="btn" class="contHide" :showSearchBtn="true" @on-result-change="_btnClick"></BtnList>
               </Col>
-              <Col span="24" style="margin-bottom: 10px">
+              <Col span="24">
               <PageTable :pageColumns="pageColumns" :tableHeight="tableHeight" @on-result-change="_tableResultChange"
                          ref="pageTable" :getPage="getPage">
 
@@ -54,9 +54,9 @@
       </div>
     </div>
     <!-- 添加、编辑 -->
-    <LmsStaffLevelEdit ref="editModal" @on-result-change="_search"></LmsStaffLevelEdit>
+    <LmsTestEdit ref="editModal" @on-result-change="_search"></LmsTestEdit>
     <!-- 查看详情 -->
-    <LmsStaffLevelDetail ref="detailModal"></LmsStaffLevelDetail>
+    <LmsTestDetail ref="detailModal"></LmsTestDetail>
     <!--实验修改记录-->
     <LmsTestChangeQuery ref="changeModal"></LmsTestChangeQuery>
     <!--实验修改记录ById-->
@@ -66,29 +66,25 @@
   </div>
 </template>
 <script>
-  import LmsStaffLevelEdit from './LmsStaffLevelEdit.vue'
-  import LmsStaffLevelDetail from './LmsStaffLevelDetail.vue'
+  import LmsTestEdit from './LmsTestEdit.vue'
+  import LmsTestDetail from './LmsTestDetail.vue'
   import LmsTestChangeQuery from './LmsTestChangeQuery.vue'
   import LmsTestChangeQueryById from './LmsTestChangeQueryById.vue'
   import ProjectList from './ProjectList.vue'
-  import BtnList from '../../../../components/base/BtnList.vue'
-  import PageTable from '../../../../components/table/PageTable'
-  import BreadCrumbs from '../../../../components/base/BreadCrumbs'
-  import IconList from '../../../../components/base/IconList1.vue'
-  import User from '../../../../components/user-info-multi-workflow/AssignPerson'
+  import PageTable from '../../../components/table/PageTable'
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
+  import User from '../../../components/user-info-multi-workflow/AssignPerson'
   import LmsManagePeopleList from './LmsManagePeopleList'
 
   export default {
     components: {
-      LmsStaffLevelEdit,
-      LmsStaffLevelDetail,
+      LmsTestEdit,
+      LmsTestDetail,
       LmsTestChangeQuery,
       LmsTestChangeQueryById,
       ProjectList,
-      BtnList,
       PageTable,
       BreadCrumbs,
-      IconList,
       User,
       LmsManagePeopleList,
     },
@@ -100,14 +96,16 @@
           {id: '', name: '实验修改记录'},
 
         ],
+        searchOpen:false,
         iconMsg: [
           {type: 'edit', id: '', name: '编辑'},
           {type: 'close', id: '', name: '删除'},
           {type: 'person', id: '', name: '人员维护'},
           {type: 'document', id: '', name: '实验修改记录'},
         ],
-        heightSearch: '',
-        tableHeight: '600',
+        styleObject: {
+         marginTop: '10px'
+        },
         selectIds: [],
         pids: '',
         pageColumns: [
@@ -170,8 +168,17 @@
         projectTitle:'',
       }
     },
+    computed: {
+      tableHeight: function () {
+        if (this.searchOpen) {
+          return this.$tableHeight('tabNoBtn');
+        } else {
+          return this.$tableHeight('search');
+        }
+      }
+    },
     mounted() {
-      this._contHide(); //判断‘添加’一栏是否隐藏
+      this._search();
     },
     methods: {
       _iconClick(res, data) {
@@ -188,24 +195,6 @@
           case '实验修改记录' :
             this._changeModelById(data.row.id);
             break;
-        }
-      },
-      _contHide() {
-        this.contLength = $(".contHide").find('button').length;
-        this._judgePanel(0);
-        this._search();
-      },
-      _panelChange(rel) { //点击折叠面板
-        this._judgePanel(rel.length);
-      },
-      _judgePanel(val) {
-       // this.treeStyleObj.height = document.documentElement.clientHeight - 110 + 'px';
-        switch (this.contLength) {
-          case 0 :
-            this.tableHeight = this.$tableHeight(val, this.noBtnVal, this.dVal);
-            break;
-          default:
-            this.tableHeight = this.$tableHeight(val, this.btnVal, this.dVal);
         }
       },
       _page() {
@@ -289,6 +278,9 @@
           case '实验修改记录' :
             this._changeModel();
             break;
+          case 'search':
+            this.searchOpen = !this.searchOpen
+            break
         }
       },
       _tableResultChange(msg, data) {
@@ -317,5 +309,8 @@
 <style scoped>
   .ivu-card-body {
     padding-top: 12px !important;
+  }
+  .mt10 {
+    margin-top: 10px;
   }
 </style>

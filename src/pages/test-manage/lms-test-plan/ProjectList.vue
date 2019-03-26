@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <div style="overflow: hidden;clear: both;margin-bottom: 20px;">
+      <div style="overflow: hidden;clear: both;">
         <p slot="title" style="width: 60%;display: inline-block;font-weight: bold;margin-bottom:0px;">项目列表</p>
       </div>
-      <Form id="search-form" inline  onsubmit="return false" :label-width="70">
+      <Form id="search-form" inline  onsubmit="return false" :label-width="70" v-show="searchOpen">
         <label class="label-sign"></label>
         <Form-item class="width-23"  label="项目名称:">
           <Input name="projectName" v-model="projectName" placeholder="请输入项目名称" style="width: 100px;" @on-enter="_search" ></Input>
@@ -16,18 +16,14 @@
         </Form-item>
       </Form>
     </div>
-    <!--加载中-->
-    <!--<div class="demo-spin-container spin-bg" v-show="isloading">
-      <Spin fix size="large"></Spin>
-    </div>-->
     <div >
-      <BtnList style="margin-bottom: 14px;" :msg="btn" class="contHide" @on-result-change="_btnClick"></BtnList>
+      <BtnList :msg="btn" class="contHide" :showSearchBtn="true" @on-result-change="_btnClick"></BtnList>
     </div>
     <PageTable  :pageColumns="pageColumns" :tableHeight="tableHeight" @on-result-change="_tableResultChange"
                ref="pageTable" :getPage="getPage">
     </PageTable>
     <!-- 添加、编辑 -->
-    <LmsStaffTestEdit ref="testEditModal" @on-result-change="_search"></LmsStaffTestEdit>
+    <LmsProjectTestEdit ref="testEditModal" @on-result-change="_search"></LmsProjectTestEdit>
     <!--文件-->
     <CertificateFile ref="fileModal"   @on-result-change="_search"></CertificateFile>
   </div>
@@ -36,23 +32,20 @@
   /**
    * 添加编辑Ztree
    */
-  import LmsStaffTestEdit from './LmsStaffTestEdit.vue'
-  import PageTable from '../../../../components/table/PageTable'
-  import BtnList from '../../../../components/base/BtnList.vue'
-  import IconList from '../../../../components/base/IconList1.vue'
+  import LmsProjectTestEdit from './LmsProjectTestEdit.vue'
+  import PageTable from '../../../components/table/PageTable'
   import CertificateFile from './CertificateFile.vue'
 
   var setting;
   export default {
       components: {
         PageTable,
-        BtnList,
-        LmsStaffTestEdit,
-        IconList,
+        LmsProjectTestEdit,
         CertificateFile,
       },
     data() {
       return {
+        searchOpen:false,
         btn: [
           {type: 'success', id: '', name: '添加'},
           {type: 'error', id: '', name: '删除'},
@@ -107,11 +100,18 @@
           },
         ],
         getPage: {},
-        tableHeight: '600',
+      }
+    },
+    computed: {
+      tableHeight: function () {
+        if (this.searchOpen) {
+          return this.$tableHeight('tabNoBtn');
+        } else {
+          return this.$tableHeight('search');
+        }
       }
     },
     mounted(){
-      this._treeHeight();
       this._page();
     },
     methods: {
@@ -198,6 +198,9 @@
           case '删除' :
             this._deleteSelected();
             break;
+          case 'search':
+            this.searchOpen = !this.searchOpen
+            break
         }
       },
       _search() {
@@ -209,10 +212,6 @@
       },
       _page() {
         this.$refs.pageTable._page('search-form', 'LmsStaffLevel/page');
-      },
-      _treeHeight(){
-        $(".tree_height").height(document.documentElement.clientHeight-500)
-
       },
       _fileModal(id){
         this.$refs.fileModal._open(id);

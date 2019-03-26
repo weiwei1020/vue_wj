@@ -1,7 +1,7 @@
 /**
  * 车辆使用记录表相关
  */
-import {http} from '../../../api/http'
+import {http} from '../../api/http'
 
 const state = {
   success: false,
