@@ -91,10 +91,7 @@
           {type: 'edit', id: '', name: '编辑'},
           {type: 'close', id: '', name: '删除'},
         ],
-        panelVal: '',
-        heightSearch: '',
         loading: true,
-        tableHeight: '300',
         name: '',
         selectIds: [],
         id: '',
@@ -144,13 +141,15 @@
           'margin-left': '230px' //215
         },
         isTree: true,
-        contLength: 0,
       }
     },
     computed: {
-      getPage() {
-        return this.$store.state.LmsEquipClass.page;
+      tableHeight: function () {
+        return this.$tableHeight('noBtn');
       }
+      // getPage() {
+      //   return this.$store.state.LmsEquipClass.page;
+      // }
     },
     mounted() {
       this._classTree();
@@ -175,12 +174,6 @@
         }
       },
       _initCont() {
-        this.contLength = $(".contHide").find('button').length;
-        if (this.contLength) {
-          this.tableHeight = this.$newTableHeight('btn');
-        } else {
-          this.tableHeight = this.$newTableHeight('noBtn');
-        }
         this.treeStyleObj.height = document.documentElement.clientHeight - 110 + 'px';
         this._search();
       },

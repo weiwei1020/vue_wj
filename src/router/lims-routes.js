@@ -34,7 +34,7 @@ import LmsEquipRepairFee from "../pages/equip/lms-equip-repair-fee/LmsEquipRepai
 import LmsEquipUseRate from "../pages/equip/lms-equip-use-rate/LmsEquipUseRateAnalyse.vue";//仪器使用率
 import LmsEquipReturn from '../pages/equip/lms-equip-return-manage/LmsEquipReturnManage'; // 仪器归还管理
 //标准管理
-//import Labmis from '../pages/lims/Labmis.vue' //标准查询
+//import Labmis from '../pages/lims/Labmis.vue' //标准查询kkkkkkkkk
 // 耗材管理
 // import LmsChemicalCategory from '../pages/lims/chemical/lms-chemical-category/LmsChemicalCategory.vue'//耗材分类管理
 // import LmsRoleChemicalCategory from '../pages/lims/chemical/lms-role-chemical-category/LmsRoleChemicalCategory.vue'//角色耗材分类管理
