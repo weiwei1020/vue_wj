@@ -2,15 +2,14 @@
  * 标准查询管理模块
  */
 //实验管理
-
-import LmsStaffLevel from "./modules/lims/lms-staff-level";
-import LmsStaffManage from "./modules/lims/lms-staff-manage";
-import LmsStaffSchedule from "./modules/lims/lms-staff-schedule";
+import LmsTestPlan from "./modules/lims/lms-test-plan";
+import LmsTestManage from "./modules/lims/lms-test-manage";
+import LmsTestSchedule from "./modules/lims/lms-test-schedule";
 
 export default {
-  LmsStaffLevel,
-  LmsStaffManage,
-  LmsStaffSchedule,
+  LmsTestPlan,
+  LmsTestManage,
+  LmsTestSchedule,
 }
 
 /*import LmsChemical from "./modules/lims/lms-chemical";
@@ -45,17 +44,17 @@ import LmsSupAttachment from './modules/lims/env-supplier-attachment'
 import LmsProductManage from './modules/lims/lms-product-manage'
 import LmsProducyClass from './modules/lims/lms-product-class'
 
-import LmsStaffInfo from "./modules/lims/lms-staff-info";
-import LmsStaffEquip from "./modules/lims/lms-staff-equip";
-import LmsStaffItem from "./modules/lims/lms-staff-item";
-import LmsStaffProfessional from "./modules/lims/lms-staff-professional";
-import LmsStaffStatus from "./modules/lims/lms-staff-status";
-import LmsStaffTask from "./modules/lims/lms-staff-task";
-import LmsStaffTrainPlan from "./modules/lims/lms-staff-train-plan";
-import LmsStaffTrainRecord from "./modules/lims/lms-staff-train-record";
-import LmsStaffCertificate from './modules/lims/lms-staff-certificate'
-import LmsStaffTrainRecordAttachment from './modules/lims/lms-staff-train-record-attachment'
-import LmsStaffTrainRecordPeople from './modules/lims/lms-staff-train-record-people'
+import LmsTestInfo from "./modules/lims/lms-test-info";
+import LmsTestEquip from "./modules/lims/lms-test-equip";
+import LmsTestItem from "./modules/lims/lms-test-item";
+import LmsTestProfessional from "./modules/lims/lms-test-professional";
+import LmsTestStatus from "./modules/lims/lms-test-status";
+import LmsTestTask from "./modules/lims/lms-test-task";
+import LmsTestTrainPlan from "./modules/lims/lms-test-train-plan";
+import LmsTestTrainRecord from "./modules/lims/lms-test-train-record";
+import LmsTestCertificate from './modules/lims/lms-test-certificate'
+import LmsTestTrainRecordAttachment from './modules/lims/lms-test-train-record-attachment'
+import LmsTestTrainRecordPeople from './modules/lims/lms-test-train-record-people'
 
 //环境监测管理
 import LmsEnvNormalMonitor from "./modules/lims/lms-env-normal-monitor";
@@ -172,20 +171,20 @@ export default {
   LmsProductManage,
   LmsProducyClass,
 
-  //人员管理
+  //实验管理
 
-  LmsStaffInfo,
-  LmsStaffEquip,
-  LmsStaffItem,
-  LmsStaffProfessional,
-  LmsStaffSchedule,
-  LmsStaffStatus,
-  LmsStaffTask,
-  LmsStaffTrainPlan,
-  LmsStaffTrainRecord,
-  LmsStaffCertificate,
-  LmsStaffTrainRecordAttachment,
-  LmsStaffTrainRecordPeople,
+  LmsTestInfo,
+  LmsTestEquip,
+  LmsTestItem,
+  LmsTestProfessional,
+  LmsTestSchedule,
+  LmsTestStatus,
+  LmsTestTask,
+  LmsTestTrainPlan,
+  LmsTestTrainRecord,
+  LmsTestCertificate,
+  LmsTestTrainRecordAttachment,
+  LmsTestTrainRecordPeople,
 
   //用户编组
   LmsMarshalManage,

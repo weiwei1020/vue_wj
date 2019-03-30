@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Modal v-model="showDetailModal" title="人员管理-人员排班详情">
+        <Modal v-model="showDetailModal" title="实验管理-人员排班详情">
             <div class="maxHeight">
                 <table class="tableClass">
                     <tbody>
@@ -32,7 +32,7 @@
 </template>
 <script>
     /**
-     * 人员管理-人员排班详情
+     * 实验管理-人员排班详情
      */
     var dateFormat = require('dateformat');
 

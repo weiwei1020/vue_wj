@@ -163,9 +163,9 @@
     },
     methods: {
       _page() {
-        this.$store.dispatch('LmsStaffManage/page', this._searchParams()).then(() => {
+        this.$store.dispatch('LmsTestManage/page', this._searchParams()).then(() => {
           this.loading = false;
-          this.getPage = this.$store.state.LmsStaffManage.page;
+          this.getPage = this.$store.state.LmsTestManage.page;
         });
       },
       _pageChange(page) {
@@ -233,8 +233,8 @@
           title: '提示',
           content: content ? content : '确定开始该实验？',
           onOk: () => {
-            this.$store.dispatch('LmsStaffManage/startByIds', id).then(() => {
-              if (this.$store.state.LmsStaffManage.success) {
+            this.$store.dispatch('LmsTestManage/startByIds', id).then(() => {
+              if (this.$store.state.LmsTestManage.success) {
                 this.$Message.success('实验已开始！');
                 this._search();
                 this.selectIds = [];
@@ -248,8 +248,8 @@
           title: '提示',
           content: content ? content : '确定暂停该实验？',
           onOk: () => {
-            this.$store.dispatch('LmsStaffManage/pauseByIds', id).then(() => {
-              if (this.$store.state.LmsStaffManage.success) {
+            this.$store.dispatch('LmsTestManage/pauseByIds', id).then(() => {
+              if (this.$store.state.LmsTestManage.success) {
                 this.$Message.success('实验已暂停！');
                 this._search();
                 this.selectIds = [];
@@ -263,8 +263,8 @@
           title: '提示',
           content: content ? content : '确定中止该实验？',
           onOk: () => {
-            this.$store.dispatch('LmsStaffManage/suspendByIds', id).then(() => {
-              if (this.$store.state.LmsStaffManage.success) {
+            this.$store.dispatch('LmsTestManage/suspendByIds', id).then(() => {
+              if (this.$store.state.LmsTestManage.success) {
                 this.$Message.success('实验已中止！');
                 this._search();
                 this.selectIds = [];
@@ -278,8 +278,8 @@
           title: '提示',
           content: content ? content : '确定结束该实验？',
           onOk: () => {
-            this.$store.dispatch('LmsStaffManage/finishByIds', id).then(() => {
-              if (this.$store.state.LmsStaffManage.success) {
+            this.$store.dispatch('LmsTestManage/finishByIds', id).then(() => {
+              if (this.$store.state.LmsTestManage.success) {
                 this.$Message.success('实验已结束！');
                 this._search();
                 this.selectIds = [];

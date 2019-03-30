@@ -130,8 +130,8 @@
       _editModal(edit, id) {
         if (edit) {
           // 编辑
-          this.$store.dispatch('LmsStaffLevel/getById', id).then(() => {
-            this.$refs.testEditModal._open(this.$store.state.LmsStaffLevel.model);
+          this.$store.dispatch('LmsTestPlan/getById', id).then(() => {
+            this.$refs.testEditModal._open(this.$store.state.LmsTestPlan.model);
           });
         } else {
           // 添加
@@ -157,7 +157,7 @@
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
-            this.getPage = this.$store.state.LmsStaffLevel.page;
+            this.getPage = this.$store.state.LmsTestPlan.page;
             break;
           case 'selectIds':
             this.selectIds = data;
@@ -171,8 +171,8 @@
           title: '提示',
           content: content ? content : '确定删除该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsStaffLevel/deleteByIds', ids).then(() => {
-              if (this.$store.state.LmsStaffLevel.success) {
+            this.$store.dispatch('LmsTestPlan/deleteByIds', ids).then(() => {
+              if (this.$store.state.LmsTestPlan.success) {
                 this._search();
                 this.$Message.success('删除成功！');
                 this.selectIds = [];
@@ -215,7 +215,7 @@
         this._formSearch();
       },
       _page() {
-        this.$refs.pageTable._page('search-form', 'LmsStaffLevel/page');
+        this.$refs.pageTable._page('search-form', 'LmsTestPlan/page');
       },
       _fileModal(id){
         this.$refs.fileModal._open(id);

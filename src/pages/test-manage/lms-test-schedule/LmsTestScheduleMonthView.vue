@@ -54,8 +54,8 @@
         this._search();
       },
       _search() {
-        this.$store.dispatch('LmsStaffSchedule/staffSchedule', this._searchParams()).then(() => {
-          let tasks = this.$store.state.LmsStaffSchedule.list;
+        this.$store.dispatch('LmsTestSchedule/staffSchedule', this._searchParams()).then(() => {
+          let tasks = this.$store.state.LmsTestSchedule.list;
           this.tasks.data=[];
           for (let i = 0; i < tasks.length; i++) {
             this.tasks.data.push({

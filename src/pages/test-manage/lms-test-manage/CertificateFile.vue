@@ -62,8 +62,8 @@
         this.$refs.uploadFileModal._open(id);
       },
       _page() {
-        this.$store.dispatch('LmsStaffLevel/filePage', this._searchParams()).then(() => {
-          this.getPage = this.$store.state.LmsStaffLevel.page;
+        this.$store.dispatch('LmsTestPlan/filePage', this._searchParams()).then(() => {
+          this.getPage = this.$store.state.LmsTestPlan.page;
           this.$refs.fileModal._open(this.getPage, '300');
         });
       },
@@ -88,8 +88,8 @@
           title: '提示',
           content: '确定删除？',
           onOk: () => {
-            this.$store.dispatch('LmsStaffLevel/deleteFileByIds', id).then(() => {
-              if (this.$store.state.LmsStaffLevel.success) {
+            this.$store.dispatch('LmsTestPlan/deleteFileByIds', id).then(() => {
+              if (this.$store.state.LmsTestPlan.success) {
                 this._page();
                 this.$Message.success('删除成功！');
               }

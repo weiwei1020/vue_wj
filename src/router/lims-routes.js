@@ -4,8 +4,8 @@
 import helloWorld from '../components/HelloWorld.vue' //标准查询
 //实验管理
 import LmsTestPlan from "../pages/test-manage/lms-test-plan/LmsTestPlan.vue"//实验计划
-import LmsStaffManage from "../pages/test-manage/lms-test-manage/LmsTestManage.vue"//实验管理
-import LmsStaffSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSchedule.vue"//实验安排
+import LmsTestManage from "../pages/test-manage/lms-test-manage/LmsTestManage.vue"//实验管理
+import LmsTestSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSchedule.vue"//实验安排
 //标准管理
 //import Labmis from '../pages/lims/Labmis.vue' //标准查询
 // 耗材管理
@@ -138,8 +138,8 @@ export default [
   {path:'hello_world',component:helloWorld},
   //实验管理
   {path: 'staff_level', component: LmsTestPlan},
-  {path: 'staff_manage', component: LmsStaffManage},
-  {path: 'staff_schedule', component: LmsStaffSchedule},
+  {path: 'staff_manage', component: LmsTestManage},
+  {path: 'staff_schedule', component: LmsTestSchedule},
   // {path: '', component: Labmis},
   // {path: 'chemical_category', component: LmsChemicalCategory},
   // {path: 'role_chemical_category', component: LmsRoleChemicalCategory},

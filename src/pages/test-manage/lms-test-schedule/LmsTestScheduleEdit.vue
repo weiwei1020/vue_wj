@@ -110,7 +110,7 @@ export default {
       }
     },
     _resultChange(msg) {
-      if (this.$store.state.LmsStaffSchedule.success) {
+      if (this.$store.state.LmsTestSchedule.success) {
         this.formObj = defVal;
         this.showEditModal = false;
         this.$Message.success(msg);
@@ -125,12 +125,12 @@ export default {
           this.formObj.staffName = '';
           if (this.$string(this.id).isEmpty()) {
             // 添加
-            this.$store.dispatch('LmsStaffSchedule/add', data).then(() => {
+            this.$store.dispatch('LmsTestSchedule/add', data).then(() => {
               this._resultChange('添加成功!');
             });
           } else {
             // 编辑
-            this.$store.dispatch('LmsStaffSchedule/edit', {id: this.formObj.id, obj: data}).then(() => {
+            this.$store.dispatch('LmsTestSchedule/edit', {id: this.formObj.id, obj: data}).then(() => {
               this._resultChange('编辑成功!');
             });
           }

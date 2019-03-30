@@ -74,7 +74,7 @@
             this.privateProject = data;
           },
             _resultChange(msg) {
-                if (this.$store.state.LmsStaffLevel.success) {
+                if (this.$store.state.LmsTestPlan.success) {
                     this.formObj = defVal;
                     this.showEditModal = false;
                     this.$Message.success(msg);
@@ -92,14 +92,14 @@
                       });
                     if (this.$string(this.id).isEmpty()) {
                         // 添加
-                        this.$store.dispatch('LmsStaffLevel/add', data).then(() => {
+                        this.$store.dispatch('LmsTestPlan/add', data).then(() => {
                             this._resultChange('添加成功!');
                         });
                         this.ctimeModel=false;
                     }
                     else {
                       // 编辑
-                      this.$store.dispatch('LmsStaffLevel/edit', {id: this.formObj.id, obj: data}).then(() => {
+                      this.$store.dispatch('LmsTestPlan/edit', {id: this.formObj.id, obj: data}).then(() => {
                         this._resultChange('编辑成功!');
                         this.ctimeModel=false;
                       });
@@ -177,8 +177,8 @@
               content: '确定删除文件？',
               onOk: () => {
                 const fileList = this.formObj.lmsPlanFiles;
-                this.$store.dispatch('LmsStaffLevel/deleteFile', file.id).then(() => {
-                  if (this.$store.state.LmsStaffLevel.success) {
+                this.$store.dispatch('LmsTestPlan/deleteFile', file.id).then(() => {
+                  if (this.$store.state.LmsTestPlan.success) {
                     this.formObj.lmsPlanFiles.splice(fileList.indexOf(file), 1);
                     this.$Message.success('删除成功！');
                   }

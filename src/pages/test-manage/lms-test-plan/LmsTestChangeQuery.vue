@@ -83,9 +83,9 @@
         this._judgePanel(rel.length);
       },
       _page() {
-        this.$store.dispatch('LmsStaffLevel/testChange', this._searchParams()).then(() => {
+        this.$store.dispatch('LmsTestPlan/testChange', this._searchParams()).then(() => {
           this.loading = false;
-          this.getPage = this.$store.state.LmsStaffLevel.page;
+          this.getPage = this.$store.state.LmsTestPlan.page;
         });
       },
       _pageChange(page) {

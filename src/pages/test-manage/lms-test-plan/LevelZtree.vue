@@ -70,8 +70,8 @@
           }
         };
 
-        this.$store.dispatch('LmsStaffLevel/list').then(() => {
-          treeObj=$.fn.zTree.init($("#tree"), setting, this.$store.state.LmsStaffLevel.list);
+        this.$store.dispatch('LmsTestPlan/list').then(() => {
+          treeObj=$.fn.zTree.init($("#tree"), setting, this.$store.state.LmsTestPlan.list);
 
           setTimeout(()=>{
             this.isloading = false;
@@ -93,8 +93,8 @@
         if(this.key !=''){
           this.isloading = true;
           this.isTree = false;
-          this.$store.dispatch('LmsStaffLevel/getTreeKeyword',this.key).then(() => {
-            treeObj=$.fn.zTree.init($("#tree"), setting, this.$store.state.LmsStaffLevel.list);
+          this.$store.dispatch('LmsTestPlan/getTreeKeyword',this.key).then(() => {
+            treeObj=$.fn.zTree.init($("#tree"), setting, this.$store.state.LmsTestPlan.list);
 
             setTimeout(()=>{
               this.isloading = false;

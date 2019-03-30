@@ -101,7 +101,7 @@
     },
      computed: {
        getPage() {
-         return this.$store.state.LmsStaffLevel.page;
+         return this.$store.state.LmsTestLevel.page;
        }
      },
     mounted() {
@@ -121,9 +121,9 @@
         this._judgePanel(rel.length);
       },
       _page() {
-        this.$store.dispatch('LmsStaffLevel/testChangeById', this._searchParams()).then(() => {
+        this.$store.dispatch('LmsTestLevel/testChangeById', this._searchParams()).then(() => {
           this.loading = false;
-          this.getPage = this.$store.state.LmsStaffLevel.page;
+          this.getPage = this.$store.state.LmsTestLevel.page;
         });
       },
       _pageChange(page) {
@@ -150,7 +150,7 @@
             let data = this.$serialize('edit-form');
             data.idsPerson=this.formObj.idsPerson.join(',');
             this.$extend(data, {remark:this.formObj.remark});
-              this.$store.dispatch('LmsStaffManage/process', data).then(() => {
+              this.$store.dispatch('LmsTestManage/process', data).then(() => {
                 this._resultChange('添加成功!');
               });
           } else {

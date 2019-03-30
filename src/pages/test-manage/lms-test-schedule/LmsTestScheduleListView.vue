@@ -80,15 +80,15 @@
         this._page();
       },
       _page() {
-        this.$refs.pageTable._page('search-form', 'LmsStaffSchedule/page');
+        this.$refs.pageTable._page('search-form', 'LmsTestSchedule/page');
       },
       _formSearch() {
         this.$refs.pageTable._pageChange(1);
       },
       _detailModal(id) {
         // 查看
-        this.$store.dispatch('LmsStaffSchedule/getById', id).then(() => {
-          this.$refs.detailModal._open(this.$store.state.LmsStaffSchedule.model);
+        this.$store.dispatch('LmsTestSchedule/getById', id).then(() => {
+          this.$refs.detailModal._open(this.$store.state.LmsTestSchedule.model);
         });
       },
       _search() {
@@ -97,7 +97,7 @@
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
-            this.getPage = this.$store.state.LmsStaffSchedule.page;
+            this.getPage = this.$store.state.LmsTestSchedule.page;
             break;
           case 'selectIds':
             this.selectIds = data;

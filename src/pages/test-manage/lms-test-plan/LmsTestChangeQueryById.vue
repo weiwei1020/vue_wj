@@ -80,7 +80,7 @@
     },
    /* computed: {
       getPage() {
-        return this.$store.state.LmsStaffLevel.page;
+        return this.$store.state.LmsTestPlan.page;
       }
     },*/
     mounted() {
@@ -100,9 +100,9 @@
         this._judgePanel(rel.length);
       },
       _page() {
-        this.$store.dispatch('LmsStaffLevel/testChangeById', this._searchParams()).then(() => {
+        this.$store.dispatch('LmsTestPlan/testChangeById', this._searchParams()).then(() => {
           this.loading = false;
-          this.getPage = this.$store.state.LmsStaffLevel.page;
+          this.getPage = this.$store.state.LmsTestPlan.page;
         });
       },
       _pageChange(page) {
