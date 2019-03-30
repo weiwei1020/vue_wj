@@ -4,8 +4,8 @@
 import helloWorld from '../components/HelloWorld.vue' //标准查询
 //实验管理
 import LmsTestPlan from "../pages/test-manage/lms-test-plan/LmsTestPlan.vue"//实验计划
-import LmsStaffManage from "../pages/test-manage/lms-staff-manage/LmsStaffManage.vue"//实验管理
-import LmsStaffSchedule from "../pages/test-manage/lms-staff-schedule/LmsStaffSchedule.vue"//实验安排
+import LmsStaffManage from "../pages/test-manage/lms-test-manage/LmsTestManage.vue"//实验管理
+import LmsStaffSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSchedule.vue"//实验安排
 //标准管理
 //import Labmis from '../pages/lims/Labmis.vue' //标准查询
 // 耗材管理

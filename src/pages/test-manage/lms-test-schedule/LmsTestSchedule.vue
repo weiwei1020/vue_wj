@@ -17,8 +17,8 @@
   </div>
 </template>
 <script>
- import LmsStaffScheduleListView from './LmsStaffScheduleListView'
- import LmsStaffScheduleMonthView from './LmsStaffScheduleMonthView'
+ import LmsStaffScheduleListView from './LmsTestScheduleListView'
+ import LmsStaffScheduleMonthView from './LmsTestScheduleMonthView'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
 
   export default {

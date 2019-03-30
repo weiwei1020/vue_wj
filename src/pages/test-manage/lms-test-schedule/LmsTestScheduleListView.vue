@@ -23,8 +23,8 @@
   </div>
 </template>
 <script>
-  import LmsStaffScheduleEdit from './LmsStaffScheduleEdit.vue'
-  import LmsStaffScheduleDetail from './LmsStaffScheduleDetail.vue'
+  import LmsStaffScheduleEdit from './LmsTestScheduleEdit.vue'
+  import LmsStaffScheduleDetail from './LmsTestScheduleDetail.vue'
   import BtnList from '../../../components/base/BtnList.vue'
   import PageTable from '../../../components/table/PageTable'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'

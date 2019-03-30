@@ -4,7 +4,7 @@
       <div style="overflow: hidden;clear: both;">
         <p slot="title" style="width: 60%;display: inline-block;font-weight: bold;margin-bottom:0px;">项目列表</p>
       </div>
-      <Form id="search-form" inline  onsubmit="return false" :label-width="70" v-show="searchOpen">
+      <Form id="search-form" inline style="height: 43px;" onsubmit="return false" :label-width="70" v-show="searchOpen">
         <label class="label-sign"></label>
         <Form-item class="width-23"  label="项目名称:">
           <Input name="projectName" v-model="projectName" placeholder="请输入项目名称" style="width: 100px;" @on-enter="_search" ></Input>
@@ -16,7 +16,7 @@
         </Form-item>
       </Form>
     </div>
-    <div >
+    <div  v-bind:style="[searchOpen?'':styleObject]">
       <BtnList :msg="btn" class="contHide" :showSearchBtn="true" @on-result-change="_btnClick"></BtnList>
     </div>
     <PageTable  :pageColumns="pageColumns" :tableHeight="tableHeight" @on-result-change="_tableResultChange"
@@ -56,6 +56,9 @@
           {type:'upload',id:'',name:'附件'},
 
         ],
+        styleObject: {
+          marginTop: '10px'
+        },
         key:'',
         projectName:'',
         isloading:false,

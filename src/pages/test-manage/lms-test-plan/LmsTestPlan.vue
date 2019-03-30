@@ -26,7 +26,7 @@
             <Row>
               <!--查询-->
               <Col span="24">
-              <Form id="search-form1" inline onsubmit="return false" :label-width="70" v-show="searchOpen">
+              <Form id="search-form1" style="height: 43px;" inline onsubmit="return false" :label-width="70" v-show="searchOpen">
                 <label class="label-sign"></label>
                 <Form-item class="width-23" label="实验名称:">
                   <Input name="testName" placeholder="请输入实验名称" style="width: 100px;" @on-enter="_formSearch"></Input>
@@ -75,6 +75,7 @@
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
   import User from '../../../components/user-info-multi-workflow/AssignPerson'
   import LmsManagePeopleList from './LmsManagePeopleList'
+  import IconList from "../../../components/base/IconList";
 
   export default {
     components: {
