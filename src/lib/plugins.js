@@ -85,10 +85,16 @@ export default {
       if (name) {
         switch (name) {
           case 'search':/*有按钮和查询条件 各减 40*/
-            height = document.documentElement.clientHeight - 240;
+            height = document.documentElement.clientHeight - 280;
             break;
           case  'noSearch':/*有按钮和无查询条件*/
-            height = document.documentElement.clientHeight - 185;
+            height = document.documentElement.clientHeight - 240;
+            break;
+          case 'noBtn':/*有查询条件没有按钮*/
+            height = document.documentElement.clientHeight - 230;
+            break;
+          case 'tabNoBtn':/*有查询条件有tab没有按钮*/
+            height = document.documentElement.clientHeight - 260;
             break;
           case 'tabSearch':/*有tab有按钮和有查询条件*/
             height = document.documentElement.clientHeight - 288;
@@ -96,12 +102,7 @@ export default {
           case 'tabNoSearch':/*有tab有按钮和无查询条件*/
             height = document.documentElement.clientHeight - 235;
             break;
-          case 'noBtn':/*有查询条件没有按钮*/
-            height = document.documentElement.clientHeight - 245;
-            break;
-          case 'tabNoBtn':/*有查询条件有tab没有按钮*/
-            height = document.documentElement.clientHeight - 235;
-            break;
+
           case 'searchTwo':/*有按钮和查询条件（两行查询条件）*/
             height = document.documentElement.clientHeight - 330;
             break;

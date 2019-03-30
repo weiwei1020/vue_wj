@@ -31,11 +31,6 @@
             </Form-item>
           </Form>
           </Col>
-          <!-- &lt;!&ndash;操作&ndash;&gt;
-           <Col span="24" style="margin-bottom: 10px;">
-           <BtnList :msg="btn" class="contHide" @on-result-change="_btnClick"></BtnList>
-           </Col>-->
-          <!-- 表格 -->
           <Col span="24" style="margin-bottom: 10px">
           <Table :loading='loading' :columns="pageColumns" :data="getPage.records" size="small" border highlight-row
                  stripe
@@ -85,14 +80,12 @@
           {type: 'upload', id: '', name: '附件维护'},
           {type: 'compose', id: '', name: '批注'},
         ],
-        panelVal: '',
-        heightSearch: '',
         loading: true,
-        tableHeight: '320',
         selectIds: [],
         pageParams: {
           rows: 20,
         },
+        getPage:{},
         pageColumns: [
           {
             title: '状态', key: 'status', "width": 100, "ellipsis": true,sortable:'true',
@@ -156,40 +149,19 @@
             }
           },
         ],
-        contLength: null,
-        noBtnVal: 238,
-        btnVal: 292,
-        dVal: 90,
         equipId:'',
         testId:'',
       }
     },
     computed: {
-      getPage() {
-        return this.$store.state.LmsStaffManage.page;
+      tableHeight: function () {
+        return this.$tableHeight('noBtn');
       }
     },
     mounted() {
-      this._contHide(); //判断‘添加’一栏是否隐藏
+      this._page();
     },
     methods: {
-      _contHide() {
-        this.contLength = $(".contHide").find('button').length;
-        this._judgePanel(0);
-        this._search();
-      },
-      _panelChange(rel) { //点击折叠面板
-        this._judgePanel(rel.length);
-      },
-      _judgePanel(val) {
-        switch (this.contLength) {
-          case 0 :
-            this.tableHeight = this.$tableHeight(val, this.noBtnVal, this.dVal);
-            break;
-          default:
-            this.tableHeight = this.$tableHeight(val, this.btnVal, this.dVal);
-        }
-      },
       _page() {
         this.$store.dispatch('LmsStaffManage/page', this._searchParams()).then(() => {
           this.loading = false;
@@ -229,6 +201,9 @@
             this._export();
             break;
         }
+      },
+      _export(){
+        alert('导出')
       },
       _iconClick(res, data) {
         switch (res) {

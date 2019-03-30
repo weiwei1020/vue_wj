@@ -172,9 +172,9 @@
     computed: {
       tableHeight: function () {
         if (this.searchOpen) {
-          return this.$tableHeight('tabNoBtn');
-        } else {
           return this.$tableHeight('search');
+        } else {
+          return this.$tableHeight('noSearch');
         }
       }
     },

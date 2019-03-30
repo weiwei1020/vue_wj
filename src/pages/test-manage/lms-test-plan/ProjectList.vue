@@ -35,6 +35,7 @@
   import LmsProjectTestEdit from './LmsProjectTestEdit.vue'
   import PageTable from '../../../components/table/PageTable'
   import CertificateFile from './CertificateFile.vue'
+  import IconList from "../../../components/base/IconList";
 
   var setting;
   export default {
@@ -108,9 +109,9 @@
     computed: {
       tableHeight: function () {
         if (this.searchOpen) {
-          return this.$tableHeight('tabNoBtn');
-        } else {
           return this.$tableHeight('search');
+        } else {
+          return this.$tableHeight('noSearch');
         }
       }
     },

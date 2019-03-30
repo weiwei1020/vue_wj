@@ -48,7 +48,6 @@
         ],*/
       }
     },
-
     methods: {
       _open() {
         this._getStaffList();

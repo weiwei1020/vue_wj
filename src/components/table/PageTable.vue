@@ -9,7 +9,7 @@
     </Table>
     <Page :total="getPage.total" :page-size="getPage.size" :current="getPage.current" @on-change="_pageChange"
           @on-page-size-change='_pageSizeChange'
-          placement="top" show-elevator show-total show-sizer style="margin-top: 10px;"></Page>
+          placement="top" show-elevator show-total show-sizer style="margin-top: 10px;margin-bottom: 0px;"></Page>
   </div>
 </template>
 

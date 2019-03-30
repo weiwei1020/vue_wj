@@ -45,8 +45,6 @@
           {type: 'success', id: 'staff-schedule-add', name: '添加'},
           {type: 'error', id: 'staff-schedule-batch-delete', name: '删除'},
         ],
-        heightSearch: '',
-        tableHeight: '300',
         selectIds: [],
         pageColumns: [
           {title: '实验名称', key: 'testName',"width": 200, sortable: 'true',},
@@ -68,34 +66,20 @@
           {title: '备注', key: 'remark',  sortable: 'true',},
         ],
         getPage: {},
-        contLength: null,
-        noBtnVal: 238,
-        btnVal: 292,
-        dVal: 57,
         scheduleStartTime: '',
         scheduleEndTime: '',
       }
     },
+    computed: {
+      tableHeight: function () {
+        return this.$tableHeight('tabNoBtn');
+      }
+    },
     methods: {
-      _dateResult(date) {
-        this.scheduleStartTime = date[0];
-        this.scheduleEndTime = date[1];
-      },
       _open() {
-        this._initCont();
-      },
-      _initCont() {
-        this.contLength = $(".contHide").find('button').length;
-        if (this.contLength) {
-          this.tableHeight = this.$newTableHeight('tabBtn');
-        } else {
-          this.tableHeight = this.$newTableHeight('tabNoBtn');
-        }
         this._page();
       },
-
       _page() {
-        // this._shiftChange('');
         this.$refs.pageTable._page('search-form', 'LmsStaffSchedule/page');
       },
       _formSearch() {
