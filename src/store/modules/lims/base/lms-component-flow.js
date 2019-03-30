@@ -1,8 +1,8 @@
 /**
  * 相关
  */
-import {http} from '../../../../api/http'
-import {https} from "../../../../api/https";
+import {http} from '../../../api/http'
+import {https} from "../../../api/https";
 
 const state = {
   success: false,

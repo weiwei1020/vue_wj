@@ -6,6 +6,33 @@ import helloWorld from '../components/HelloWorld.vue' //标准查询
 import LmsTestPlan from "../pages/test-manage/lms-test-plan/LmsTestPlan.vue"//实验计划
 import LmsTestManage from "../pages/test-manage/lms-test-manage/LmsTestManage.vue"//实验管理
 import LmsTestSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSchedule.vue"//实验安排
+//仪器管理
+import LmsEquipCheck from "../pages/equip/lms-equip-check/LmsEquipCheck.vue"//期间核查计划管理
+import LmsEquipCheckManage from "../pages/equip/lms-equip-check-manage/LmsEquipCheckManage.vue"//期间核查计划管理
+import LmsEquipClass from "../pages/equip/lms-equip-class/LmsEquipClass.vue"//仪器分类信息
+import LmsEquipClassRole from "../pages/equip/lms-equip-class-role/LmsEquipClassRole.vue"//仪器分类权限
+import LmsEquipInfo from "../pages/equip/lms-equip-info/LmsEquipInfo.vue"//仪器资产信息
+import LmsEquipMaintain from "../pages/equip/lms-equip-maintain/LmsEquipMaintain.vue"//仪器保养计划信息
+import LmsEquipMaintainManage from "../pages/equip/lms-equip-maintain-manage/LmsEquipMaintainManage.vue"//仪器保养计划管理
+import LmsEquipMaintainQuery from "../pages/equip/lms-equip-maintain-query/LmsEquipMaintainQuery.vue"//仪器保养计划查询
+import LmsEquipOrderTab from "../pages/equip/lms-equip-order/LmsEquipOrderTab.vue"//仪器预约信息
+import LmsEquipOrderQuery from "../pages/equip/lms-equip-order-query/LmsEquipOrderQuery.vue"//仪器预约查询
+import LmsEquipSchedule from "../pages/equip/lms-equip-schedule/LmsEquipSchedule.vue"//仪器排程查询
+import LmsEquipProduct from "../pages/equip/lms-equip-product/LmsEquipProduct.vue"//仪器产品信息
+import LmsEquipPurchase from "../pages/equip/lms-equip-purchase/LmsEquipPurchase.vue"//仪器采购订单
+import LmsEquipRepair from "../pages/equip/lms-equip-repair/LmsEquipRepair.vue"//仪器维修信息
+import LmsEquipRepairManage from "../pages/equip/lms-equip-repair-manage/LmsEquipRepairManage.vue"//仪器维修管理
+import LmsEquipRepairQuery from "../pages/equip/lms-equip-repair-query/LmsEquipRepairQuery.vue"//仪器维修信息查询
+import LmsEquipScrap from "../pages/equip/lms-equip-scrap/LmsEquipScrap.vue"//仪器报废信息
+import LmsEquipScrapManage from "../pages/equip/lms-equip-scrap-manage/LmsEquipScrapManage.vue"//仪器报废管理
+import LmsEquipUseRecord from "../pages/equip/lms-equip-use-record/LmsEquipUseRecord.vue"//仪器使用记录信息
+import LmsEquipUseRecordQuery from "../pages/equip/lms-equip-use-record-query/LmsEquipUseRecordQuery.vue"//仪器使用记录信息
+import LmsEquipVerify from "../pages/equip/lms-equip-verify/LmsEquipVerify.vue"//仪器定检信息
+import LmsEquipLocation from "../pages/equip/lms-equip-location/LmsEquipLocation.vue"//仪器位置信息
+import LmsEquipRepairAnalyse from "../pages/equip/lms-equip-repair-analyse/LmsEquipRepairAnalyse.vue"//仪器故障分析
+import LmsEquipRepairFee from "../pages/equip/lms-equip-repair-fee/LmsEquipRepairFeeAnalyse.vue"//仪器维修费用
+import LmsEquipUseRate from "../pages/equip/lms-equip-use-rate/LmsEquipUseRateAnalyse.vue";//仪器使用率
+import LmsEquipReturn from '../pages/equip/lms-equip-return-manage/LmsEquipReturnManage'; // 仪器归还管理
 //标准管理
 //import Labmis from '../pages/lims/Labmis.vue' //标准查询
 // 耗材管理
@@ -44,47 +71,14 @@ import LmsTestSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSched
 // import LmsStaffTask from "../pages/lims/staff/lms-staff-task/LmsStaffTask.vue"//人员任务
 // import LmsStaffTrainPlan from "../pages/lims/staff/lms-staff-train-plan/LmsStaffTrainPlan.vue"//人员培训计划
 // import LmsStaffTrainRecord from "../pages/lims/staff/lms-staff-train-record/LmsStaffTrainRecord.vue"//人员培训记录
-//
 // //用户编组
 // import LmsMarshalManage from "../pages/lims/marshal/lms-marshal-manage/LmsMarshalManage" //用户编组
-//
 // //环境管理
 // import LmsEnvNormalMonitor from "../pages/lims/env/lms-env-normal-monitor/LmsEnvNormalMonitor.vue"//环境监测管理
 // import LmsEnvMicrobeMonitor from "../pages/lims/env/lms-env-microbe-monitor/LmsEnvMicrobeMonitor.vue"//环境监测管理
-//
-//
-//
-//
 // //报告管理
 // import LmsReportTemplate from '../pages/lims/base/lms-report-template/LmsReportTemplate.vue' //报告模板
 // import LmsTemplateClass from '../pages/lims/base/lms-template-classify/LmsTemplateClassify.vue'
-// //仪器管理
-// import LmsEquipCheck from "../pages/lims/equip/lms-equip-check/LmsEquipCheck.vue"//期间核查计划管理
-// import LmsEquipCheckManage from "../pages/lims/equip/lms-equip-check-manage/LmsEquipCheckManage.vue"//期间核查计划管理
-// import LmsEquipClass from "../pages/lims/equip/lms-equip-class/LmsEquipClass.vue"//仪器分类信息
-// import LmsEquipClassRole from "../pages/lims/equip/lms-equip-class-role/LmsEquipClassRole.vue"//仪器分类权限
-// import LmsEquipInfo from "../pages/lims/equip/lms-equip-info/LmsEquipInfo.vue"//仪器资产信息
-// import LmsEquipMaintain from "../pages/lims/equip/lms-equip-maintain/LmsEquipMaintain.vue"//仪器保养计划信息
-// import LmsEquipMaintainManage from "../pages/lims/equip/lms-equip-maintain-manage/LmsEquipMaintainManage.vue"//仪器保养计划管理
-// import LmsEquipMaintainQuery from "../pages/lims/equip/lms-equip-maintain-query/LmsEquipMaintainQuery.vue"//仪器保养计划查询
-// import LmsEquipOrderTab from "../pages/lims/equip/lms-equip-order/LmsEquipOrderTab.vue"//仪器预约信息
-// import LmsEquipOrderQuery from "../pages/lims/equip/lms-equip-order-query/LmsEquipOrderQuery.vue"//仪器预约查询
-// import LmsEquipSchedule from "../pages/lims/equip/lms-equip-schedule/LmsEquipSchedule.vue"//仪器排程查询
-// import LmsEquipProduct from "../pages/lims/equip/lms-equip-product/LmsEquipProduct.vue"//仪器产品信息
-// import LmsEquipPurchase from "../pages/lims/equip/lms-equip-purchase/LmsEquipPurchase.vue"//仪器采购订单
-// import LmsEquipRepair from "../pages/lims/equip/lms-equip-repair/LmsEquipRepair.vue"//仪器维修信息
-// import LmsEquipRepairManage from "../pages/lims/equip/lms-equip-repair-manage/LmsEquipRepairManage.vue"//仪器维修管理
-// import LmsEquipRepairQuery from "../pages/lims/equip/lms-equip-repair-query/LmsEquipRepairQuery.vue"//仪器维修信息查询
-// import LmsEquipScrap from "../pages/lims/equip/lms-equip-scrap/LmsEquipScrap.vue"//仪器报废信息
-// import LmsEquipScrapManage from "../pages/lims/equip/lms-equip-scrap-manage/LmsEquipScrapManage.vue"//仪器报废管理
-// import LmsEquipUseRecord from "../pages/lims/equip/lms-equip-use-record/LmsEquipUseRecord.vue"//仪器使用记录信息
-// import LmsEquipUseRecordQuery from "../pages/lims/equip/lms-equip-use-record-query/LmsEquipUseRecordQuery.vue"//仪器使用记录信息
-// import LmsEquipVerify from "../pages/lims/equip/lms-equip-verify/LmsEquipVerify.vue"//仪器定检信息
-// import LmsEquipLocation from "../pages/lims/equip/lms-equip-location/LmsEquipLocation.vue"//仪器位置信息
-// import LmsEquipRepairAnalyse from "../pages/lims/equip/lms-equip-repair-analyse/LmsEquipRepairAnalyse.vue"//仪器故障分析
-// import LmsEquipRepairFee from "../pages/lims/equip/lms-equip-repair-fee/LmsEquipRepairFeeAnalyse.vue"//仪器维修费用
-// import LmsEquipUseRate from "../pages/lims/equip/lms-equip-use-rate/LmsEquipUseRateAnalyse.vue";//仪器使用率
-// import LmsEquipReturn from '../pages/lims/equip/lms-equip-return-manage/LmsEquipReturnManage'; // 仪器归还管理
 //
 //
 // //订单管理
@@ -140,6 +134,33 @@ export default [
   {path: 'staff_level', component: LmsTestPlan},
   {path: 'staff_manage', component: LmsTestManage},
   {path: 'staff_schedule', component: LmsTestSchedule},
+  //仪器管理
+  {path: 'equip_check', component: LmsEquipCheck},
+  {path: 'equip_check_manage', component: LmsEquipCheckManage},
+  {path: 'equip_class', component: LmsEquipClass},
+  {path: 'equip_class_role', component: LmsEquipClassRole},
+  {path: 'equip_info', component: LmsEquipInfo},
+  {path: 'equip_maintain', component: LmsEquipMaintain},
+  {path: 'equip_maintain_manage', component: LmsEquipMaintainManage},
+  {path: 'equip_maintain_query', component: LmsEquipMaintainQuery},
+  {path: 'equip_order', component: LmsEquipOrderTab},
+  {path: 'equip_order_query', component: LmsEquipOrderQuery},
+  {path: 'equip_schedule', component: LmsEquipSchedule},
+  {path: 'equip_product', component: LmsEquipProduct},
+  {path: 'equip_purchase', component: LmsEquipPurchase},
+  {path: 'equip_repair', component: LmsEquipRepair},
+  {path: 'equip_repair_manage', component: LmsEquipRepairManage},
+  {path: 'equip_repair_query', component: LmsEquipRepairQuery},
+  {path: 'equip_scrap', component: LmsEquipScrap},
+  {path: 'equip_scrap_manage', component: LmsEquipScrapManage},
+  {path: 'equip_use_record', component: LmsEquipUseRecord},
+  {path: 'equip_use_record_query', component: LmsEquipUseRecordQuery},
+  {path: 'equip_verify', component: LmsEquipVerify},
+  {path: 'equip_location', component: LmsEquipLocation},
+  {path: 'equip_repair_analyse', component: LmsEquipRepairAnalyse},
+  {path: 'equip_repair_fee_analyse', component: LmsEquipRepairFee},
+  {path: 'equip_use_rate_analyse', component: LmsEquipUseRate},
+  {path: 'equip_return', component: LmsEquipReturn},
   // {path: '', component: Labmis},
   // {path: 'chemical_category', component: LmsChemicalCategory},
   // {path: 'role_chemical_category', component: LmsRoleChemicalCategory},
@@ -192,34 +213,6 @@ export default [
   //
   // //车辆管理
   // {path: 'car_info', component: LmsCarInfo},
-  //
-  // //仪器管理
-  // {path: 'equip_check', component: LmsEquipCheck},
-  // {path: 'equip_check_manage', component: LmsEquipCheckManage},
-  // {path: 'equip_class', component: LmsEquipClass},
-  // {path: 'equip_class_role', component: LmsEquipClassRole},
-  // {path: 'equip_info', component: LmsEquipInfo},
-  // {path: 'equip_maintain', component: LmsEquipMaintain},
-  // {path: 'equip_maintain_manage', component: LmsEquipMaintainManage},
-  // {path: 'equip_maintain_query', component: LmsEquipMaintainQuery},
-  // {path: 'equip_order', component: LmsEquipOrderTab},
-  // {path: 'equip_order_query', component: LmsEquipOrderQuery},
-  // {path: 'equip_schedule', component: LmsEquipSchedule},
-  // {path: 'equip_product', component: LmsEquipProduct},
-  // {path: 'equip_purchase', component: LmsEquipPurchase},
-  // {path: 'equip_repair', component: LmsEquipRepair},
-  // {path: 'equip_repair_manage', component: LmsEquipRepairManage},
-  // {path: 'equip_repair_query', component: LmsEquipRepairQuery},
-  // {path: 'equip_scrap', component: LmsEquipScrap},
-  // {path: 'equip_scrap_manage', component: LmsEquipScrapManage},
-  // {path: 'equip_use_record', component: LmsEquipUseRecord},
-  // {path: 'equip_use_record_query', component: LmsEquipUseRecordQuery},
-  // {path: 'equip_verify', component: LmsEquipVerify},
-  // {path: 'equip_location', component: LmsEquipLocation},
-  // {path: 'equip_repair_analyse', component: LmsEquipRepairAnalyse},
-  // {path: 'equip_repair_fee_analyse', component: LmsEquipRepairFee},
-  // {path: 'equip_use_rate_analyse', component: LmsEquipUseRate},
-  // {path: 'equip_return', component: LmsEquipReturn},
   //
   // //订单管理
   // {path:'order_manage',component:LmsOrderManage},

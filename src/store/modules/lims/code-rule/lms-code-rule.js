@@ -1,7 +1,7 @@
 /**
  * 编号规则相关
  */
-import {http} from '../../../../api/http'
+import {http} from '../../../api/http'
 
 const state = {
   success: false,

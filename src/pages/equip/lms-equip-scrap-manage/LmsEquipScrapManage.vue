@@ -1,0 +1,353 @@
+<template>
+  <div>
+    <!-- 面包屑 -->
+    <BreadCrumbs :crumbs="$showBread()"></BreadCrumbs>
+
+    <!--内容-->
+    <div class="layout-content-padding">
+      <div class="layout-content-main">
+        <Row>
+          <!--查询-->
+          <Col span="24" style="margin-top: 20px">
+          <Form id="search-form" inline onsubmit="return false" :label-width="70">
+            <label class="label-sign"></label>
+            <Form-item class="width-22" label="仪器名称:">
+              <Input name="equipName" placeholder="请输入仪器名称" @on-enter="_search"/>
+            </Form-item>
+            <Form-item class="width-22" label="计划名称:">
+              <Input name="scrapName" placeholder="请输入计划名称" @on-enter="_search"/>
+            </Form-item>
+            <Form-item class="width-22" label="申请时间:">
+              <DatePicker type="daterange" placement="bottom" placeholder="请选择申请时间"
+                          @on-change="_dateChange" style="width: 100%"></DatePicker>
+              <input type="hidden" name="applyLeftTime" v-model="applyLeftTime">
+              <input type="hidden" name="applyRightTime" v-model="applyRightTime">
+            </Form-item>
+            <Form-item class="width-22" label="状态:">
+              <Select name="status" clearable placeholder="请选择状态">
+                <Option value="0">待维修</Option>
+                <Option value="1">已维修</Option>
+                <Option value="2">已提交</Option>
+                <Option value="3">已废止</Option>
+              </Select>
+            </Form-item>
+            <Form-item class="search-btn">
+              <Button type="primary" @click="_search">搜索</Button>
+            </Form-item>
+          </Form>
+          </Col>
+          <!--操作-->
+          <Col span="24" style="margin-bottom: 10px;">
+          <BtnList :msg="btn" class="contHide" @on-result-change="_btnClick"></BtnList>
+          </Col>
+          <!-- 表格 -->
+          <Col span="24" style="margin-bottom: 10px">
+          <Table :loading="loading" :columns="pageColumns" :data="getPage.records" size="small" border highlight-row
+                 stripe
+                 @on-selection-change="_selectRowChange" @on-select-all='_selectAll' :height="tableHeight"></Table>
+          </Col>
+          <!--分页-->
+          <Col span="24">
+          <Page :total="getPage.total" :page-size="getPage.size" @on-change="_pageChange"
+                @on-page-size-change='_pageSizeChange'
+                placement="top" show-elevator show-total show-sizer></Page>
+          </Col>
+        </Row>
+      </div>
+    </div>
+    <!-- 添加、编辑 -->
+    <LmsEquipScrapManageEdit ref="editModal" @on-result-change="_search"></LmsEquipScrapManageEdit>
+    <!-- 查看详情 -->
+    <LmsEquipScrapManageDetail ref="detailModal"></LmsEquipScrapManageDetail>
+  </div>
+</template>
+<script>
+  import LmsEquipScrapManageEdit from './LmsEquipScrapManageEdit.vue'
+  import LmsEquipScrapManageDetail from './LmsEquipScrapManageDetail.vue'
+  import BtnList from '../../../components/base/BtnList.vue'
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
+
+  export default {
+    components: {
+      LmsEquipScrapManageEdit,
+      LmsEquipScrapManageDetail,
+      BtnList,
+      BreadCrumbs
+    },
+    data() {
+      return {
+        btn: [
+          {type: 'error', id: 'equip-scrap-manage-abolish', name: '废止'},
+          {type: 'primary', id: 'equip-scrap-manage-submit', name: '提交'},
+        ],
+        panelVal: '',
+        btnObj: { //按钮权限
+          edit: 'equip-scrap-manage-edit',
+          delete: 'equip-scrap-manage-delete',
+        },
+        tableHeight: '300',
+        loading: true,
+        heightSearch: '',
+        selectIds: [],
+        selectData: [],
+        pageParams: {
+          rows: 20,
+        },
+        pageColumns: [
+          {type: 'selection', width: 60, align: 'center', fixed: 'left'},
+          {
+            title: '状态', key: 'status', "width": 160, "ellipsis": true, fixed: 'left',
+            render: (h, data) => {
+              var status = {"0": "待报废", "1": "已报废", "2": "已提交", "3": "已废止"};
+              let operate = [];
+              if (data.row.status === undefined) {
+                operate.push(
+                  h('div', {}, '无')
+                );
+              } else {
+                operate.push(
+                  h('div', {
+                    style: {
+                      color: data.row.status === 0 ? '#F8BB2C' : data.row.status === 1 ? '#00a0e9' : data.row.status === 2 ? '#6FBA2C' : 'red'
+                    }
+                  }, status[data.row.status] ? status[data.row.status] : '')
+                );
+              }
+              return h('div', operate);
+            }
+          },
+          {title: '仪器名称', key: 'equipName', align: 'center', width: 160, ellipse: true},
+          {title: '实验室编号', key: 'labNum', align: 'center', width: 160, ellipse: true},
+
+          {title: '报废计划名称', key: 'scrapName', align: 'center', width: 160, ellipse: true},
+          {title: '报废金额', key: 'money', align: 'center', width: 160, ellipse: true},
+          {
+            title: '购买日期', key: 'buyDate', "width": 160, ellipse: true,
+            render: (h, params) => {
+              return h('div', params.row.buyDate ? this.$dateformat(params.row.buyDate, "yyyy-mm-dd") : '');
+            }
+          },
+          {title: '申请原因', key: 'applyReason', align: 'center', width: 160, ellipse: true,},
+          {
+            title: '申请时间', key: 'applyTime', "width": 160, ellipse: true,
+            render: (h, params) => {
+              return h('div', params.row.applyTime ? this.$dateformat(params.row.applyTime, "yyyy-mm-dd") : '');
+            }
+          },
+          {title: '申请人', key: 'applyName', align: 'center', width: 160, ellipse: true,},
+          {
+            title: '报废日期', key: 'scrapDate', "width": 160, ellipse: true,
+            render: (h, params) => {
+              return h('div', params.row.scrapDate ? this.$dateformat(params.row.scrapDate, "yyyy-mm-dd") : '');
+            }
+          },
+          {title: '备注', key: 'remark', width: 160},
+          {
+            title: '操作', key: 'action', width: 70, fixed: 'right',
+            render: (h, data) => {
+              let operate = [];
+              let btnEdit =
+                h('Tooltip', {
+                  props: {
+                    content: '编辑',
+                    key: '编辑',
+                    transfer: true
+                  }
+                }, [
+                  h('div', {
+                    on: {
+                      click: () => {
+                        this._editModal(true, data.row.id);
+                      }
+                    }
+                  }, [h('Icon', {
+                    props: {
+                      type: 'edit',
+                      size: 20,
+                    },
+                    class: 'icons',
+                    style: {marginRight: '10px', marginTop: '3px'},
+                    attrs: {id: this.btnObj.edit}, //添加自定义属性
+                  })
+                  ])
+                ]);
+              if (data.row.status < 2) {
+                if (this.$showBtn(this.btnObj.edit)) {
+                  operate.push(btnEdit);
+                }
+              }
+              return h('div', operate.length > 0 ? operate : '--');
+            }
+          }
+        ],
+        getPage: {},
+        applyLeftTime:'',
+        applyRightTime:'',
+        contLength: null,
+        noBtnVal: 238,
+        btnVal: 292,
+        dVal: 57,
+      }
+    },
+    mounted() {
+      this._contHide(); //判断‘添加’一栏是否隐藏
+    },
+    methods: {
+      _dateChange(e) {
+        this.applyLeftTime = e[0];
+        this.applyRightTime = e[1];
+      },
+      _contHide() {
+        this.contLength = $(".contHide").find('button').length;
+        this._judgePanel(0);
+        this._search();
+      },
+      _panelChange(rel) { //点击折叠面板
+        this._judgePanel(rel.length);
+      },
+      _judgePanel(val) {
+        switch (this.contLength) {
+          case 0 :
+            this.tableHeight = this.$tableHeight(val, this.noBtnVal, this.dVal);
+            break;
+          default:
+            this.tableHeight = this.$tableHeight(val, this.btnVal, this.dVal);
+        }
+      },
+      _btnClick(msg) {
+        switch (msg) {
+          case '废止' :
+            this._updateSelected(3);
+            break;
+          case '提交' :
+            this._updateSelected(2);
+            break;
+        }
+      },
+      _page() {
+        this.$store.dispatch('LmsEquipScrapManage/page', this._searchParams()).then(() => {
+          this.loading = false;
+          this.getPage = this.$store.state.LmsEquipScrapManage.page;
+        });
+      },
+      _pageChange(page) {
+        this.pageParams['page'] = page;
+        this._page();
+      },
+      _pageSizeChange(rows) {
+        if (rows !== this.pageParams.rows) {
+          this.pageParams['rows'] = rows;
+          this._page();
+        }
+      },
+      _selectRowChange(data) {
+        let idList = [];
+        for (let i = 0; i < data.length; i++) {
+          idList.push(data[i].id);
+        }
+        this.selectIds = idList;
+        this.selectData = data;
+      },
+      _selectAll: function (data) {
+        this._selectRowChange(data);
+      },
+      _updateByIds(ids, status) {
+        let url = null;
+        let contents = '';
+        let dataList = this.selectData;
+        if (2 === status) {//提交
+          for (let i = 0; i < dataList.length; i++) {
+            if (dataList[i].status !== 1) {
+              this.$Message.error('请选择已报废的数据进行提交！');
+              return;
+            }
+          }
+          contents = "确定提交所选记录？";
+          url = 'LmsEquipScrapManage/submit';
+        } else if (3 === status) {//废止
+          for (let i = 0; i < dataList.length; i++) {
+            if (dataList[i].status === 2 || dataList[i].status === 3) {
+              this.$Message.error('不能操作已提交和已废止的数据！');
+              return;
+            }
+          }
+          contents = "确定废止所选记录？";
+          url = 'LmsEquipScrapManage/abolish';
+        } else {
+          this.$Message.success('操作错误！');
+        }
+        this.$Modal.confirm({
+          title: '提示',
+          content: contents,
+          onOk: () => {
+            this.$store.dispatch(url, ids).then(() => {
+              if (this.$store.state.LmsEquipScrapManage.success) {
+                this._page();
+                this.$Message.success('操作成功！');
+              }
+            });
+          }
+        });
+      },
+      _updateSelected(status) {
+        let ids = this.selectIds;
+        if (ids === '') {
+          this.$Message.warning('请选择一条或多条数据！');
+        } else {
+          this._updateByIds(ids, status);
+        }
+      },
+      _deleteByIds(ids, content) {
+        this.$Modal.confirm({
+          title: '提示',
+          content: content ? content : '确定删除该记录？',
+          onOk: () => {
+            this.$store.dispatch('LmsEquipScrapManage/deleteByIds', ids).then(() => {
+              if (this.$store.state.LmsEquipScrapManage.success) {
+                this._page();
+                this.$Message.success('删除成功！');
+              }
+            });
+          }
+        });
+      },
+      _deleteById(id) {
+        // 删除一条记录
+        this._deleteByIds([id]);
+      },
+      _deleteSelected() {
+        // 批量删除
+        let ids = this.selectIds;
+        if (ids === '') {
+          this.$Message.warning('请选择一条或多条数据！');
+        } else {
+          this._deleteByIds(ids, '确定删除 ' + ids.length + ' 条记录？');
+        }
+      },
+      _detailModal(id) {
+        // 查看
+        this.$store.dispatch('LmsEquipScrapManage/getById', id).then(() => {
+          this.$refs.detailModal._open(this.$store.state.LmsEquipScrapManage.model);
+        });
+      },
+      _editModal(edit, id) {
+        if (edit) {
+          // 编辑
+          this.$store.dispatch('LmsEquipScrapManage/getById', id).then(() => {
+            this.$refs.editModal._open(this.$store.state.LmsEquipScrapManage.model);
+          });
+        } else {
+          // 添加
+          this.$refs.editModal._open();
+        }
+      },
+      _search() {
+        this._pageChange(1);
+      },
+      _searchParams() {
+        let data = this.$serialize('search-form');
+        return this.$extend(data, this.pageParams);
+      }
+    },
+  }
+</script>
