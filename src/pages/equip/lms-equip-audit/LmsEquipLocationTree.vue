@@ -39,6 +39,7 @@
     },
     methods: {
       _Ztree() {
+        this.key='';
         this.isloading = true;
         this.isTree = false;
         setting = {
@@ -68,7 +69,16 @@
 
       },
       zTreeOnClick(event, treeId, treeNode) {
-          this.$emit("on-result-change", treeNode.id);
+        var id = treeNode.id;
+        if (!treeNode.isParent) { //子节点
+
+          this.$emit("on-result-change", id,'id');
+          return false;
+
+        } else {  //父节点
+          this.$emit("on-result-change", id,'pids');
+          return true;
+        }
       },
       _search(){
         if(this.key !=''){

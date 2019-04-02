@@ -91,7 +91,7 @@
 
       },
       _treeHeight(){
-        $(".tree_height").height(document.documentElement.clientHeight-225)
+        $(".tree_height").height(document.documentElement.clientHeight-180)
       }
     }
   }

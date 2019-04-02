@@ -5,11 +5,32 @@
 import LmsTestPlan from "./modules/lims/lms-test-plan";
 import LmsTestManage from "./modules/lims/lms-test-manage";
 import LmsTestSchedule from "./modules/lims/lms-test-schedule";
+//仪器管理
+import LmsEquipClass from "./modules/lims/lms-equip-class";
+import LmsEquipInfo from "./modules/lims/lms-equip-info";
+import LmsEquipOrder from "./modules/lims/lms-equip-order";
+import LmsEquipProduct from "./modules/lims/lms-equip-product";
+import LmsEquipPurchase from "./modules/lims/lms-equip-purchase";
+import LmsEquipPurchaseDetail from "./modules/lims/lms-equip-purchase-detail";
+import LmsEquipSchedule from './modules/lims/lms-equip-schedule';
+import LmsEquipUseRecord from "./modules/lims/lms-equip-use-record";
+import LmsEquipAudit from './modules/lims/lms-equip-audit';
+
 
 export default {
   LmsTestPlan,
   LmsTestManage,
   LmsTestSchedule,
+  //仪器管理
+  LmsEquipClass,
+  LmsEquipInfo,
+  LmsEquipOrder,
+  LmsEquipProduct,
+  LmsEquipPurchase,
+  LmsEquipPurchaseDetail,
+  LmsEquipSchedule,
+  LmsEquipUseRecord,
+  LmsEquipAudit,
 }
 
 /*import LmsChemical from "./modules/lims/lms-chemical";
@@ -60,30 +81,7 @@ import LmsTestTrainRecordPeople from './modules/lims/lms-test-train-record-peopl
 import LmsEnvNormalMonitor from "./modules/lims/lms-env-normal-monitor";
 import LmsEnvMicrobeMonitor from "./modules/lims/lms-env-microbe-monitor";
 
-//仪器管理
-import LmsEquipCheck from "./modules/lims/lms-equip-check";
-import LmsEquipCheckManage from "./modules/lims/lms-equip-check-manage";
-import LmsEquipClassRole from "./modules/lims/lms-equip-class-role";
-import LmsEquipClass from "./modules/lims/lms-equip-class";
-import LmsEquipInfo from "./modules/lims/lms-equip-info";
-import LmsEquipMaintain from "./modules/lims/lms-equip-maintain";
-import LmsEquipMaintainDetail from "./modules/lims/lms-equip-maintain-detail";
-import LmsEquipMaintainManage from "./modules/lims/lms-equip-maintain-manage";
-import LmsEquipOrder from "./modules/lims/lms-equip-order";
-import LmsEquipProduct from "./modules/lims/lms-equip-product";
-import LmsEquipPurchase from "./modules/lims/lms-equip-purchase";
-import LmsEquipPurchaseDetail from "./modules/lims/lms-equip-purchase-detail";
-import LmsEquipRepair from "./modules/lims/lms-equip-repair";
-import LmsEquipRepairDetail from "./modules/lims/lms-equip-repair-detail";
-import LmsEquipRepairManage from "./modules/lims/lms-equip-repair-manage";
-import LmsEquipSchedule from './modules/lims/lms-equip-schedule';
-import LmsEquipScrap from "./modules/lims/lms-equip-scrap";
-import LmsEquipScrapDetail from "./modules/lims/lms-equip-scrap-detail";
-import LmsEquipScrapManage from "./modules/lims/lms-equip-scrap-manage";
-import LmsEquipUseRecord from "./modules/lims/lms-equip-use-record";
-import LmsEquipVerify from "./modules/lims/lms-equip-verify";
-import LmsEquipLocation from "./modules/lims/lms-equip-location";
-import LmsEquipReturnManage from './modules/lims/lms-equip-return-manage';
+
 
 //订单管理
 import LmsOrderManage from './modules/lims/lms-order-manage'
@@ -195,30 +193,7 @@ export default {
 
 
 
-  //仪器管理
-  LmsEquipCheck,
-  LmsEquipCheckManage,
-  LmsEquipClassRole,
-  LmsEquipClass,
-  LmsEquipInfo,
-  LmsEquipMaintain,
-  LmsEquipMaintainDetail,
-  LmsEquipMaintainManage,
-  LmsEquipOrder,
-  LmsEquipProduct,
-  LmsEquipPurchase,
-  LmsEquipPurchaseDetail,
-  LmsEquipRepair,
-  LmsEquipRepairDetail,
-  LmsEquipRepairManage,
-  LmsEquipSchedule,
-  LmsEquipScrap,
-  LmsEquipScrapDetail,
-  LmsEquipScrapManage,
-  LmsEquipUseRecord,
-  LmsEquipVerify,
-  LmsEquipLocation,
-  LmsEquipReturnManage,
+
 
   //订单管理
   LmsOrderManage,

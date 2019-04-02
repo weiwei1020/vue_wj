@@ -119,7 +119,6 @@
         status: '',
         className: '',
         pname: '',
-        tableHeight: '300',
         classId: '',
         selectIds: [],
         selectObj: [],
@@ -207,6 +206,11 @@
         treeObj: {},
       }
     },
+    computed: {
+      tableHeight: function () {
+        return this.$tableHeight('tabSearch');
+      }
+    },
     methods: {
       _btnClick(msg) {
         switch (msg) {
@@ -265,16 +269,6 @@
           }
         });
       },
-      _initCont() {
-        this.contLength = $(".contHide").find('button').length;
-        if (this.contLength) {
-          this.tableHeight = this.$newTableHeight('tabBtn');
-        } else {
-          this.tableHeight = this.$newTableHeight('tabNoBtn');
-        }
-        this.treeStyleObj.height = document.documentElement.clientHeight - 110 + 'px';
-        this._search();
-      },
       _refresh() { //刷新
         this.classId = '';
         this.name = '';
@@ -283,7 +277,7 @@
         this._classTree();
       },
       _open() {
-        this._initCont();
+        this._page();
         this._classTree();
       },
       _page() {

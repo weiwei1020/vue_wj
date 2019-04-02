@@ -147,13 +147,10 @@
       tableHeight: function () {
         return this.$tableHeight('noBtn');
       }
-      // getPage() {
-      //   return this.$store.state.LmsEquipClass.page;
-      // }
     },
     mounted() {
       this._classTree();
-      this._initCont();
+      this._page();
     },
     methods: {
       _iconClick(res, data) {
@@ -172,10 +169,6 @@
             this._editModal(false);
             break;
         }
-      },
-      _initCont() {
-        this.treeStyleObj.height = document.documentElement.clientHeight - 110 + 'px';
-        this._search();
       },
       _refresh() { //刷新
         this.id = '';

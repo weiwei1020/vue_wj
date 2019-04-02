@@ -22,9 +22,9 @@
 
 <script>
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
-  import LmsEquipPurchase from './LmsEquipPurchase.vue'
-  import LmsEquipOrder from './LmsEquipOrder.vue'
-  import LmsEquipOrderDraft from './LmsEquipOrderDraft.vue'
+  import LmsEquipPurchase from './tabs/LmsEquipPurchase.vue'
+  import LmsEquipOrder from './tabs/LmsEquipOrder.vue'
+  import LmsEquipOrderDraft from './tabs/LmsEquipOrderDraft.vue'
 
 
   export default {

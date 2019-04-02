@@ -60,8 +60,8 @@
           }
         };
 
-        this.$store.dispatch('LmsEquipLocation/getTree').then(() => {
-          $.fn.zTree.init($("#locationTree"), setting, this.$store.state.LmsEquipLocation.treeList);
+        this.$store.dispatch('LmsEquipAudit/getTree').then(() => {
+          $.fn.zTree.init($("#locationTree"), setting, this.$store.state.LmsEquipAudit.treeList);
           setTimeout(()=>{
             this.isloading = false;
             this.isTree = true;
@@ -84,8 +84,8 @@
           this.isloading = true;
           this.isTree = false;
           this.key = $.trim(this.key);
-          this.$store.dispatch('LmsEquipLocation/getTreeKeyword',this.key).then(() => {
-            $.fn.zTree.init($("#locationTree"), setting, this.$store.state.LmsEquipLocation.treeList);
+          this.$store.dispatch('LmsEquipAudit/getTreeKeyword',this.key).then(() => {
+            $.fn.zTree.init($("#locationTree"), setting, this.$store.state.LmsEquipAudit.treeList);
             setTimeout(()=>{
               this.isloading = false;
               this.isTree = true;

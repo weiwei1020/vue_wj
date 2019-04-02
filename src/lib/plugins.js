@@ -97,10 +97,13 @@ export default {
             height = document.documentElement.clientHeight - 260;
             break;
           case 'tabSearch':/*有tab有按钮和有查询条件*/
-            height = document.documentElement.clientHeight - 288;
+            height = document.documentElement.clientHeight - 300;
             break;
           case 'tabNoSearch':/*有tab有按钮和无查询条件*/
             height = document.documentElement.clientHeight - 235;
+            break;
+          case 'tabNoSearchNoBtn':/*有tab有按钮和无查询条件*/
+            height = document.documentElement.clientHeight - 230;
             break;
 
           case 'searchTwo':/*有按钮和查询条件（两行查询条件）*/

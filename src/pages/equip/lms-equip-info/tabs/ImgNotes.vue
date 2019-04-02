@@ -107,15 +107,15 @@
       },
       _getPoint(id) {
         locationId = id; //点位id;
-        this.$store.dispatch('LmsEquipLocation/getPointImg', id).then(() => {
-          var imgList = this.$store.state.LmsEquipLocation.imgObj;
+        this.$store.dispatch('LmsEquipAudit/getPointImg', id).then(() => {
+          var imgList = this.$store.state.LmsEquipAudit.imgObj;
           if(imgList.imagePath === undefined){
             this.$Message.warning('暂无图片，请先添加图片！');
             this.imgUrl = 'http://static.patzn.com/imgNotes/img/noData.png';
           }else{
             this.imgUrl = 'https://obs.myhwclouds.com/lims/' + imgList.imagePath;
-            this.$store.dispatch('LmsEquipLocation/getPointInfo', id).then(() => {
-              this.pointList = this.$store.state.LmsEquipLocation.pointList;
+            this.$store.dispatch('LmsEquipAudit/getPointInfo', id).then(() => {
+              this.pointList = this.$store.state.LmsEquipAudit.pointList;
               $(".box").remove(); //清空canvas中的内容
               this._loadInit(this.pointList);
             });
@@ -132,8 +132,8 @@
       },
       _saveData() {
         setTimeout(() => {
-          this.$store.dispatch('LmsEquipLocation/save', dataList).then(() => {
-            if (this.$store.state.LmsEquipLocation.success) {
+          this.$store.dispatch('LmsEquipAudit/save', dataList).then(() => {
+            if (this.$store.state.LmsEquipAudit.success) {
               this.$Message.success("数据保存成功！");
             }
           });

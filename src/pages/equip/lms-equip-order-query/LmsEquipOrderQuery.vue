@@ -2,7 +2,6 @@
   <div>
     <!-- 面包屑 -->
     <BreadCrumbs :crumbs="$showBread()"></BreadCrumbs>
-
     <!--内容-->
     <div class="layout-content-padding">
       <div class="layout-content-main">
@@ -66,7 +65,6 @@
         panelVal: '',
         heightSearch: '',
         loading: true,
-        tableHeight: '320',
         selectIds: [],
         pageParams: {
           rows: 20,
@@ -118,39 +116,21 @@
           },
           //{title: '备注', key: 'remark', align: 'center', "width": 160},
         ],
-        contLength: null,
-        noBtnVal: 238,
-        btnVal: 292,
-        dVal: 90,
         equipId:'',
       }
     },
     computed: {
+      tableHeight: function () {
+        return this.$tableHeight('noSearch');
+      },
       getPage() {
         return this.$store.state.LmsEquipOrder.page;
       }
     },
     mounted() {
-      this._contHide(); //判断‘添加’一栏是否隐藏
+      this._page();
     },
     methods: {
-      _contHide() {
-        this.contLength = $(".contHide").find('button').length;
-        this._judgePanel(0);
-        this._search();
-      },
-      _panelChange(rel) { //点击折叠面板
-        this._judgePanel(rel.length);
-      },
-      _judgePanel(val) {
-        switch (this.contLength) {
-          case 0 :
-            this.tableHeight = this.$tableHeight(val, this.noBtnVal, this.dVal);
-            break;
-          default:
-            this.tableHeight = this.$tableHeight(val, this.btnVal, this.dVal);
-        }
-      },
       _page() {
         this.$store.dispatch('LmsEquipOrder/queryPage', this._searchParams()).then(() => {
           this.loading = false;

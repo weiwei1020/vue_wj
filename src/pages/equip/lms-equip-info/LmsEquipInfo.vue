@@ -2,17 +2,11 @@
   <div>
     <!-- 面包屑 -->
     <BreadCrumbs :crumbs="$showBread()"></BreadCrumbs>
-    <!--内容-->
-     <!-- <Tabs value="baseName" class="tabsHiddenEquip" @on-click="_changeTabs">-->
-        <TabPane label="仪器资产信息" name="baseName" >
-          <!--仪器基本信息-->
-          <EquipInfo ref="equipInfo"></EquipInfo>
-        </TabPane>
-       <!-- <TabPane label="仪器点位信息" name="locationName">
-          &lt;!&ndash;仪器点位&ndash;&gt;
-          <ImgNotes ref="imgNotes"></ImgNotes>
-        </TabPane>-->
-     <!-- </Tabs>-->
+      <TabPane label="仪器资产信息" name="baseName" >
+        <!--仪器基本信息-->
+        <EquipInfo ref="equipInfo"></EquipInfo>
+      </TabPane>
+
   </div>
 </template>
 <script>

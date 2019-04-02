@@ -52,8 +52,8 @@
           }
         };
 
-        this.$store.dispatch('LmsEquipLocation/list').then(() => {
-          treeObj=$.fn.zTree.init($("#locationTree"), setting, this.$store.state.LmsEquipLocation.list);
+        this.$store.dispatch('LmsEquipAudit/list').then(() => {
+          treeObj=$.fn.zTree.init($("#locationTree"), setting, this.$store.state.LmsEquipAudit.list);
           setTimeout(()=>{
             this.isloading = false;
             this.isTree = true;
