@@ -45,18 +45,14 @@
         </Row>
       </div>
     </div>
-    <!--文件-->
-    <CertificateFile ref="fileModal"   @on-result-change="_search"></CertificateFile>
     <!--批注-->
     <LmsPostil ref="postilModal"   @on-result-change="_search"></LmsPostil>
   </div>
 </template>
 <script>
-  import global from '../../../api/config'
   import BtnList from '../../../components/base/BtnList.vue'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
   import IconList from '../../../components/base/IconList1.vue'
-  import CertificateFile from './CertificateFile.vue'
   import LmsPostil from './LmsPostil'
 
   export default {
@@ -64,20 +60,18 @@
       BtnList,
       BreadCrumbs,
       IconList,
-      CertificateFile,
       LmsPostil
     },
     data() {
       return {
         btn: [
-          {type: 'success', id: 'equip-order-query-export', name: '导出'},
+          // {type: 'success', id: 'equip-order-query-export', name: '导出'},
         ],
         iconMsg: [
           {type: 'play', id: '', name: '开始'},
           {type: 'pause', id: '', name: '暂停'},
           {type: 'record', id: '', name: '中止'},
           {type: 'stop', id: '', name: '结束'},
-          {type: 'upload', id: '', name: '附件维护'},
           {type: 'compose', id: '', name: '批注'},
         ],
         loading: true,
@@ -219,9 +213,6 @@
           case '结束' :
             this._finish(data.row.id);
             break;
-          case '附件维护' :
-            this._file(data.row.id);
-            break;
           case '批注' :
             this._postil(data.row.id);
             break;
@@ -287,9 +278,6 @@
             });
           }
         });
-      },
-      _file(id){
-        this.$refs.fileModal._open(id);
       },
       _postil(id){
         this.$refs.postilModal._open(id);

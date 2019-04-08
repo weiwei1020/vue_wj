@@ -95,7 +95,6 @@
           {type: 'success', id: '', name: '添加'},
           {type: 'error', id: '', name: '删除'},
           {id: '', name: '实验修改记录'},
-
         ],
         searchOpen:false,
         iconMsg: [
@@ -125,7 +124,7 @@
               ]);
             }, width: 160
           },
-          {title: '创建人', key: 'remark', sortable: 'true', width: 120},
+          {title: '创建人', key: 'uname', sortable: 'true', width: 120},
           {title: '备注', key: 'remark', sortable: 'true', width: 160},
           {
             title: '计划开始时间 ', key: 'beginDate', sortable: 'true', width: 160,
