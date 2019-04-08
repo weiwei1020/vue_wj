@@ -50,33 +50,6 @@
           <Form-item label="备注" prop="remark" style="width:60%;">
             <Input name="remark" placeholder="请输入产品备注" type="textarea" :rows="1" v-model="formObj.remark"/>
           </Form-item>
-          <Form-item v-show="fileShow" label="附件上传" style="width: 98.6%;">
-            <div class="file-upload-list" v-for="item in formObj.lmsEquipFiles">
-              <div>
-                <div class="file-upload-list-cover">
-                  <Icon type="ios-eye-outline" @click.native="_handleView(item)"></Icon>
-                  <Icon type="ios-cloud-download-outline" @click.native="_downloadFile(item)"></Icon>
-                  <Icon type="ios-trash-outline" @click.native="_handleRemove(item)"></Icon>
-                </div>
-              </div>
-              {{item.orginName }}
-            </div>
-            <Upload
-              :show-upload-list="false"
-              :with-credentials="true"
-              :on-success="_handleSuccess"
-              :before-upload="_handleBeforeUpload"
-              type="drag"
-              :action="fileAction"
-              :data="fileObj"
-              style="display: inline-block;width:100px;">
-              <div style="width: 100px;height:100px;line-height: 100px;">
-                <Icon type="ios-cloud-upload" size="20"></Icon>
-              </div>
-            </Upload>
-            <input name="classId" v-model="formObj.classId" type="hidden"/>
-            <input name="classIds" v-model="formObj.classIds" type="hidden"/>
-          </Form-item>
         </Form>
       </div>
       <div slot="footer">
@@ -84,9 +57,6 @@
         <Button @click="_cancel" type="ghost" style="margin-left: 8px">取消</Button>
         <Button @click="_ok" type="primary">确定</Button>
       </div>
-    </Modal>
-    <Modal title="查看图片" v-model="visible">
-      <img :src= "urlsssid" v-if="visible" style="width: 100%">
     </Modal>
     <!--选择仪器类别-->
     <LmsEquipClassZTree ref="equipClassModal" @on-result-change="_equipClassData"></LmsEquipClassZTree>
@@ -152,11 +122,6 @@
         departmentList: [],
         locationList: [],
         equipPanel: '1',
-        fileAction: Global.baseURL + '/zuul/slims/v1/equip_info/uploadFile',
-        fileObj: {
-          id: '',
-        },
-        visible: false,
         treeName: '',
         nameListTemp:[],
         nameList: [],
@@ -168,7 +133,6 @@
         telListTemp:[],
         emailList:[],
         emailListTemp:[],
-        fileShow:false,
       }
     },
     mounted() {
@@ -334,10 +298,6 @@
                 status: this.formObj.status,
                 price: this.formObj.price,
                 classId:this.classId,
-                /*type: 0,
-                techParams: this.formObj.techParams,
-                techParamsText: this.formObj.techParamsText,
-                equipAdminName: this.formObj.equipAdminName*/
               });
               if (this.$string(this.id).isEmpty()) {
                 // 添加
@@ -406,23 +366,6 @@
       _selEquip() {
         this.$refs.equipModal._open();
       },
-     /* _equipData(result) {
-        this.formObj.supplierId = result.supplierId;
-        this.formObj.supplierName = result.supplierName;
-        this.formObj.classId = result.classId;
-        this.formObj.classIds = result.classIds;
-        this.formObj.name = result.name;
-        this.formObj.spec = result.spec;
-        this.formObj.brand = result.brand;
-        this.formObj.price = result.price;
-        this.formObj.productPlace = result.productPlace;
-        this.formObj.meterType = result.meterType;
-        this.formObj.uncertainty = result.uncertainty;
-        this.formObj.accuracy = result.accuracy;
-        this.formObj.range = result.range;
-        this.formObj.techParams = result.techParams;
-        this.$refs.editorModal._open(this.formObj.techParams);
-      },*/
       _locationData(data) {
         this.formObj.locationId = data.id;
         this.formObj.locationName = data.name;
@@ -438,61 +381,6 @@
         this.classId = data.id;
         this.formObj.className = data.name;
       },
-      _handleBeforeUpload(file) {
-      },
-      _handleSuccess(response, file, fileList) {
-        if (response.success) {
-          this.$Message.success('上传成功！');
-          this.formObj.lmsEquipFiles.push(response.data);
-        } else {
-          this.$Message.error('上传失败！');
-        }
-      },
-      _handleView(data) {
-        this.filePath = data.filePath;
-        let index1 = this.filePath.lastIndexOf(".");
-        let index2 = this.filePath.length;
-        let suffix = this.filePath.substring(index1 + 1, index2);//后缀名
-        if (suffix === 'png' || suffix === 'jpg' || suffix === 'jpeg') {
-          this.urlsssid = Global.baseURL+'/slims/v1/equip_info/downLoadFile?id='+data.id;
-          this.visible = true;
-        } else {
-          this.$Message.warning({
-            content: '非图片文件无法查看，请下载查看',
-            duration: 3
-          });
-          this.visible = false;
-        }
-      },
-      _downloadFile(file) {//下载文件
-        this.$Modal.confirm({
-          title: '提示',
-          content: '确定要下载？',
-          onOk: () => {
-            var url = Global.baseURL+'/slims/v1/equip_info/downLoadFile?id='+file.id;
-            window.open(url);
-            return;
-          }
-        });
-      },
-      _handleRemove(file) {//删除
-        this.$Modal.confirm({
-          title: '提示',
-          content: '确定删除文件？',
-          onOk: () => {
-            const fileList = this.formObj.lmsEquipFiles;
-            this.$store.dispatch('LmsEquipInfo/deleteFileById', file.id).then(() => {
-              if (this.$store.state.LmsEquipInfo.success) {
-                this.formObj.lmsEquipFiles.splice(fileList.indexOf(file), 1);
-                this.$Message.success('删除成功！');
-              }
-            });
-          }
-        });
-      },
-      _equipAdminChange(obj) {
-        this.formObj.equipAdminName = obj.label;
-      },
       _selectOrgZtree() {
         this.$refs.ztreeOrgModal._openZtree();  //打开上ztreeModel
       },
@@ -500,9 +388,6 @@
         console.log(result);
         this.formObj.departmentId = result.id;
         this.formObj.departmentName = result.name;
-      },
-      _selectLocationZtree() {
-        this.$refs.ztreeLocationModal._openZtree();  //打开上ztreeModel
       },
       _ztreeLocation(result) {
         this.formObj.locationId = result.id;

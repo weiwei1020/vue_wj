@@ -16,6 +16,30 @@ import LmsEquipProduct from "../pages/equip/lms-equip-product/LmsEquipProduct.vu
 import LmsEquipPurchase from "../pages/equip/lms-equip-purchase/LmsEquipPurchase.vue"//仪器采购订单
 import LmsEquipAudit from "../pages/equip/lms-equip-audit/LmsEquipAudit.vue"//仪器预约审批
 import LmsEquipReturn from '../pages/equip/lms-equip-return-manage/LmsEquipReturnManage'; // 仪器归还管理
+// 耗材管理
+import LmsChemicalCategory from '../pages/chemical/lms-chemical-category/LmsChemicalCategory.vue'//耗材分类管理
+import LmsChemicalManage from '../pages/chemical/lms-chemicals-manage/LmsChemicalManage.vue'//耗材台账管理
+import LmsChemicalPurchase from '../pages/chemical/lms-chemical-purchase/LmsChemicalPurchase.vue'//耗材采购申请
+import LmsChemicalPurchaseOrder from '../pages/chemical/lms-chemical-purchase-order/LmsChemicalPurchaseOrder.vue'//耗材采购审批
+import LmsChemicalApply from '../pages/chemical/lms-chemical-apply/LmsChemicalApply.vue'//耗材领用申请
+import LmsChemicalUse from '../pages/chemical/lms-chemical-use/LmsChemicalUse.vue'//耗材领用审批
+import LmsChemicalUseHistory from '../pages/chemical/lms-chemical-use-history/LmsChemicalUseHistory.vue'//耗材使用记录
+import LmsChemicalUseQuery from '../pages/chemical/lms-chemical-use-query/LmsChemicalUseQuery.vue'//耗材使用查询
+import LmsChemicalReturn from '../pages/chemical/lms-chemical-return/LmsChemicalReturn.vue'//耗材归还管理
+import LmsChemicalStatistic from '../pages/chemical/lms-chemical-statistic/LmsChemicalStatistic.vue'//耗材采购统计功能
+import LmsRoleChemicalCategory from '../pages/chemical/lms-role-chemical-category/LmsRoleChemicalCategory.vue'//耗材金额统计
+// import LmsCustomer from '../pages/chemical/lms-customer/LmsCustomer.vue'// 客户管理
+// import LmsSupplier from '../pages/chemical/lms-supplier/LmsSupplier.vue'// 供应商管理
+// import LmsSupplierType from '../pages/chemical/lms-supplier-type/LmsSupplierType.vue'// 供应商分类管理
+// import LmsSupplierChemical from '../pages/chemical/lms-supplier-chemical/LmsSupplierChemical.vue'// 供应商耗材管理
+// import LmsChemicalUserecord from '../pages/chemical/lms-chemical-userecord/LmsChemicalUserecord.vue'// 耗材库存流水
+// import LmsChemicalClassify from '../pages/chemical/lms-chemical-classify/LmsChemicalClassify.vue'//耗材库存归类管理
+// import LmsChemicalDeliveryOrder from '../pages/chemical/lms-chemical-delivery-order/LmsChemicalDeliveryOrder.vue'//耗材出库单管理
+// import LmsChemicalInStorage from '../pages/chemical/lms-chemical-instorage/LmsChemicalInStorage.vue'//耗材入库管理
+// import LmsChemicalOutStorage from '../pages/chemical/lms-chemical-outstorage/LmsChemicalOutStorage.vue'//耗材出库管理
+// import LmsChemicalOutStorageApply from '../pages/chemical/lms-chemical-outstorage-apply/LmsChemicalOutStorageApply.vue'//耗材出库管理
+// import LmsStorehouse from '../pages/chemical/lms-storehouse/LmsStorehouse.vue'//仓库管理
+// import LmsUnit from '../pages/chemical/lms-unit/LmsUnit.vue'// 单位管理
 //标准管理
 //import Labmis from '../pages/lims/Labmis.vue' //标准查询kkkkkkkkk
 // 耗材管理
@@ -47,8 +71,6 @@ import LmsEquipReturn from '../pages/equip/lms-equip-return-manage/LmsEquipRetur
 // import LmsChemicalUseHistory from '../pages/lims/chemical/lms-chemical-use-history/LmsChemicalUseHistory.vue'
 // import LmsChemicalUseQuery from '../pages/lims/chemical/lms-chemical-use-query/LmsChemicalUseQuery.vue'
 // import LmsChemicalReturn from '../pages/lims/chemical/lms-chemical-return/LmsChemicalReturn.vue'
-//
-//
 // import LmsStaffInfo from "../pages/lims/staff/lms-staff-info/LmsStaffInfo.vue"//人员信息
 // import LmsStaffStatus from "../pages/lims/staff/lms-staff-status/LmsStaffStatus.vue"//人员状态
 // import LmsStaffTask from "../pages/lims/staff/lms-staff-task/LmsStaffTask.vue"//人员任务
@@ -62,17 +84,12 @@ import LmsEquipReturn from '../pages/equip/lms-equip-return-manage/LmsEquipRetur
 // //报告管理
 // import LmsReportTemplate from '../pages/lims/base/lms-report-template/LmsReportTemplate.vue' //报告模板
 // import LmsTemplateClass from '../pages/lims/base/lms-template-classify/LmsTemplateClassify.vue'
-//
-//
 // //订单管理
 // import LmsOrderManage from "../pages/lims/order-manage/LmsOrderManage.vue"
 // import LmsHistoryRecord from "../pages/lims/order-manage/LmsHistoryRecord.vue"
 // import LmsPickingListManage from "../pages/lims/order-manage/LmsPickingListManage.vue"
-//
-//
 // //车辆管理
 // import LmsCarInfo from '../pages/lims/car/lms-car-info/LmsCarInfo.vue'
-//
 // //体系管理
 // import LmsFrameCheckManage from "../pages/lims/frame/lms-frame-check-manage/LmsFrameCheckManage.vue"
 // import LmsFrameCheckPlan from "../pages/lims/frame/lms-frame-check-plan/LmsFrameCheckPlan.vue"
@@ -92,19 +109,13 @@ import LmsEquipReturn from '../pages/equip/lms-equip-return-manage/LmsEquipRetur
 // import LmsFrameCustomerInvestigateClass from '../pages/lims/frame/lms-frame-customer-investigate-class/LmsFrameCustomerInvestigateClass.vue'
 // //字典管理
 // import LmsBaseDict from "../pages/lims/base/lms-base-dict/LmsBaseDict.vue"
-//
-//
-//
 // //模块管理
 // import LmsPrintModule from "../pages/lims/print/lms-print-module/LmsPrintModule.vue"
-//
 // //模板管理
 // import LmsPrintTemplate from "../pages/lims/print/lms-print-template/LmsPrintTemplate.vue"
-//
 // //统计查询
 // //编号管理
 // import LmsCodeRule from "../pages/lims/code-rule/lims-code-rule/LmsCodeRule.vue"
-//
 // //采样部任务
 // //客商管理
 // import LmsProductQuery from '../pages/lims/chemical/lms-product-query/LmsProductQuery.vue'
@@ -127,9 +138,33 @@ export default [
   {path: 'equip_purchase', component: LmsEquipPurchase},
   {path: 'equip_audit', component: LmsEquipAudit},
   {path: 'equip_return', component: LmsEquipReturn},
+  // 耗材管理
+  {path: 'chemical_category', component: LmsChemicalCategory},//耗材类别管理
+  {path: 'chemical_manage', component: LmsChemicalManage},//耗材台账管理
+  {path: 'chemical_purchase', component: LmsChemicalPurchase},//耗材采购申请
+  {path: 'chemical_purchase_order', component: LmsChemicalPurchaseOrder},//耗材采购单审批
+  {path:'chemical_apply',component:LmsChemicalApply},//耗材领用申请
+  {path:'chemical_use',component:LmsChemicalUse},//耗材领用审批
+  {path:'chemical_ues_history',component:LmsChemicalUseHistory},//耗材使用记录
+  {path:'chemical_use_query',component:LmsChemicalUseQuery},//耗材使用查询
+  {path:'chemical_return',component:LmsChemicalReturn},//耗材归还管理
+  {path:'statistic',component:LmsChemicalStatistic},//耗材采购统计功能
+  {path: 'role_chemical_category', component: LmsRoleChemicalCategory},//耗材金额统计
+
+  // {path: 'customer', component: LmsCustomer},
+  // {path: 'supplier', component: LmsSupplier},
+  // {path: 'supplier_type', component: LmsSupplierType},
+  // {path: 'supplier_chemical', component: LmsSupplierChemical},
+  // {path: 'chemical_manage', component: LmsCommonly},
+  // {path: 'chemical_classify', component: LmsChemicalClassify},
+  // {path: 'chemical_delivery_order', component: LmsChemicalDeliveryOrder},
+  // {path: 'chemical_in_storage', component: LmsChemicalInStorage},
+  // {path: 'chemical_out_storage', component: LmsChemicalOutStorage},
+  // {path: 'chemical_out_storage_apply', component: LmsChemicalOutStorageApply},
+  // {path: 'storehouse', component: LmsStorehouse},
+  // {path: 'unit', component: LmsUnit},
   // {path: '', component: Labmis},
   // {path: 'chemical_category', component: LmsChemicalCategory},
-  // {path: 'role_chemical_category', component: LmsRoleChemicalCategory},
   // {path: 'chemical_compound', component: LmsChemicalCompound},
   // {path: 'bacterial', component: LmsBacterial},
   // {path: 'customer', component: LmsCustomer},
