@@ -24,8 +24,6 @@
     </PageTable>
     <!-- 添加、编辑 -->
     <LmsProjectTestEdit ref="testEditModal" @on-result-change="_search"></LmsProjectTestEdit>
-    <!--文件-->
-    <CertificateFile ref="fileModal"   @on-result-change="_search"></CertificateFile>
   </div>
 </template>
 <script>
@@ -34,7 +32,6 @@
    */
   import LmsProjectTestEdit from './LmsProjectTestEdit.vue'
   import PageTable from '../../../components/table/PageTable'
-  import CertificateFile from './CertificateFile.vue'
   import IconList from "../../../components/base/IconList";
 
   var setting;
@@ -42,7 +39,6 @@
       components: {
         PageTable,
         LmsProjectTestEdit,
-        CertificateFile,
       },
     data() {
       return {
@@ -54,8 +50,6 @@
         iconMsg:[
           {type:'edit',id:'',name:'编辑'},
           {type:'close',id:'',name:'删除'},
-          {type:'upload',id:'',name:'附件'},
-
         ],
         styleObject: {
           marginTop: '10px'
@@ -146,14 +140,8 @@
           case '删除' :
             this._deleteById(data.row.id);
             break;
-          case '附件' :
-            this._fileModal(data.row.id);
-            break;
         }
       },
-     /* _fileManage(id){
-        this.$refs.file._open(id);
-      },*/
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
@@ -216,9 +204,6 @@
       },
       _page() {
         this.$refs.pageTable._page('search-form', 'LmsTestPlan/page');
-      },
-      _fileModal(id){
-        this.$refs.fileModal._open(id);
       },
     }
   }
