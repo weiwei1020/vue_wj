@@ -35,7 +35,7 @@
       return {
         shrink: false,
         menuList: [
-          {"name":"LabServe","icon":"coffee",
+          {"name":"LabServer","icon":"coffee",
             "leftMenus":[
               {"name":"首页","icon":"coffee","subMenus":[],"uri":"/"},
               {"name":"实验管理","icon":"person-stalker",
@@ -166,9 +166,9 @@
       _clearMenu() {
         this.openedSubmenuArr = [];
         this.activeName = '';
-        store.session('crumbsArray', ['LabServe', '首页']);
+        store.session('crumbsArray', ['LabServer', '首页']);
         this.$store.commit('clearTag', []);
-        this.$store.commit('createTag', {name: 'LabServe', uri: '/'});
+        this.$store.commit('createTag', {name: 'LabServer', uri: '/'});
       },
       _initLoad() {
         this._getNavMenu(Global.getCode());

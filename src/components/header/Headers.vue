@@ -14,8 +14,8 @@
         :open-names="openedSubmenuArr"
         :menu-list="leftMenu">
         <div slot="top" class="logo-con" :class="classTheme">
-          <!--<img v-show="!shrink" :src="imgUri" key="max-logo" alt="公司logo">-->
-          <!--<img v-show="shrink" src="http://static.patzn.com/img/logo-min.png" key="min-logo"/>-->
+          <img v-show="!shrink" src="../../../static/img/logo.png" key="max-logo"  alt="公司logo">
+          <img v-show="shrink" src="../../../static/img/logo-min.png" key="min-logo" />
         </div>
       </shrinkable-menu>
     </div>
@@ -26,7 +26,7 @@
       <div class="main-header" :class="classTheme">
         <div class="navicon-con">
           <div v-if="!isleftMenu" class="logo-img">
-            <img src="http://static.patzn.com/img/logo-min.png">
+            <img src="../../../static/img/logo.png" width="80">
           </div>
           <Button :style="{transform: 'rotateZ(' + (shrink ? '-90' : '0') + 'deg)'}" type="text"
                   @click="_toggleClick" v-if="isleftMenu">
