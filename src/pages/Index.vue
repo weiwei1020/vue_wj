@@ -181,13 +181,13 @@
           if (str === '/#/') {
             this._clearMenu();
           }
-          this.$store.dispatch('SysUser/getUserInfo').then(() => {
-            let user = this.$store.state.SysUser.userInfo;
-            if (user) {
-              Global.setUserInfo(user);
-              this._getLogo(user);
-            }
-          });
+          // this.$store.dispatch('SysUser/getUserInfo').then(() => {
+          //   let user = this.$store.state.SysUser.userInfo;
+          //   if (user) {
+          //     Global.setUserInfo(user);
+          //     this._getLogo(user);
+          //   }
+          // });
         }
       },
       //获取logo、头像

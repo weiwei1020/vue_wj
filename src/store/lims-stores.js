@@ -15,6 +15,9 @@ import LmsEquipPurchaseDetail from "./modules/lims/lms-equip-purchase-detail";
 import LmsEquipSchedule from './modules/lims/lms-equip-schedule';
 import LmsEquipUseRecord from "./modules/lims/lms-equip-use-record";
 import LmsEquipAudit from './modules/lims/lms-equip-audit';
+//耗材管理
+import LmsChemicalCategory from "./modules/lims/lms-chemical-category";
+import LmsProductManage from './modules/lims/lms-product-manage'
 
 
 export default {
@@ -31,6 +34,9 @@ export default {
   LmsEquipSchedule,
   LmsEquipUseRecord,
   LmsEquipAudit,
+  //耗材管理
+  LmsChemicalCategory,
+  LmsProductManage,
 }
 
 /*import LmsChemical from "./modules/lims/lms-chemical";
@@ -39,7 +45,6 @@ import LmsChemicalUse from "./modules/lims/lms-chemical-use";
 import LmsChemicalUseHistory from "./modules/lims/lms-chemical-use-history";
 import LmsChemicalUseQuery from "./modules/lims/lms-chemical-use-query";
 import LmsChemicalReturn from "./modules/lims/lms-chemical-return";
-import LmsChemicalCategory from "./modules/lims/lms-chemical-category";
 import LmsBacterial from "./modules/lims/lms-bacterial";
 import LmsCustomerContact from "./modules/lims/lms-customer-contact";
 import LmsCustomer from "./modules/lims/lms-customer";
@@ -62,7 +67,6 @@ import LmsUnit from "./modules/lims/lms-unit";
 import LmsCustomerRecord from './modules/lims/env-customer-record'
 import LmsMonitorRecord from './modules/lims/env-monitor-record'
 import LmsSupAttachment from './modules/lims/env-supplier-attachment'
-import LmsProductManage from './modules/lims/lms-product-manage'
 import LmsProducyClass from './modules/lims/lms-product-class'
 
 import LmsTestInfo from "./modules/lims/lms-test-info";

@@ -11,21 +11,20 @@ const state = {
   orgList: {},
 
 };
-/*年度计划*/
-//年度计划分页查询
+//项目page
 const actions = {
   async page({commit}, data) {
-      await http.post('/slims/v1/staff_plan/page', data).then(function (resp) {
+      await http.post('/project/page', data).then(function (resp) {
             commit('PAGE', resp);
         });
     },
-  //年度计划添加
+  //项目添加
     async add({commit}, data) {
         await http.post('/slims/v1/staff_plan/', data).then(function (resp) {
             commit('SUCCESS', resp);
         });
     },
-  //年度计划编辑
+  //项目编辑
     async edit({commit}, data) {
         await http.put('/slims/v1/staff_plan/' + data.id, data.obj).then(function (resp) {
             commit('SUCCESS', resp);
@@ -43,7 +42,7 @@ const actions = {
             commit('GET_BY_ID', resp);
         });
     },
-  //年度计划查询列表
+  //项目查询列表
     async  list({commit}, data) {
       await http.post('/slims/v1/staff_plan/list', data).then(function (resp) {
         commit('LIST', resp);
@@ -54,24 +53,6 @@ const actions = {
         commit('LIST', resp);
       });
     },
-  //附件
-  async filePage({commit},data) {
-    await http.post('/slims/v1/staff_plan_attachment/page',data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  //根据id查询
-  async getFileById({commit},id) {
-    await http.post('/slims/v1/staff_plan_attachment/page/' + id).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  //删除附件
-  async deleteFileByIds({commit},ids) {
-    await http.delete('/slims/v1/staff_plan_attachment/?ids='+ ids).then(function (resp) {
-      commit('SUCCESS', resp);
-    });
-  },
   //实验修改记录
   async testChange({commit},data) {
     await http.post('/slims/v1/staff_history_operation/page', data).then(function (resp) {

@@ -59,37 +59,30 @@
     <LmsChemicalCategoryEdit ref="editModal" @on-result-change="_search"></LmsChemicalCategoryEdit>
     <!-- 查看详情 -->
     <LmsChemicalCategoryDetail ref="detailModal"></LmsChemicalCategoryDetail>
-    <!--导入-->
-    <DownloadImportExcel ref="importModal" @on-result-change="_search"></DownloadImportExcel>
   </div>
 </template>
 <script>
   import LmsChemicalCategoryEdit from './LmsChemicalCategoryEdit.vue'
   import LmsChemicalCategoryDetail from './LmsChemicalCategoryDetail.vue'
   import RelCategoryZtree from './RelCategoryZtree.vue'
-  import BtnList from '../../../components/base/BtnList.vue'
   import PageTable from '../../../components/table/PageTable'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
   import IconList from '../../../components/base/IconList1.vue'
-  import DownloadImportExcel from '../../../components/import/DownloadImportExcel'
 
   export default {
     components: {
       LmsChemicalCategoryEdit,
       LmsChemicalCategoryDetail,
       RelCategoryZtree,
-      BtnList,
       PageTable,
       BreadCrumbs,
       IconList,
-      DownloadImportExcel
     },
     data() {
       return {
         btn: [
           {type: 'success', id: '', name: '添加'},
         //  {type: 'error', id: '', name: '删除'},
-          {type: '', id: '', name: '导入'},
         ],
         btnObj: { //按钮权限
           edit: '',
@@ -173,7 +166,6 @@
       },
       _contHide() {
         this.contLength = $(".contHide").find('button').length;
-        this._judgePanel(0);
         this._search();
       },
       _panelChange(rel) { //点击折叠面板
@@ -273,9 +265,6 @@
           case '删除' :
             this._deleteSelected();
             break;
-          case '导入' :
-            this._importModule();
-            break;
         }
       },
       _tableResultChange(msg, data) {
@@ -286,14 +275,6 @@
           default :
             this._page();
         }
-      },
-      _importModule() {
-        let tempData = {
-          title:'导入耗材类别信息',
-          importUrl:'/slims/v1/chemical_category/import',
-          downloadUrl:'/slims/v1/excel/template/LmsChemicalCategory'
-        };
-        this.$refs.importModal._open(tempData);
       },
     },
   }

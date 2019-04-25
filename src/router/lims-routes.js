@@ -3,7 +3,7 @@
  */
 import helloWorld from '../components/HelloWorld.vue' //标准查询
 //实验管理
-import LmsTestPlan from "../pages/test-manage/lms-test-plan/LmsTestPlan.vue"//实验计划
+import LmsTestPlan from "../pages/test-manage/lms-test-plan/LmsTestProject.vue"//实验计划
 import LmsTestManage from "../pages/test-manage/lms-test-manage/LmsTestManage.vue"//实验管理
 import LmsTestSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSchedule.vue"//实验安排
 //仪器管理

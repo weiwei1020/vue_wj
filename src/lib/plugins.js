@@ -85,7 +85,7 @@ export default {
       if (name) {
         switch (name) {
           case 'search':/*有按钮和查询条件 各减 40*/
-            height = document.documentElement.clientHeight - 280;
+            height = document.documentElement.clientHeight - 80;
             break;
           case  'noSearch':/*有按钮和无查询条件*/
             height = document.documentElement.clientHeight - 240;
