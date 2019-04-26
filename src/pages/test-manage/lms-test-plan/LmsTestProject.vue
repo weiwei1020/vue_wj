@@ -30,7 +30,7 @@
                 <label class="label-sign"></label>
                 <Form-item class="width-23" label="实验名称:">
                   <Input name="testName" placeholder="请输入实验名称" style="width: 100px;" @on-enter="_formSearch"></Input>
-                  <input name="projectId" type="hidden">
+                  <input name="testProjectId" type="hidden">
                 </Form-item>
                 <Form-item class="search-btn" style="margin-left: 20px;">
                   <Button type="primary" @click="_formSearch">搜索</Button>
@@ -100,8 +100,8 @@
         iconMsg: [
           {type: 'edit', id: '', name: '编辑'},
           {type: 'close', id: '', name: '删除'},
-          {type: 'person', id: '', name: '人员维护'},
-          {type: 'document', id: '', name: '实验修改记录'},
+          // {type: 'person', id: '', name: '人员维护'},
+          // {type: 'document', id: '', name: '实验修改记录'},
         ],
         styleObject: {
          marginTop: '10px'
@@ -117,24 +117,24 @@
                 h('a', {
                   on: {
                     click: () => {
-                      this._detailModal(data.row.id);
+                      this._detailModal(data.row.testId);
                     }
                   }
                 }, data.row.testName),
               ]);
             }, width: 160
           },
-          {title: '创建人', key: 'uname', sortable: 'true', width: 120},
-          {title: '备注', key: 'remark', sortable: 'true', width: 160},
+          {title: '创建人', key: 'testUname', sortable: 'true', width: 120},
+          {title: '备注', key: 'testRemark', sortable: 'true', width: 160},
           {
-            title: '计划开始时间 ', key: 'beginDate', sortable: 'true', width: 160,
+            title: '计划开始时间 ', key: 'testbrginDate', sortable: 'true', width: 160,
             render: (h, params) => {
-              return h('div', params.row.beginDate ? this.$dateformat(params.row.beginDate, "yyyy-mm-dd HH" + ':00:00') : '');
+              return h('div', params.row.testbrginDate ? this.$dateformat(params.row.testbrginDate, "yyyy-mm-dd HH" + ':00:00') : '');
             }
           },
           {
-            title: '计划结束时间 ', key: 'endDate', width: 160, sortable: 'true', render: (h, params) => {
-              return h('div', params.row.endDate ? this.$dateformat(params.row.endDate, "yyyy-mm-dd HH" + ':00:00') : '');
+            title: '计划结束时间 ', key: 'testEndDate', width: 160, sortable: 'true', render: (h, params) => {
+              return h('div', params.row.testEndDate ? this.$dateformat(params.row.testEndDate, "yyyy-mm-dd HH" + ':00:00') : '');
             }
           },
           {
@@ -157,7 +157,7 @@
         isTree: true,
         getPage: {
           records: [
-            {testName:'111',remark:'111',beginDate:'111',endDate:'111',}
+            // {testName:'111',remark:'111',beginDate:'111',endDate:'111',}
           ]
         },
         contLength: null,
@@ -184,21 +184,21 @@
       _iconClick(res, data) {
         switch (res) {
           case '编辑' :
-            this._editModal(true, data.row.id);
+            this._editModal(true, data.row.testId);
             break;
           case '删除' :
-            this._deleteById(data.row.id);
+            this._deleteById(data.row.testId);
             break;
           case '人员维护' :
-            this._userManageById(data.row.id);
+            this._userManageById(data.row.testId);
             break;
           case '实验修改记录' :
-            this._changeModelById(data.row.id);
+            this._changeModelById(data.row.testId);
             break;
         }
       },
       _page() {
-       this.$refs.pageTable._page('search-form1', 'LmsStaffStatus/Testpage');
+       this.$refs.pageTable._page('search-form1', 'LmsTestProject/pageTest');
       },
       _formSearch() {
         this.$refs.pageTable._pageChange(1);
@@ -211,8 +211,8 @@
           title: '提示',
           content: content ? content : '确定删除该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsStaffStatus/deleteByIds', ids).then(() => {
-              if (this.$store.state.LmsStaffStatus.success) {
+            this.$store.dispatch('LmsTestProject/deleteByIds', ids.join(',')).then(() => {
+              if (this.$store.state.LmsTestProject.success) {
                 this._search();
                 this.$Message.success('删除成功！');
                 this.selectIds = [];
@@ -243,28 +243,28 @@
       },
       _detailModal(id) {
         // 查看
-        this.$store.dispatch('LmsStaffStatus/getTestById', id).then(() => {
-          this.$refs.detailModal._open(this.$store.state.LmsStaffStatus.model);
+        this.$store.dispatch('LmsTestProject/getByIdTest', id).then(() => {
+          this.$refs.detailModal._open(this.$store.state.LmsTestProject.model);
         });
       },
       _editModal(edit, id) {
         if (edit) {
           // 编辑
-          this.$store.dispatch('LmsStaffStatus/getTestById', id).then(() => {
-            this.$refs.editModal._open(this.$store.state.LmsStaffStatus.model);
+          this.$store.dispatch('LmsTestProject/getByIdTest', id).then(() => {
+            this.$refs.editModal._open(this.$store.state.LmsTestProject.model);
           });
         } else {
           // 添加
           var data = new Object();
-          data.projectId = $('input[name=projectId]').val();
-          data.projectName = this.project.projectName;
+          data.testProjectId = $('input[name=testProjectId]').val();
+          data.testProjectName = this.project.projectName;
           this.$refs.editModal._open(data);
         }
       },
       _levelData(result) {
         this.project = result;
         this.projectTitle=result.projectName+'——';
-        $('input[name=projectId]').val(result.id);
+        $('input[name=testProjectId]').val(result.projectId);
         this._formSearch();
       },
       _btnClick(msg) { //列表返回的数据
@@ -286,11 +286,7 @@
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
-            this.getPage ={
-              records: [
-                {testName:'111',remark:'111',beginDate:'111',endDate:'111',}
-              ]
-            }; //this.$store.state.LmsStaffStatus.page;
+            this.getPage =this.$store.state.LmsTestProject.page;
             break;
           case 'selectIds':
             this.selectIds = data;

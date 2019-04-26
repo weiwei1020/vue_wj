@@ -35,7 +35,8 @@
     },
     data() {
       return {
-        tasks: {data:[]},
+        tasks: {data:[
+          ]},
         staffList: [],
         orgId:'',
         departs:'',
@@ -56,7 +57,10 @@
       _search() {
         this.$store.dispatch('LmsTestSchedule/staffSchedule', this._searchParams()).then(() => {
           let tasks = this.$store.state.LmsTestSchedule.list;
-          this.tasks.data=[];
+          this.tasks.data=[
+            {"id":"1103459692630822913","text":"青岛莱博斯威仪电科技有限公司【管理员】",
+              "startDate":1551888000000,"duration":"2","parent":"1089816435543552001","color":"实验1"},
+          ];
           for (let i = 0; i < tasks.length; i++) {
             this.tasks.data.push({
               'id':tasks[i].id,
@@ -123,9 +127,9 @@
         }
       },
       _getStaffList() {
-        this.$store.dispatch('LmsStaffInfo/list').then(() => {
-          this.staffList = this.$store.state.LmsStaffInfo.list;
-        });
+        // this.$store.dispatch('LmsStaffInfo/list').then(() => {
+        //   this.staffList = this.$store.state.LmsStaffInfo.list;
+        // });
       },
     }
   }

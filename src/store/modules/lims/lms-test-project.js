@@ -13,46 +13,67 @@ const state = {
 };
 //项目page
 const actions = {
-  async page({commit}, data) {
+    async page({commit}, data) {
       await http.post('/project/page', data).then(function (resp) {
             commit('PAGE', resp);
         });
     },
-  //项目添加
     async add({commit}, data) {
-        await http.post('/slims/v1/staff_plan/', data).then(function (resp) {
+        await http.post('/project/add', data).then(function (resp) {
             commit('SUCCESS', resp);
         });
     },
-  //项目编辑
     async edit({commit}, data) {
-        await http.put('/slims/v1/staff_plan/' + data.id, data.obj).then(function (resp) {
+        await http.post('/project/update',data).then(function (resp) {
             commit('SUCCESS', resp);
         });
     },
-  //根据id删除
     async deleteByIds({commit}, ids) {
-        await http.delete('/slims/v1/staff_plan/?ids=' + ids).then(function (resp) {
+        await http.post('/project/delete',{projectId: ids}).then(function (resp) {
             commit('SUCCESS', resp);
         });
     },
-  //根据id查询
     async getById({commit}, id) {
-        await http.get('/slims/v1/staff_plan/' + id).then(function (resp) {
+        await http.post('/project/select',{projectId: id}).then(function (resp) {
             commit('GET_BY_ID', resp);
         });
     },
-  //项目查询列表
     async  list({commit}, data) {
-      await http.post('/slims/v1/staff_plan/list', data).then(function (resp) {
+      await http.post('/project/selectAll', data).then(function (resp) {
         commit('LIST', resp);
       });
     },
-    async getTreeKeyword({commit},data) {
-      await http.post('/slims/v1/staff_plan/list?projectName='+data).then(function (resp) {
+    async pageTest({commit}, data) {
+      await http.post('/test/page', data).then(function (resp) {
+        commit('PAGE', resp);
+      });
+    },
+    async addTest({commit}, data) {
+      await http.post('/test/add', data).then(function (resp) {
+        commit('SUCCESS', resp);
+      });
+    },
+    async editTest({commit}, data) {
+      await http.post('/test/update',data).then(function (resp) {
+        commit('SUCCESS', resp);
+      });
+    },
+    async deleteByIdsTest({commit}, ids) {
+      await http.post('/test/delete',{testId: ids}).then(function (resp) {
+        commit('SUCCESS', resp);
+      });
+    },
+    async getByIdTest({commit}, id) {
+      await http.post('/test/select',{testId: id}).then(function (resp) {
+        commit('GET_BY_ID', resp);
+      });
+    },
+    async  listTest({commit}, data) {
+      await http.post('/test/selectAll', data).then(function (resp) {
         commit('LIST', resp);
       });
     },
+
   //实验修改记录
   async testChange({commit},data) {
     await http.post('/slims/v1/staff_history_operation/page', data).then(function (resp) {

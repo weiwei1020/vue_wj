@@ -14,7 +14,7 @@
         :open-names="openedSubmenuArr"
         :menu-list="leftMenu">
         <div slot="top" class="logo-con" :class="classTheme">
-          <img v-show="!shrink" src="../../../static/img/logo.png" key="max-logo"  alt="公司logo">
+          <img v-show="!shrink" src="http://api.patzn.com/base/v1/company/logo?key=base/1108967423563104258.png" key="max-logo"  alt="公司logo">
           <img v-show="shrink" src="../../../static/img/logo-min.png" key="min-logo" />
         </div>
       </shrinkable-menu>

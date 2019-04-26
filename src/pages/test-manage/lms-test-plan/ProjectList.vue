@@ -45,7 +45,7 @@
         searchOpen:false,
         btn: [
           {type: 'success', id: '', name: '添加'},
-          {type: 'error', id: '', name: '删除'},
+          // {type: 'error', id: '', name: '删除'},
         ],
         iconMsg:[
           {type:'edit',id:'',name:'编辑'},
@@ -56,12 +56,11 @@
         },
         key:'',
         projectName:'',
-        isloading:false,
         isTree:false,
         pageColumns: [
           {type: 'selection', width: 60, align: 'center'},
           {
-            title: '项目名称', key: 'projectName',sortable:'true',
+            title: '项目名称', key: 'projectName',sortable:'true',width:120,
             render: (h, data) => {
               return h('div', [
                 h('a', {
@@ -74,10 +73,11 @@
               ]);
             }
           },
-          {title: '备注 ', key: 'projectRemark',sortable:'true',},
-          {title: '创建时间 ', key: 'ctime',sortable:'true',
+      {title: '负责人 ', key: 'projectPerson',sortable:'true',width:120,},
+      {title: '备注 ', key: 'projectRemark',sortable:'true',width:120,},
+          {title: '创建时间 ', key: 'projectCtime',sortable:'true',width:140,
             render: (h, params) => {
-              return h('div', params.row.ctime ? this.$dateformat(params.row.ctime, "yyyy-mm-dd") : '');
+              return h('div', params.row.projectCtime ? this.$dateformat(params.row.projectCtime, "yyyy-mm-dd") : '');
             }
           },
           {
@@ -124,8 +124,8 @@
       _editModal(edit, id) {
         if (edit) {
           // 编辑
-          this.$store.dispatch('LmsTestPlan/getById', id).then(() => {
-            this.$refs.testEditModal._open(this.$store.state.LmsTestPlan.model);
+          this.$store.dispatch('LmsTestProject/getById', id).then(() => {
+            this.$refs.testEditModal._open(this.$store.state.LmsTestProject.model);
           });
         } else {
           // 添加
@@ -135,17 +135,17 @@
       _iconClick(res,data){
         switch (res){
           case '编辑' :
-            this._editModal(true, data.row.id);
+            this._editModal(true, data.row.projectId);
             break;
           case '删除' :
-            this._deleteById(data.row.id);
+            this._deleteById(data.row.projectId);
             break;
         }
       },
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
-            this.getPage = this.$store.state.LmsTestPlan.page;
+            this.getPage = this.$store.state.LmsTestProject.page;
             break;
           case 'selectIds':
             this.selectIds = data;
@@ -159,8 +159,8 @@
           title: '提示',
           content: content ? content : '确定删除该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsTestPlan/deleteByIds', ids).then(() => {
-              if (this.$store.state.LmsTestPlan.success) {
+            this.$store.dispatch('LmsTestProject/deleteByIds', ids.join(',')).then(() => {
+              if (this.$store.state.LmsTestProject.success) {
                 this._search();
                 this.$Message.success('删除成功！');
                 this.selectIds = [];
@@ -203,7 +203,7 @@
         this._formSearch();
       },
       _page() {
-        this.$refs.pageTable._page('search-form', 'LmsTestPlan/page');
+        this.$refs.pageTable._page('search-form', 'LmsTestProject/page');
       },
     }
   }

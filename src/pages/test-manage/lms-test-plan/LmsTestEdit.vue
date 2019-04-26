@@ -6,19 +6,21 @@
                 <Form id="edit-form" ref="formObj"  :model="formObj" :rules="ruleValidate" :label-width="80">
                     <Form-item label="实验名称" prop="testName" style="width:100%;">
                         <Input name="testName" v-model="formObj.testName" placeholder="请输入实验名称"></Input>
+                      <input name="testProjectId" v-model="formObj.testProjectId" type="hidden"></input>
+                      <input name="testProjectName" v-model="formObj.testProjectName" type="hidden"></input>
                     </Form-item>
-                    <Form-item label="计划开始日期" prop="beginDate" >
-                      <Date-picker name="beginDate" type="datetime"
-                                   placeholder="开始日期" format="yyyy-MM-dd HH"
-                                  v-model="formObj.beginDate" style="width:100%;">
+                    <Form-item label="计划开始日期" prop="testBrginDate" >
+                      <Date-picker name="testBrginDate" type="datetime"
+                                   placeholder="开始日期" format="yyyy-MM-dd HH:mm:ss"
+                                  v-model="formObj.testBrginDate" style="width:100%;">
                       </Date-picker>
                     </Form-item>
-                    <Form-item label="计划结束日期" prop="endDate" >
-                      <Date-picker name="endDate" type="datetime"  format="yyyy-MM-dd HH"
-                                   placeholder="结束日期" v-model="formObj.endDate" style="width:100%;"></Date-picker>
+                    <Form-item label="计划结束日期" prop="testEndDate" >
+                      <Date-picker name="testEndDate" type="datetime"  format="yyyy-MM-dd HH:mm:ss"
+                                   placeholder="结束日期" v-model="formObj.testEndDate" style="width:100%;"></Date-picker>
                     </Form-item>
-                    <Form-item label="备注" prop="remark">
-                        <Input name="remark" v-model="formObj.remark" placeholder="请输入备注"></Input>
+                    <Form-item label="备注" prop="testRemark">
+                        <Input name="testRemark" v-model="formObj.testRemark" placeholder="请输入备注"></Input>
                     </Form-item>
                 </Form>
             </div>
@@ -31,15 +33,16 @@
 </template>
 <script>
   /**
-     * 添加编辑人员管理-人员等级分类
+     * 添加编辑实验
      */
     const defVal = {
-        id:'',
-        projectId:'',
+        testProjectId:'',
+        testProjectName:'',
+        testId:'',
         testName: '',
-        beginDate:'',
-        endDate:'',
-        remark: '',
+        testBrginDate:'',
+        testEndDate:'',
+        testRemark: '',
     };
   var dateFormat = require('dateformat');
     export default {
@@ -51,15 +54,17 @@
                 modalTitle: '',
                 formObj: defVal,
                 ruleValidate: {
+                  testName: [{required: true, message: '实验名称不能为空', trigger: 'blur'}],
                 },
                 showEditModal: false,
             }
         },
         methods: {
             _resultChange(msg) {
-                if (this.$store.state.LmsStaffStatus.success) {
+                if (this.$store.state.LmsTestProject.success) {
                     this.formObj = defVal;
-                    this.showEditModal = false;
+                  this.$refs['formObj'].resetFields();
+                  this.showEditModal = false;
                     this.$Message.success(msg);
                     this.$emit("on-result-change")
                 }
@@ -68,21 +73,21 @@
               this.$refs['formObj'].validate((valid) => {
                 if (valid) {
                   var data = this.$serialize('edit-form');
-                  data.beginDate=dateFormat(this.formObj.beginDate,'yyyy-mm-dd HH')+':00:00';
-                  data.endDate=dateFormat(this.formObj.endDate,'yyyy-mm-dd HH')+':00:00';
                   this.$extend(data,
                       {
-                        projectId:this.formObj.projectId,//年度计划id
+                        testProjectId:this.formObj.testProjectId,//年度计划id
+                        testProjectName:this.formObj.testProjectName,//年度计划
+                        testId:this.formObj.testId,//实验id
                       });
                     if (this.$string(this.id).isEmpty()) {
                         // 添加
-                        this.$store.dispatch('LmsStaffStatus/add', data).then(() => {
+                        this.$store.dispatch('LmsTestProject/addTest', data).then(() => {
                             this._resultChange('添加成功!');
                             this.showEditModal=false;
                         });
                     } else {
                         // 编辑
-                        this.$store.dispatch('LmsStaffStatus/Testedit', {id: this.formObj.id, obj: data}).then(() => {
+                        this.$store.dispatch('LmsTestProject/editTest', data).then(() => {
                         this._resultChange('编辑成功!');
                           this.showEditModal=false;
                         });
@@ -93,32 +98,29 @@
                 });
             },
             _cancel() {
-                this.showEditModal = false;
+              this.$refs['formObj'].resetFields();
+              this.showEditModal = false;
             },
             _open(formObj) {
-              if(formObj.projectId==''||formObj.projectId==undefined){
+              if(formObj.testProjectId==''||formObj.testProjectId==undefined){
                 this.$Message.warning('请先在左侧计点击选择一个计划名称！');
                 this.showEditModal = false;
               }else{
                 this.showEditModal = true;
-                this.$refs['formObj'].resetFields();
-                if (this.$string(formObj.id).isEmpty()) {
+                if (this.$string(formObj.testId).isEmpty()) {
                   this.id = '';
                   this.formObj = defVal;
-                  this.formObj.projectId=formObj.projectId;
-                  this.modalTitle = '添加实验安排-'+formObj.projectName;
+                  this.formObj.testProjectId=formObj.testProjectId;
+                  this.formObj.testProjectName=formObj.testProjectName;
+                  this.modalTitle = '添加实验安排-'+formObj.testProjectName;
                 } else {
-                  this.id = formObj.id;
+                  this.id = formObj.testId;
                   this.formObj = formObj;
-                  if(formObj.beginDate!=undefined){
-                    this.formObj.beginDate = dateFormat(formObj.beginDate,"yyyy-mm-dd HH");
-                  }else{
-                    this.formObj.beginDate='';
+                  if(formObj.testBrginDate=undefined){
+                    this.formObj.testBrginDate='';
                   }
-                  if(formObj.endDate!=undefined){
-                    this.formObj.endDate = dateFormat(formObj.endDate,"yyyy-mm-dd HH");
-                  }else{
-                    this.formObj.endDate='';
+                  if(formObj.testEndDate=undefined){
+                    this.formObj.testEndDate='';
                   }
                   this.modalTitle = '编辑实验安排';
                 }

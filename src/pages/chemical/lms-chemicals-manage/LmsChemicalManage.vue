@@ -91,7 +91,6 @@
   import UserChemicalCategory from '../../../components/lims/UserChemicalCategory.vue'
   import CategoryTree from '../CategoryTree.vue'
   import LmsChemicalStock from './LmsChemicalStock.vue'
-  import LmsChemicalStockClassify from '../lms-chemical-classify/LmsChemicalStockClassify.vue'
   import LmsChemicalStockUserecord from './LmsChemicalStockUserecord.vue'
   import LmsChemicalDetail from './LmsChemicalDetail.vue'
   import BtnList from '../../../components/base/BtnList.vue'
@@ -108,7 +107,6 @@
       UserChemicalCategory,
       CategoryTree,
       LmsChemicalStock,
-      LmsChemicalStockClassify,
       LmsChemicalStockUserecord,
       LmsChemicalDetail,
       BtnList,

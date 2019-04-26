@@ -2,7 +2,7 @@
  * 标准查询管理模块
  */
 //实验管理
-import LmsTestPlan from "./modules/lims/lms-test-plan";
+import LmsTestProject from "./modules/lims/lms-test-project";
 import LmsTestManage from "./modules/lims/lms-test-manage";
 import LmsTestSchedule from "./modules/lims/lms-test-schedule";
 //仪器管理
@@ -21,7 +21,7 @@ import LmsProductManage from './modules/lims/lms-product-manage'
 
 
 export default {
-  LmsTestPlan,
+  LmsTestProject,
   LmsTestManage,
   LmsTestSchedule,
   //仪器管理
