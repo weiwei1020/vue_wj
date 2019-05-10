@@ -4,12 +4,8 @@
       <p slot="header">{{modalTitle}}</p>
       <div>
         <Form id="edit-form" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80">
-          <Form-item label="上级类别" prop="pname">
-            <Input name="pname" v-model="pname" placeholder="请选择上级类别" @click.native="_selectZtree" icon="plus-circled"
-                   readonly></Input>
-          </Form-item>
-          <Form-item label="类别名" prop="name">
-            <Input name="name" v-model="formObj.name" placeholder="请输入类别名"></Input>
+          <Form-item label="类别名称" prop="name">
+            <Input name="name" v-model="formObj.name" placeholder="请输入类别名称"></Input>
           </Form-item>
           <Form-item label="描述" prop="remark">
             <Input name="remark" v-model="formObj.remark" placeholder="请输入描述" type="textarea" :rows="5"></Input>
@@ -21,32 +17,26 @@
         <Button @click="_ok('formObj')" type="primary">提交</Button>
       </div>
     </Modal>
-    <!--上级类别弹出树-->
-    <LmsEquipClassZTree ref="ztreeModal" @on-result-change="_ztree"></LmsEquipClassZTree>
   </div>
 </template>
 <script>
   /**
    * 添加编辑
    */
-  import LmsEquipClassZTree from './LmsEquipClassZTree.vue'
-
   const defVal = {
     name: '',
     pid: '',
     remark: '',
   };
   export default {
-    components: {
-      LmsEquipClassZTree
-    },
+    components: {},
     data() {
       return {
         id: '',
         modalTitle: '添加仪器分类',
         formObj: defVal,
         ruleValidate: {
-          name: [{required: true, message: '类别名不能为空', trigger: 'blur'}],
+          name: [{required: true, message: '类别名称不能为空', trigger: 'blur'}],
         },
         showEditModal: false,
         pname: ''
@@ -79,7 +69,7 @@
               });
             } else {
               // 编辑
-              this.$store.dispatch('LmsEquipClass/edit', {id: this.formObj.id, obj: data}).then(() => {
+              this.$store.dispatch('LmsEquipClass/edit', data).then(() => {
                 this._resultChange('编辑成功!');
                 this.id = '';
               });
@@ -105,24 +95,6 @@
           this.pname = formObj.pname;
           this.modalTitle = '编辑';
         }
-      },
-      _selectZtree() {
-        if (this.$string(this.id).isEmpty()){
-          this.$refs.ztreeModal._openZtree();  //打开上ztreeModel
-        }else{
-          this.$refs.ztreeModal._openZtree(this.formObj.pid);  //打开上ztreeModel
-        }
-      },
-      _ztree(result) {
-        this.pname = '';
-        if (result === undefined) {
-          this.formObj.pid = '0';
-          this.pname = '';
-        } else {
-          this.formObj.pid = result.id;
-          this.pname = result.name;
-        }
-
       },
     }
   }
