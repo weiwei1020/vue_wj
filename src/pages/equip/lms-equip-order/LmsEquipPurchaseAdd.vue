@@ -3,7 +3,7 @@
     <Modal v-model="showEditModal" :mask-closable="false" :width="700">
       <p slot="header">{{modalTitle}}</p>
       <div>
-        <Form id="edit-add-purform" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
+        <Form id="edit-add-purform-add" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
           <Form-item label="申请人" prop="apparatusPurchasePerson" class="width-48">
             <Input name="apparatusPurchasePerson" v-model="formObj.apparatusPurchasePerson" placeholder="请输入申请人"></Input>
             <input name="apparatusPurchasePersonId" v-model="formObj.apparatusPurchasePersonId" type="hidden"/>
@@ -79,7 +79,7 @@
       _ok() {
         this.$refs['formObj'].validate((valid) => {
           if (valid) {
-            var data = this.$serialize('edit-add-purform');
+            var data = this.$serialize('edit-add-purform-add');
             data.apparatusPurchaseApparatusId = this.formObj.apparatusPurchaseApparatusId;
             data.apparatusPurchasePerson = this.formObj.apparatusPurchasePerson;
             data.apparatusPurchasePersonId = this.formObj.apparatusPurchasePersonId;
@@ -90,10 +90,10 @@
             data.apparatusPurchaseReason = this.formObj.apparatusPurchaseReason;
             data.apparatusPurchaseRemark = this.formObj.apparatusPurchaseRemark;
             // 添加
-            this.$store.dispatch('LmsEquipOrder/editPros', data).then(() => {
+            this.$store.dispatch('LmsEquipOrder/addPros', data).then(() => {
               if (this.$store.state.LmsEquipOrder.success) {
                 this.showEditModal = false;
-                this.$Message.success('成功修改预约单！');
+                this.$Message.success('成功加入到预约单！');
                 this.$emit("on-result-change")
               }
             });
@@ -105,19 +105,19 @@
       _cancel() {
         this.showEditModal = false;
       },
-      _open(obj) {
+      _open(id, name) {
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
         this.modalTitle = '仪器名称 一 ' + name;//耗材名称
-        this.formObj.apparatusPurchaseApparatusId=obj.apparatusPurchaseApparatusId;
-        this.formObj.apparatusPurchasePerson=obj.apparatusPurchasePerson;
+        this.formObj.apparatusPurchaseApparatusId='';
+        this.formObj.apparatusPurchasePerson='';
         this.formObj.apparatusPurchasePersonId='1';
-        this.formObj.apparatusPurchaseAuditPerson=obj.apparatusPurchaseAuditPerson;
+        this.formObj.apparatusPurchaseAuditPerson='';
         this.formObj.apparatusPurchaseAuditPersonId='1';
-        this.formObj.apparatusPurchaseReason= obj.apparatusPurchaseReason;
-        this.formObj.apparatusPurchaseCtime=obj.apparatusPurchaseCtime;
-        this.formObj.apparatusPurchaseLtime=obj.apparatusPurchaseLtime;
-        this.formObj.apparatusPurchaseRemark=obj.apparatusPurchaseRemark;
+        this.formObj.apparatusPurchaseReason= '';
+        this.formObj.apparatusPurchaseCtime='';
+        this.formObj.apparatusPurchaseLtime='';
+        this.formObj.apparatusPurchaseRemark='';
       },
     }
   }

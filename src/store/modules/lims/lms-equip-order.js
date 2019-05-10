@@ -13,9 +13,37 @@ const state = {
 };
 
 const actions = {
-  /*申请相关*/
-  async addPros({commit}, ids) { //批量添加
-    await http.post('/slims/v1/equip_order_temp/?equipIds=' + ids).then(function (resp) {
+  /*仪器预约添加*/
+  async addPros({commit}, data) {
+    await http.post('/apparatusPurchase/add',data).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  async pageDraft({commit}, data) {
+    await http.post('/apparatusPurchase/pageDraft', data).then(function (resp) {
+      commit('PAGE', resp);
+    });
+  },
+  async page({commit}, data) {
+    await http.post('/apparatusPurchase/page', data).then(function (resp) {
+      commit('PAGE', resp);
+    });
+  },
+  /*仪器预约修改*/
+  async editPros({commit}, data) {
+    await http.post('/apparatusPurchase/edit',data).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  /*预约提交*/
+  async submitPros({commit}, data) {
+    await http.post('/apparatusPurchase/submit',data).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  /*预约删除*/
+  async deletePros({commit}, data) {
+    await http.post('/apparatusPurchase/delete',data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
@@ -103,11 +131,11 @@ const actions = {
   /*
   * 草稿箱状态*/
   /*获取学生分页列表*/
-  async pageDraft({commit}, data) {
-    await http.post('/slims/v1/equip_order/applyPage', data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
+  // async pageDraft({commit}, data) {
+  //   await http.post('/slims/v1/equip_order/applyPage', data).then(function (resp) {
+  //     commit('PAGE', resp);
+  //   });
+  // },
   /*提交*/
   async submitOrderDraft({commit}, groupId) {
     await http.put('/slims/v1/equip_order/submitById?groupId=' + groupId).then(function (resp) {
@@ -257,9 +285,7 @@ const mutations = {
     PURCHASE_PAGE(state, resp) {
       state.purchasePage = resp;
     },
-    GET_BY_ID(state, resp) {
-      state.model = resp;
-    },
+
     LIST(state, resp) {
       state.list = resp;
     },
