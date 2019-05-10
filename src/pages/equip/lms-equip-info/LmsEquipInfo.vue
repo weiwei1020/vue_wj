@@ -10,13 +10,11 @@
   </div>
 </template>
 <script>
-  import ImgNotes from './tabs/ImgNotes.vue'
   import EquipInfo from './tabs/EquipInfo.vue'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
 
   export default {
     components: {
-      ImgNotes,
       EquipInfo,
       BreadCrumbs
     },

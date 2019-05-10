@@ -28,14 +28,8 @@
               <Form id="search-form" inline onsubmit="return false" :label-width="70">
                 <label class="label-sign"></label>
                 <Form-item class="width-21" label="仪器名称:">
-                  <Input v-model="name" placeholder="请输入仪器名称" @on-enter="_pageChange(1)"/>
+                  <Input v-model="apparatusName" placeholder="请输入仪器名称" @on-enter="_pageChange(1)"/>
                 </Form-item>
-                <!--<Form-item class="width-21" prop="status" label="状态:">
-                  <Select v-model="status" clearable placeholder="请选择状态">
-                    <Option value="0">闲置</Option>
-                    <Option value="1">在用</Option>
-                  </Select>
-                </Form-item>-->
                 <Form-item class="search-btn">
                   <Button type="primary" @click="_pageChange(1)">搜索</Button>
                 </Form-item>
@@ -66,30 +60,16 @@
     <LmsEquipInfoEdit ref="editModal" @on-result-change="_search"></LmsEquipInfoEdit>
     <!-- 查看详情 -->
     <LmsEquipInfoDetail ref="detailModal"></LmsEquipInfoDetail>
-    <!--预约-->
-    <LmsEquipInfoOrder ref="orderModal"></LmsEquipInfoOrder>
-    <!--修改-->
-    <LmsEquipChangeOrder ref="changeModal"></LmsEquipChangeOrder>
-    <!--电子文档-->
-    <LmsEquipInfoRecord ref="docModal"></LmsEquipInfoRecord>
     <!--上级类别弹出树-->
     <LmsEquipClassZTree ref="ztreeModal" @on-result-change="_ztree"></LmsEquipClassZTree>
-    <!--导入-->
-    <DownloadImportExcel ref="importModal" @on-result-change="_search"></DownloadImportExcel>
   </div>
 </template>
 <script>
-  import global from '../../../../api/config'
   import LmsEquipInfoEdit from '../LmsEquipInfoEdit.vue'
   import LmsEquipInfoDetail from '../LmsEquipInfoDetail.vue'
   import LmsEquipClassTree from '../LmsEquipClassTree.vue'
-  import LmsEquipInfoRecord from '../LmsEquipInfoRecord.vue'
   import BtnList from '../../../../components/base/BtnList.vue'
   import IconList from '../../../../components/base/IconList1.vue'
-  import LmsEquipInfoOrder from '../../lms-equip-order/LmsEquipOrderEdit.vue'
-  import DownloadImportExcel from '../../../../components/import/DownloadImportExcel'
-
-
   export default {
     components: {
       IconList,
@@ -97,26 +77,20 @@
       LmsEquipInfoEdit,
       LmsEquipInfoDetail,
       LmsEquipClassTree,
-      LmsEquipInfoRecord,
-      LmsEquipInfoOrder,
-      DownloadImportExcel,
     },
     data() {
       return {
         btn: [
           {type: 'success', id: '', name: '添加'},
-          {type: '', id: '', name: '导入',},
-          {type: '', id: '', name: '导出'},
         ],
         iconMsg: [
           {type: 'edit', id: '', name: '编辑'},
-          {type: 'close', id: '', name: '删除'},
-          {type: 'android-document', id: '', name: '操作记录'},
+          {type: 'trash-a', id: '', name: '删除'},
+          // {type: 'android-document', id: '', name: '操作记录'},
         ],
         loading: true,
         id: '',
-        name: '',
-        status: '',
+        apparatusName: '',
         className: '',
         pname: '',
         classId: '',
@@ -127,55 +101,26 @@
         },
         pageColumns: [
           {type: 'selection', width: 60, align: 'center', fixed: 'left'},
-        /*  {
-            title: '状态', key: 'status', width: 80, ellipsis: true, fixed: 'left', sortable: 'true',
-            render: (h, data) => {
-              var status = {"0": "闲置", "1": "在用"};
-              let operate = [];
-              if (data.row.status === undefined) {
-                operate.push(
-                  h('div', {}, '无')
-                );
-              } else {
-                operate.push(
-                  h('div', {
-                    style: {
-                      color: data.row.status === 2 || data.row.status === 3 ? '#6FBA2C' : data.row.status === 0 ? '#00a0e9' : data.row.status === 1 ? '#F8BB2C' : 'red'
-                    }
-                  }, status[data.row.status] ? status[data.row.status] : '')
-                );
-              }
-              return h('div', operate);
-            }
-          },*/
-          {title: '仪器编号', key: 'equipNum', width: 170, align: 'center', ellipsis: true, fixed: 'left', sortable: 'true',},
+          {title: '仪器编号', key: 'apparatusNum', width: 170, align: 'center', ellipsis: true, fixed: 'left', sortable: 'true',},
           {
-            title: '仪器名称', key: 'name', width: 160, align: 'center', ellipsis: true, fixed: 'left', sortable: 'true',
+            title: '仪器名称', key: 'apparatusName', width: 160, align: 'center', ellipsis: true, fixed: 'left', sortable: 'true',
             render: (h, data) => {
               return h('div', [
                 h('a', {
                   on: {
                     click: () => {
-                      this._detailModal(data.row.id);
+                      this._detailModal(data.row.apparatusId);
                     }
                   }
-                }, data.row.name),
+                }, data.row.apparatusName),
               ]);
             }
           },
-          {title: '仪器类别', key: 'className', width: 160, align: 'center', ellipsis: true, sortable: 'true',},
-          {title: '供应商名称', key: 'supplierId', width: 160, align: 'center', ellipsis: true, sortable: 'true',},
-          {title: '供应商电话', key: 'suppliertel', width: 160, align: 'center', ellipsis: true,sortable: 'true',},
-          {title: '供应商email', key: 'supplieremil', width: 160, align: 'center', ellipsis: true,sortable: 'true',},
-          {title: '仪器品牌', key: 'brand', width: 160, align: 'center', ellipsis: true, sortable: 'true',},
-          {title: '仪器价格', key: 'price', width: 110, align: 'center', ellipsis: true, sortable: 'true',},
-          {
-            title: '购买日期', key: 'buyDate', "width": 120, ellipsis: true, sortable: 'true',
-            render: (h, params) => {
-              return h('div', params.row.buyDate ? this.$dateformat(params.row.buyDate, "yyyy-mm-dd") : '');
-            }
-          },
-          {title: '备注', key: 'remark', width: 180, align: 'center', ellipsis: true,},
+          {title: '仪器类别', key: 'apparatusSortName', width: 160, align: 'center', ellipsis: true, sortable: 'true',},
+          {title: '仪器品牌', key: 'apparatusBrand', width: 160, align: 'center', ellipsis: true, sortable: 'true',},
+          {title: '仪器价格', key: 'apparatusPrice', width: 110, align: 'center', ellipsis: true, sortable: 'true',},
+          {title: '购买日期', key: 'apparatusBuyTime', width: 150, ellipsis: true, sortable: 'true',},
+          {title: '备注', key: 'apparatusRemark', width: 180, align: 'center', ellipsis: true,},
           {
             title: '操作', key: 'action', width: 160, fixed: 'right', align: 'center',
             render: (h, data) => {
@@ -217,31 +162,19 @@
           case '添加' :
             this._editModal(false);
             break;
-          case '导出':
-            this._export();
-            break;
-          case '导入':
-            this._upload();
-            break;
-          case '预约':
-            this._orderModal();
-            break;
-          case '修改':
-            this._changeModal();
-            break;
         }
       },
       _iconClick(res, data) {
         switch (res) {
           case '编辑' :
-            this._editModal(true, data.row.id);
+            this._editModal(true, data.row.apparatusId);
             break;
           case '删除' :
-            this._deleteById(data.row.id);
+            this._deleteById(data.row.apparatusId);
             break;
-          case '操作记录' :
-            this._docModal(data.row.id);
-            break;
+          // case '操作记录' :
+          //   this._docModal(data.row.apparatusId);
+          //   break;
         }
       },
       _deleteById(id) {
@@ -259,7 +192,7 @@
           title: '提示',
           content: content ? content : '确定删除该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsEquipInfo/deleteByIds', ids).then(() => {
+            this.$store.dispatch('LmsEquipInfo/deleteByIds', ids.join(',')).then(() => {
               if (this.$store.state.LmsEquipInfo.success) {
                 this._search();
                 this.$Message.success('删除成功！');
@@ -271,8 +204,7 @@
       },
       _refresh() { //刷新
         this.classId = '';
-        this.name = '';
-        this.status = '';
+        this.apparatusName = '';
         this._search();
         this._classTree();
       },
@@ -324,67 +256,24 @@
           this.$refs.editModal._open(this.treeObj, '');
         }
       },
-      _docModal(id) {
-        this.$refs.docModal._open(id);
-      },
       _search() {
         this._pageChange(1);
       },
       _searchParams() {
         var data = this.$serialize('search-form');
-        if (this.name !== '') {
-          this.$extend(data, {name: this.name.trim()});
-        }
-        if (this.status !== '') {
-          this.$extend(data, {status: this.status});
+        if (this.apparatusName !== '') {
+          this.$extend(data, {apparatusName: this.apparatusName.trim()});
         }
         if (this.classId != null && this.classId !== '') {
           this.$extend(data, {classId: this.classId});
         }
         return this.$extend(data, this.pageParams);
       },
-      //excel文件到处部分
-      _export() {
-        var ids = this.selectIds;
-        if (!ids.length) {
-          this._exportByIds(ids, '是否要导出数据模板？');
-        } else {
-          this._exportByIds(ids, '确定导出 ' + ids.length + ' 条记录？');
-        }
-      },
-      _exportByIds(ids, content) {
-        this.$Modal.confirm({
-          title: '提示',
-          content: content,
-          onOk: () => {
-            window.open(global.baseURL + '/slims/v1/equip_info/export?ids=' + ids, '_blank');
-          }
-        });
-      },
-
-      //导入
-      _upload() {
-        let tempData = {
-          title: '导入仪器信息',
-          importUrl: '/slims/v1/equip_info/import',
-          downloadUrl: '/slims/v1/excel/template/EquipInfo'
-          //action: global.baseURL + '/slims/v1/equip_info/import',
-        };
-        this.$refs.importModal._open(tempData);
-      },
-      _handelsuccess(response, file, fileList) { //上传成功
-        if (response.success) {
-          this.$Message.success('上传成功!!!！！');
-        } else {
-          this.$Message.warning(response.msg);
-        }
-        this._search();
-      },
       _classTree() {
         this.$refs.classTree._Ztree();
       },
       _classData(data) {
-       // $('input[name=classId]').val(data);
+       // $('input[apparatusName=classId]').val(data);
         this.classId = data.id;
         this.treeObj=data;
         this._pageChange(1);
@@ -396,25 +285,6 @@
       _treeShow() {
         this.isTree = true;
         this.tableStyleObj.marginLeft = '215px'
-      },
-      _orderModal() {
-        if (this.selectObj.length > 1) {
-          this.$Message.warning({
-            content: '请选择一条项目',
-            duration: 3
-          });
-        } else if (this.selectObj.length === 0) {
-          this.$refs.orderModal._open();
-        } else {
-          this.$refs.orderModal._addEquip(this.selectObj[0]);
-        }
-      },
-      _changeModal() {
-        if (this.selectIds.length > 0) {
-          this.$refs.chengeModal._addEquip(this.selectIds);
-        } else {
-          this.$refs.chengeModal._open();
-        }
       },
       _selectZtree() {
         if (this.$string(this.id).isEmpty()) {

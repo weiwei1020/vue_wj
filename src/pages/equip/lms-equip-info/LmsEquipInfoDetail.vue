@@ -5,58 +5,27 @@
                 <table class="tableClass">
                     <tbody>
                         <tr>
-                          <th>联系电话</th>
-                     <td>{{obj.suppliertel}}</td>
+                          <th>仪器编号</th>
+                          <td>{{obj.apparatusNum}}</td>
                           <th>仪器名称</th>
-                          <td>{{obj.name}}</td>
+                          <td>{{obj.apparatusName}}</td>
                         </tr>
                         <tr>
                           <th>仪器类别</th>
-                          <td>{{obj.className}}</td>
-                          <th>数量</th>
-                          <td>{{obj.counts}}</td>
-                        </tr>
-                        <tr>
+                          <td>{{obj.apparatusSortName}}</td>
                           <th>仪器品牌</th>
-                          <td>{{obj.brand}}</td>
+                          <td>{{obj.apparatusBrand}}</td>
+                        </tr>
+                        <tr>
                           <th>仪器价格</th>
-                          <td>{{obj.price}}</td>
-                        </tr>
-                        <tr>
-                          <th>仪器编号</th>
-                          <td>{{obj.equipNum}}</td>
-                          <th>备注</th>
-                          <td>{{obj.remark}}</td>
-                        </tr>
-
-                        <!-- <tr>
-                          <th>证书编号</th>
-                          <td>{{obj.ceNum}}</td>
-                          <th>实验室编号</th>
-                          <td>{{obj.labNum}}</td>
-                        </tr>
-                       <tr>
-                          <th>使用科别</th>
-                          <td>{{obj.departmentName}}</td>
-                          <th>使用地点</th>
-                          <td>{{obj.locationName}}</td>
-                        </tr>
-                        <tr>
-                          <th>设备管理人</th>
-                          <td>{{obj.equipAdminName}}</td>
-                          <th>检定周期（月）</th>
-                          <td>{{obj.period}}</td>
-                        </tr>
-                        <tr>
-                          <th>有效日期</th>
-                          <td>{{date.effectDate}}</td>
+                          <td>{{obj.apparatusPrice}}</td>
                           <th>购买日期</th>
-                          <td>{{date.buyDate}}</td>
+                          <td>{{obj.apparatusBuyTime}}</td>
                         </tr>
-                        <tr>
+                        <tr >
                           <th>备注</th>
-                          <td>{{obj.remark}}</td>
-                        </tr>-->
+                          <td colspan="3">{{obj.apparatusRemark}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -67,7 +36,6 @@
     /**
      * 仪器资产信息表详情
      */
-    var dateFormat = require('dateformat');
     export default {
         data() {
             return {
@@ -75,8 +43,7 @@
                 showDetailModal: false,
                 status:'',
                 date:{
-                  effectDate:'',
-                  buyDate:''
+                  apparatusBuyTime:''
                 }
             }
         },
@@ -84,7 +51,6 @@
             _open(obj) {
                 this.showDetailModal = true;
                 this.obj = obj;
-
                 if(obj.status == 0){
                   this.status = '闲置'
                 }else if(obj.status == 1){
@@ -98,16 +64,10 @@
                 }else{
                   this.status = ''
                 }
-
-              if(obj.effectDate!=undefined){
-                this.date.effectDate = dateFormat(obj.effectDate,"yyyy-mm-dd");
+              if(obj.apparatusBuyTime!=undefined){
+                this.date.apparatusBuyTime = obj.apparatusBuyTime;
               }else{
-                this.date.effectDate='';
-              }
-              if(obj.buyDate!=undefined){
-                this.date.buyDate = dateFormat(obj.buyDate,"yyyy-mm-dd");
-              }else{
-                this.date.buyDate='';
+                this.date.apparatusBuyTime='';
               }
             }
         }

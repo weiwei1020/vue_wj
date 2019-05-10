@@ -13,37 +13,37 @@ const state = {
 
 const actions = {
   async page({commit}, data) {
-    await http.post('/slims/v1/equip_class/page', data).then(function (resp) {
+    await http.post('/apparatusSort/page', data).then(function (resp) {
             commit('PAGE', resp);
         });
     },
-    async add({commit}, data) {
-      await http.post('/slims/v1/equip_class/', data).then(function (resp) {
-            commit('SUCCESS', resp);
-        });
-    },
-    async edit({commit}, data) {
-      await http.put('/slims/v1/equip_class/' + data.id, data.obj).then(function (resp) {
-            commit('SUCCESS', resp);
-        });
-    },
-    async deleteByIds({commit}, ids) {
-      await http.delete('/slims/v1/equip_class/?ids=' + ids).then(function (resp) {
-            commit('SUCCESS', resp);
-        });
-    },
-    async getById({commit}, id) {
-      await http.get('/slims/v1/equip_class/' + id).then(function (resp) {
-            commit('GET_BY_ID', resp);
-        });
-    },
-    async  list({commit}, data) {
-      await http.post('/slims/v1/equip_class/list', data).then(function (resp) {
-        commit('LIST', resp);
-      });
-    },
+  async add({commit}, data) {
+    await http.post('/apparatusSort/add', data).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  async edit({commit}, data) {
+    await http.post('/apparatusSort/update',data).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  async deleteByIds({commit}, ids) {
+    await http.post('/apparatusSort/delete',{apparatusSortId: ids}).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  async getById({commit}, id) {
+    await http.post('/apparatusSort/select',{apparatusSortId: id}).then(function (resp) {
+      commit('GET_BY_ID', resp);
+    });
+  },
+  async  list({commit}, data) {
+    await http.post('/apparatusSort/selectAll', data).then(function (resp) {
+      commit('LIST', resp);
+    });
+  },
     async getTreeKeyword({commit},data) {
-      await http.post('/slims/v1/equip_class/list?name=' + data).then(function (resp) {
+      await http.post('/apparatusSort/list?name=' + data).then(function (resp) {
         commit('LIST', resp);
       });
     },
