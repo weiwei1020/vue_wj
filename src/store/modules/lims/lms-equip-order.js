@@ -8,7 +8,6 @@ const state = {
     model: {},
     page: {},
   list: {},
-  supplierList: {},
   purchasePage: {}
 };
 
@@ -16,6 +15,12 @@ const actions = {
   /*仪器预约添加*/
   async addPros({commit}, data) {
     await http.post('/apparatusPurchase/add',data).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  /*仪器预约修改 */
+  async editPros({commit}, data) {
+    await http.post('/apparatusPurchase/update',data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
@@ -29,21 +34,15 @@ const actions = {
       commit('PAGE', resp);
     });
   },
-  /*仪器预约修改 todo */
-  async editPros({commit}, data) {
-    await http.post('/apparatusPurchase/edit',data).then(function (resp) {
-      commit('SUCCESS', resp);
-    });
-  },
   /*预约提交*/
   async submitPros({commit}, data) {
-    await http.post('/apparatusPurchase/submit',data).then(function (resp) {
+    await http.post('/apparatusPurchase/purchaseSubmit',{id:data}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   /*预约删除*/
   async deletePros({commit}, data) {
-    await http.post('/apparatusPurchase/delete',data).then(function (resp) {
+    await http.post('/apparatusPurchase/delete',{id:data}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },

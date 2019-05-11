@@ -39,6 +39,7 @@
    * 添加编辑
    */
   const defVal = {
+    id:'',
     apparatusPurchaseApparatusId:'',
     apparatusPurchasePerson:'',
     apparatusPurchasePersonId:'1',
@@ -80,6 +81,7 @@
         this.$refs['formObj'].validate((valid) => {
           if (valid) {
             var data = this.$serialize('edit-add-purform');
+            data.id=this.formObj.id;
             data.apparatusPurchaseApparatusId = this.formObj.apparatusPurchaseApparatusId;
             data.apparatusPurchasePerson = this.formObj.apparatusPurchasePerson;
             data.apparatusPurchasePersonId = this.formObj.apparatusPurchasePersonId;
@@ -109,6 +111,7 @@
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
         this.modalTitle = '仪器名称 一 ' + name;//耗材名称
+        this.formObj.id=obj.id;
         this.formObj.apparatusPurchaseApparatusId=obj.apparatusPurchaseApparatusId;
         this.formObj.apparatusPurchasePerson=obj.apparatusPurchasePerson;
         this.formObj.apparatusPurchasePersonId='1';

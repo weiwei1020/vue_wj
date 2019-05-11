@@ -93,7 +93,7 @@
         btn: [
         ],
         iconMsg: [
-          {type: 'edit', id: '', name: '预约'},
+          {type: 'plus', id: '', name: '预约'},
         ],
         heightSearch: '',
         pageColumns: [

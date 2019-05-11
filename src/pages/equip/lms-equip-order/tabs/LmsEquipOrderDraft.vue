@@ -8,6 +8,15 @@
         <Row>
           <!--查询-->
           <Col span="24" class="martop-20">
+            <Form id="search-form1" inline onsubmit="return false" :label-width="70">
+              <label class="label-sign"></label>
+              <Form-item class="width-21" label="仪器名称:">
+                <Input v-model="apparatusName" name="apparatusName" placeholder="请输入仪器名称" @on-enter="_pageChange(1)"/>
+              </Form-item>
+              <Form-item class="search-btn">
+                <Button type="primary" @click="_pageChange(1)">搜索</Button>
+              </Form-item>
+            </Form>
           </Col>
           <!-- 表格 -->
           <Col span="24" style="margin-bottom: 10px">
@@ -47,17 +56,17 @@
          /* {type: 'success', id: 'equip-order-submit', name: '提交'},
           {type: '', id: 'equip-order-batch-delete', name: '删除'},*/
         ],
-        apparatusPurchaseStatusList:[
-          {value:'DRAFT',label:'草稿'},
+        iconMsg: [
+          {type: 'edit', id: '', name: '编辑'},
+          {type: 'trash-a', id: '', name: '删除'},
+          {type: 'checkmark-circled', id: '', name: '提交'},
         ],
         loading: true,
         selectIds: [],
         pageParams: {
           rows: 20,
         },
-        apparatusPurchaseStatus:'DRAFT',
-        queryStartDate: '',
-        queryEndDate: '',
+        apparatusName:'',
         selectData: [],
         pageColumns: [
           {
@@ -82,41 +91,27 @@
               return h('div', operate);
             }
           },
-          {title: '仪器名称', key: 'names', align: 'center', ellipsis: true,sortable:'true',},
+          {title: '仪器名称', key: 'apparatusName', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '申请人', key: 'apparatusPurchasePerson', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '审批人', key: 'apparatusPurchaseAuditPerson', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '预约原因', key: 'apparatusPurchaseReason', width: 180, align: 'center', ellipsis: true,sortable:'true',},
-          {title: '备注', key: 'apparatusPurchaseRemark', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '使用开始时间', key: 'apparatusPurchaseCtime', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '使用结束时间', key: 'apparatusPurchaseLtime', width: 180, align: 'center', ellipsis: true,sortable:'true',},
-          // {
-          //   title: '申请时间', key: 'applyTime', "width": 180, align: 'center',sortable:'true',
-          //   render: (h, params) => {
-          //     return h('div', params.row.applyTime ? this.$dateformat(params.row.applyTime, "yyyy-mm-dd HH:MM:ss") : '');
-          //   }
-          // },
+          {title: '备注', key: 'apparatusPurchaseRemark', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {
-            title: '操作', key: 'action', width: 200, align: 'center',
+            title: '操作', key: 'action', width: 200, align: 'center',fixed:'right',
             render: (h, data) => {
-              let editObj={type: 'edit', id: '', name: '编辑'};
-              let deleteObj={type: 'close', id: '', name: '删除'};
-              let submitObj={type: 'log-in', id: '', name: '提交'};
-              let iconMsg = [];
-              if (data.row.apparatusPurchaseStatus === '0') {
-                iconMsg.push(editObj);
-                iconMsg.push(deleteObj);
-                iconMsg.push(submitObj);
-              }
-              return h('div',  [
-                h(IconList, {
-                  props: {msg: iconMsg},
-                  on: {
-                    'on-result-change': (res) => {
-                      this._iconClick(res, data)
+              return h('div',
+                [
+                  h(IconList, {
+                    props: {msg: this.iconMsg},
+                    on: {
+                      'on-result-change': (res) => {
+                        this._iconClick(res, data)
+                      }
                     }
-                  }
-                },),
-              ]);
+                  },),
+                ]);
             }
           }
         ],
@@ -221,8 +216,7 @@
         this._pageChange(1);
       },
       _searchParams() {
-        var data = this.$serialize('search-form');
-        data.apparatusPurchaseStatus=this.apparatusPurchaseStatus;
+        var data = this.$serialize('search-form1');
         return this.$extend(data, this.pageParams);
       },
      /* _btnClick(msg) {

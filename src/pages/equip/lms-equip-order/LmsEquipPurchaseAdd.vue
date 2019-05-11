@@ -109,7 +109,7 @@
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
         this.modalTitle = '仪器名称 一 ' + name;//耗材名称
-        this.formObj.apparatusPurchaseApparatusId='';
+        this.formObj.apparatusPurchaseApparatusId=id;
         this.formObj.apparatusPurchasePerson='';
         this.formObj.apparatusPurchasePersonId='1';
         this.formObj.apparatusPurchaseAuditPerson='';

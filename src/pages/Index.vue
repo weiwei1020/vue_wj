@@ -48,7 +48,7 @@
                   {"name":"仪器类别管理","icon":"navigate","id":"","code":"500002","uri":"/lims/equip_class"},
                   {"name":"仪器资产管理","icon":"ios-rose-outline","id":"","code":"500001","uri":"/lims/equip_info"},
                   {"name":"仪器预约申请","icon":"clock","id":"","code":"500007","uri":"/lims/equip_order"},
-                  {"name":"仪器预约查询","icon":"skip-forward","id":"","code":"5000015","uri":"/lims/equip_order_query"},
+                  // {"name":"仪器预约查询","icon":"skip-forward","id":"","code":"5000015","uri":"/lims/equip_order_query"},
                   {"name":"仪器预约审批","icon":"help-buoy","id":"","code":"500020","uri":"/lims/equip_audit"},
                   {"name":"仪器排程查询","icon":"image","id":"","code":"500251","uri":"/lims/equip_schedule"}],"uri":"/"},
               {"name":"耗材管理","icon":"erlenmeyer-flask","id":"","code":"300100",
