@@ -20,7 +20,7 @@
             <Input name="storehouse" v-model="formObj.storehouse" placeholder="请填写仓库位置" ></Input>
           </Form-item>
           <Form-item label="库存量" prop="stock" class="width-48">
-            <InputNumber :min="1"  v-model.number="formObj.stock" name="stock"
+            <InputNumber :min="0"  v-model.number="formObj.stock" name="stock"
                          style="width:100%">
             </InputNumber>
           </Form-item>

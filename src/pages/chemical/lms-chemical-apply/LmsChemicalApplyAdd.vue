@@ -29,7 +29,7 @@
   const defVal = {
     purchaseId:'',
     purchaseConsumableId:'',
-    consumableName:'',
+    name:'',
     consunmableStock: 1,
     reason:'',
     purchaseRemark: ''
@@ -65,7 +65,7 @@
             var data = this.$serialize('edit-add-purform-add');
             data.purchaseId= this.formObj.purchaseId;
             data.purchaseConsumableId= this.formObj.purchaseConsumableId;
-            data.consumableName = this.formObj.consumableName;
+            data.name = this.formObj.name;
             data.consunmableStock = this.formObj.consunmableStock;
             data.reason = this.formObj.reason;
             data.purchaseRemark =this.formObj.purchaseRemark;
@@ -90,7 +90,7 @@
         this.$refs['formObj'].resetFields();
         this.modalTitle = '领用单：耗材名称 一 ' + obj.name;//耗材名称
         this.formObj.purchaseConsumableId = obj.id;
-        this.formObj.consumableName = obj.name;
+        this.formObj.name = obj.name;
         this.formObj.consunmableStock = 1;
         this.formObj.purchaseRemark = '';
         this.formObj.reason='';

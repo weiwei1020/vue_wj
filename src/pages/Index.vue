@@ -64,15 +64,6 @@
                   {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
                   {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/role_chemical_category"}],"uri":"/"},
-              {"name":"订单管理","icon":"ios-list","id":"","code":"500001",
-                "subMenus":[
-                  {"name":"订单管理","icon":"ios-list","id":"","code":"50001","uri":"/lims/order_manage"},
-                  {"name":"备货单管理","icon":"clipboard","id":"","code":"50001","uri":"/lims/picking_list_manage"},
-                  {"name":"历史记录","icon":"speedometer","id":"","code":"50001","uri":"/lims/history_record"}],"uri":"/"},
-              {"name":"文件管理","icon":"folder","id":"","code":"100000",
-                "subMenus":[
-                  {"name":"文件管理","icon":"ios-bookmarks-outline","id":"","code":"10000","uri":"/sysmanage/file_manage"},
-                  {"name":"文件权限管理","icon":"coffee","id":"","code":"100001","uri":"/sysmanage/file_permission"}],"uri":"/"},
               {"name":"系统设置","icon":"gear-b","id":"","code":"60001",
                 "subMenus":[
                   {"name":"编码规则","icon":"at","id":"","code":"60102","uri":"/lims/codeRule"}],"uri":"/"}],

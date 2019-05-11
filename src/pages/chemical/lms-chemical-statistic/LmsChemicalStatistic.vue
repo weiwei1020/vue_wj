@@ -5,19 +5,6 @@
     <!--内容-->
     <div class="layout-content-padding">
       <div class="layout-content-main tree-position">
-       <!-- <div class="position-left" :style="treeStyleObj" v-show="isTree">
-          <Card dis-hover class="card_tree">
-            <p slot="title" style="width: 60%">耗材类别列表</p>
-            <p slot="title" style="width: 40%;text-align: right">
-              <a @click="_refresh">
-                <Icon type="refresh" size="20"></Icon>
-              </a>
-            </p>
-            <div>
-              <CategoryTree ref="tree" @on-result-change="_treeData"></CategoryTree>
-            </div>
-          </Card>
-        </div>-->
         <div class="position-right">
           <Row>
             <!--查询-->
@@ -47,45 +34,28 @@
         </div>
       </div>
     </div>
-    <!-- 添加、编辑 -->
-    <LmsChemicalManageEdit ref="editModal" @on-result-change="_search"></LmsChemicalManageEdit>
     <!--查看详情-->
     <LmsChemicalDetail ref="chemicalDetailModal"></LmsChemicalDetail>
 
   </div>
 </template>
 <script>
-  import LmsChemicalManageEdit from './LmsChemicalManageEdit.vue'
   import CategoryTree from '../CategoryTree.vue'
   import LmsChemicalDetail from './LmsChemicalDetail.vue'
-  import BtnList from '../../../components/base/BtnList.vue'
   import PageTable from '../../../components/table/PageTable'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
   import IconList from '../../../components/base/IconList1.vue'
 
   export default {
     components: {
-      LmsChemicalManageEdit,
       CategoryTree,
       LmsChemicalDetail,
-      BtnList,
       PageTable,
       BreadCrumbs,
       IconList,
     },
     data() {
       return {
-        btn: [
-          {type: 'success', id: '', name: '添加'},
-          {type: 'error', id: '', name: '删除'},
-          {type: '', id: '', name: '导入'},
-          {type: '', id: '', name: '导出'},
-        ],
-        btnObj: { //按钮权限
-          edit: '',
-          view: '',
-          del: '',
-        },
         isSearch: true,
         tableHeight: '300',
         selectIds: [],
@@ -97,11 +67,6 @@
           },
           {title: '采购量', width: 220, key: 'stock', ellipsis: true,sortable:'true',},
           {title: '总价格', width: 220, key: 'total', ellipsis: true,sortable:'true',},
-        ],
-        iconMsg: [
-          {type: 'edit', id: '', name: '编辑'},
-          {type: 'close', id: '', name: '删除'},
-          {type: 'android-document', id: '', name: '修改记录'},
         ],
         treeStyleObj: {
           'width': '210px',
@@ -120,7 +85,6 @@
       this._page();
     },
     methods: {
-
       _page() {
         this.$refs.pageTable._page('search-form-chemical-manage', 'LmsChemical/getStatistic');
       },
@@ -129,16 +93,6 @@
       },
       _search() {
         this._page();
-      },
-      _btnClick(msg) {
-        switch (msg) {
-          case '添加' :
-            this._editModal(false);
-            break;
-          case '删除' :
-            this._deleteSelected();
-            break;
-        }
       },
       _tableResultChange(msg, data) {
         switch (msg) {

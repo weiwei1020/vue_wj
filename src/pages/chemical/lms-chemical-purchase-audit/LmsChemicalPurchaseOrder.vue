@@ -32,9 +32,7 @@
                 :fixed="item.fixed?item.fixed:undefined"
                 v-for="item in pageColumns" :key="item.id">
                 <template slot-scope="scope">
-                  <a v-if="item.key==='name'"
-                     @click="_detailModal(scope.row.id)">{{scope.row[item.key]}}</a>
-                  <span v-else-if="item.status">
+                  <span v-if="item.status">
                     <span v-if="scope.row[item.key]===0" class="yellow-color">
                       待审批
                     </span>
@@ -103,7 +101,7 @@
         pageColumns: [
           {title: '采购单编号', key: 'purchaseNumber', width: 150, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
           {title: '申请人', key: 'purchasePerson', width: 120, align: 'center', ellipsis: true,sortable:'true', },
-          {title: '耗材名称', key: 'consumableName', width: 180, align: 'center', ellipsis: true,sortable:'true', },
+          {title: '耗材名称', key: 'name', width: 180, align: 'center', ellipsis: true,sortable:'true', },
           {title: '采购数量', key: 'consunmableStock', width: 140, align: 'center', ellipsis: true,sortable:'true', },
           {title: '单价', key: 'price', width: 180, align: 'center', ellipsis: true,sortable:'true', },
           {title: '状态', key: 'status', width: 150,sortable:'true',status:true,
