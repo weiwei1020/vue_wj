@@ -51,6 +51,9 @@
               enable: true,
               idKey: "id",
               pIdKey: "pid",
+            },
+            key: {
+              name: "consumableSortName"
             }
           },
           check:{
@@ -63,8 +66,8 @@
             onClick: this.zTreeOnClick    //  单击节点
           }
         };
-        this.$store.dispatch('LmsChemicalCategory/treeList').then(() => {
-          $.fn.zTree.init($("#tree"), setting, this.$store.state.LmsChemicalCategory.treeList);
+        this.$store.dispatch('LmsChemicalCategory/list').then(() => {
+          $.fn.zTree.init($("#tree"), setting, this.$store.state.LmsChemicalCategory.list);
           treeObj = $.fn.zTree.getZTreeObj("tree");
           setTimeout(()=>{
             this.isloading = false;
@@ -80,8 +83,8 @@
         if(this.key !=''){
           this.isloading = true;
           this.isTree = false;
-          this.$store.dispatch('LmsChemicalCategory/proTreeKeyword',this.key).then(() => {
-            treeObj =  $.fn.zTree.init($("#tree"), setting, this.$store.state.LmsChemicalCategory.treeList);
+          this.$store.dispatch('LmsChemicalCategory/listKeyword',this.key).then(() => {
+            treeObj =  $.fn.zTree.init($("#tree"), setting, this.$store.state.LmsChemicalCategory.list);
             setTimeout(()=>{
               this.isloading = false;
               this.isTree = true;

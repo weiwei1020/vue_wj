@@ -67,14 +67,12 @@
   </div>
 </template>
 <script>
-  import LmsChemicalStockIn from './LmsChemicalStockIn.vue'
   import PageTable from '../../../components/table/PageTable'
   import IconList from '../../../components/base/IconList1.vue'
   import BtnList from '../../../components/base/BtnList.vue'
 
   export default {
     components: {
-      LmsChemicalStockIn,
       PageTable,
       IconList,
       BtnList,

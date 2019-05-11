@@ -1,55 +1,55 @@
 <template>
   <div>
-    <Modal v-model="showEditModal" :mask-closable="false" :width="900">
+    <Modal v-model="showEditModal" :mask-closable="false" :width="700">
       <p slot="header">{{modalTitle}}</p>
       <div>
         <Form id="edit-form-chemical-edit" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="85"
               inline>
-          <Form-item label="耗材编号" prop="chemicalNum" class="width-31-5">
+          <Form-item label="耗材编号" prop="chemicalNum" class="width-48">
             <Input name="chemicalNum" v-model="formObj.chemicalNum" placeholder="可自动生成"></Input>
           </Form-item>
-          <Form-item label="耗材名称" prop="chemicalName" class="width-31-5">
+          <Form-item label="耗材名称" prop="chemicalName" class="width-48">
             <autoComplete name="chemicalName"  placeholder="请输入耗材名称"
                           :downData="nameList" :value="formObj.chemicalName" @on-result-change="_nameChange"
             ></autoComplete>
           </Form-item>
-          <Form-item label="耗材类别"  class="width-31-5">
+          <Form-item label="耗材类别"  class="width-48">
             <Input v-model="category" @on-click="_categoryZtree"
                    icon="plus-circled" readonly placeholder="请选中耗材类别"></Input>
             <input name="categoryId" v-model="categoryId" type="hidden"/>
           </Form-item>
-          <Form-item label="采购数量" prop="quantity" class="width-31-5">
+          <Form-item label="采购数量" prop="quantity" class="width-48">
             <InputNumber :min="1"  v-model.number="formObj.quantity" name="quantity"
                          style="width:100%">
             </InputNumber>
           </Form-item>
-          <Form-item label="单价" prop="price" class="width-31-5">
+          <Form-item label="单价" prop="price" class="width-48">
             <InputNumber  :min="1"  v-model.number="formObj.price" name="price"  style="width: 100%"></InputNumber>
           </Form-item>
-          <Form-item label="规格" prop="spec" class="width-31-5">
+          <Form-item label="规格" prop="spec" class="width-48">
             <Input name="spec" v-model="formObj.spec" placeholder="请输入规格"></Input>
           </Form-item>
-          <Form-item label="供应商" prop="supplier" class="width-31-5">
+          <Form-item label="供应商" prop="supplier" class="width-48">
             <autoComplete name="supplier"  placeholder="请输入制造商"
                           :downData="supplierList" :value="formObj.supplier" @on-result-change="_supplierChange"
             ></autoComplete>
           </Form-item>
-          <!--<Form-item label="供应商电话" prop="suppliertel" class="width-31-5">
+          <!--<Form-item label="供应商电话" prop="suppliertel" class="width-48">
             <autoComplete name="suppliertel"  placeholder="请输入供应商联系方式" :value="formObj.suppliertel"
                           :downData="telList"  @on-result-change="_telChange"
             ></autoComplete>
           </Form-item>
-          <Form-item label="供应商邮箱" prop="supplieremil" class="width-31-5">
+          <Form-item label="供应商邮箱" prop="supplieremil" class="width-48">
             <autoComplete name="supplieremil"  placeholder="请输入供应商email" :value="formObj.supplieremil"
                           :downData="emailList"  @on-result-change="_emailChange"
             ></autoComplete>
           </Form-item>-->
-          <Form-item label="制造商" prop="manufacturer" class="width-31-5">
+          <Form-item label="制造商" prop="manufacturer" class="width-48">
             <autoComplete name="manufacturer"  placeholder="请输入制造商"
                           :downData="manufacturerList" :value="formObj.manufacturer" @on-result-change="_manufacturerChange"
             ></autoComplete>
           </Form-item>
-          <Form-item label="备注" prop="remark" class="width-31-5">
+          <Form-item label="备注" prop="remark" class="width-48">
             <Input name="remark" v-model="formObj.remark" placeholder="请输入备注"></Input>
           </Form-item>
         </Form>

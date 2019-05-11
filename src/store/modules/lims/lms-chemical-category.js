@@ -42,7 +42,7 @@ const actions = {
     });
   },
   async listKeyword({commit},data) {
-    await http.post('/consumableSort/selectAll',{consumableSortName:data}).then(function (resp) {
+    await http.post('/consumableSort/selectAll',{consumable:data}).then(function (resp) {
       commit('LIST', resp);
     });
   },

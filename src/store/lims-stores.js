@@ -13,6 +13,8 @@ import LmsEquipSchedule from './modules/lims/lms-equip-schedule';
 import LmsEquipUseRecord from "./modules/lims/lms-equip-use-record";
 //耗材管理
 import LmsChemicalCategory from "./modules/lims/lms-chemical-category";
+import LmsChemicalManage from "./modules/lims/lms-chemical";
+
 import LmsProductManage from './modules/lims/lms-product-manage'
 
 
@@ -28,6 +30,8 @@ export default {
   LmsEquipUseRecord,
   //耗材管理
   LmsChemicalCategory,
+  LmsChemicalManage,
+
   LmsProductManage,
 }
 

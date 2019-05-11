@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-model="showDetailModal" title="试验耗材详情表" :width="700">
+    <Modal v-model="showDetailModal" title="耗材详情" :width="700">
       <div class="maxHeight">
         <table class="tableClass">
           <tbody>
@@ -12,7 +12,7 @@
           </tr>
           <tr>
             <th>耗材类别</th>
-            <td>{{this.obj.category}}</td>
+            <td>{{this.obj.consumable}}</td>
             <th>仓库位置</th>
             <td>{{obj.storehouse}}</td>
           </tr>
@@ -21,12 +21,6 @@
             <td>{{obj.stock}}</td>
             <th>计量单位</th>
             <td>{{this.obj.unit}}</td>
-          </tr>
-          <tr>
-            <th>制造商</th>
-            <td>{{obj.manufacturer}}</td>
-            <th>供应商</th>
-            <td>{{this.obj.supplier}}</td>
           </tr>
           <tr>
             <th>备注</th>

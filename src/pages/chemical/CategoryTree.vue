@@ -51,8 +51,8 @@
           }
         }
 
-        this.$store.dispatch('LmsChemicalCategory/treeList').then(() => {
-          $.fn.zTree.init($("#proTree"), setting, this.$store.state.LmsChemicalCategory.treeList);
+        this.$store.dispatch('LmsChemicalCategory/list').then(() => {
+          $.fn.zTree.init($("#proTree"), setting, this.$store.state.LmsChemicalCategory.list);
           setTimeout(()=>{
             this.isloading = false;
             this.isTree = true;
@@ -68,8 +68,8 @@
           this.isloading = true;
           this.isTree = false;
           this.key = $.trim(this.key);
-          this.$store.dispatch('LmsChemicalCategory/proTreeKeyword', this.key).then(() => {
-            $.fn.zTree.init($("#proTree"), setting, this.$store.state.LmsChemicalCategory.treeList);
+          this.$store.dispatch('LmsChemicalCategory/listKeyword', this.key).then(() => {
+            $.fn.zTree.init($("#proTree"), setting, this.$store.state.LmsChemicalCategory.list);
             setTimeout(()=>{
               this.isloading = false;
               this.isTree = true;
