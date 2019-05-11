@@ -15,23 +15,28 @@ const state = {
 
 const actions = {
     async page({commit}, data) {
-      await http.post('/slims/v1/chemical_give_order/page', data).then(function (resp) {
+      await http.post('/consumableReturn/page', data).then(function (resp) {
             commit('PAGE', resp);
         });
     },
-  async purchaseChemicalPage({commit}, data) {
-    await http.post('/slims/v1/chemical_give/pages/?orderGiveId=' + data.id, data.obj).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  async approval({commit}, data) {
-    await http.post('/slims/v1/chemical_receive/give_approval',data).then(function (resp) {
+  async add({commit}, data) { //归还
+    await http.post('/consumableReturn/add',data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
-  async getById({commit}, id) {
-    await http.get('/slims/v1/chemical_give_order/' + id).then(function (resp) {
-      commit('GET_BY_ID', resp);
+  async rejectById({commit}, ids) {
+    await http.post('/consumableReturn/purchaseReject',{purchaseId: ids}).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  async passById({commit}, ids) {
+    await http.post('/consumableReturn/purchaseAudit',{purchaseId: ids}).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  async inStock({commit}, data) {
+    await http.post('/consumableReturn/purchaseOut',{purchaseId: data.purchaseId,id:data.id}).then(function (resp) {
+      commit('SUCCESS', resp);
     });
   },
 };

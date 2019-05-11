@@ -8,8 +8,6 @@ const state = {
   model: {},
   page: {},
   list: {},
-  supplierList: {},
-  purchasePage: {}
 };
 
 const actions = {
@@ -44,9 +42,6 @@ const mutations = {
   PAGE(state, resp) {
     state.page = resp;
   },
-  PURCHASE_PAGE(state, resp) {
-    state.purchasePage = resp;
-  },
   GET_BY_ID(state, resp) {
     state.model = resp;
   },
@@ -55,9 +50,6 @@ const mutations = {
   },
   LIST(state, resp) {
     state.list = resp;
-  },
-  SUPPLIERR_LIST(state, resp) {
-    state.supplierList = resp;
   },
 };
 
