@@ -46,6 +46,18 @@ const actions = {
       commit('SUCCESS', resp);
     });
   },
+  /*预约通过*/
+  async pass({commit}, data) {
+    await http.post('/apparatusPurchase/purchaseAudit',{id:data}).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  /*预约驳回*/
+  async reject({commit}, data) {
+    await http.post('/apparatusPurchase/purchaseReject',{id:data}).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
 };
 
 const mutations = {
