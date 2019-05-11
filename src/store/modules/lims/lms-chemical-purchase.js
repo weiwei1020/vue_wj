@@ -13,41 +13,38 @@ const state = {
 };
 
 const actions = {
-  async addPros({commit}, ids) { //批量添加
-    await http.post('/slims/v1/chemical_rel_purchase/?chemicalIds=' + ids).then(function (resp) {
+  async add({commit}, data) { //采购
+    await http.post('/consumablePurchase/add',data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   async addPro({commit}, data) { //批量添加
-    await http.post('/slims/v1/chemical_rel_purchase/?chemicalIds=' + data.id + '&quantity=' + data.quantity).then(function (resp) {
+    await http.post('/consumablePurchase/?chemicalIds=' + data.id + '&quantity=' + data.quantity).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   async purchaseChemicalPage({commit}, data) {
-    await http.post('/slims/v1/chemical_rel_purchase/page?orderId=' + data.purchaseId, data.obj).then(function (resp) {
+    await http.post('/consumablePurchase/page?orderId=' + data.purchaseId, data.obj).then(function (resp) {
       commit('PAGE', resp);
     });
   },
   async purchaseChemicalPages({commit}, data) {
-    await http.post('/slims/v1/chemical_rel_purchase/page?orderId=' +data.orderId, data.obj).then(function (resp) {
+    await http.post('/consumablePurchase/page?orderId=' +data.orderId, data.obj).then(function (resp) {
       commit('PAGE', resp);
     });
   },
   async deletePurIds({commit}, data) {
-    let url = '/slims/v1/chemical_rel_purchase/?ids=' + data.ids;
+    let url = '/consumablePurchase/?ids=' + data.ids;
     if (data.id) {
       url += '&orderId=' + data.id;
     }
-   /* if (data.id) {
-      url += '&number=' + data.id;
-    }*/
     await http.delete(url).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   //审批移除
   async deleteParent({commit}, ids) {
-    await http.delete('/slims/v1/chemical_rel_purchase/delete_parent?ids='+ids).then(function (resp) {
+    await http.delete('/consumablePurchase/delete_parent?ids='+ids).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
@@ -57,12 +54,12 @@ const actions = {
     });
   },
   async relPurchase({commit}, data) {
-    await http.put('/slims/v1/chemical_rel_purchase/' + data.id, {quantity: data.quantity}).then(function (resp) {
+    await http.put('/consumablePurchase/' + data.id, {quantity: data.quantity}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   async saveSupplierForRelPurchase({commit}, data) {
-    await http.post('/slims/v1/chemical_rel_purchase/update_supplier/', data).then(function (resp) {
+    await http.post('/consumablePurchase/update_supplier/', data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
@@ -72,48 +69,48 @@ const actions = {
     });
   },
   async addChemical({commit}, data) { //添加
-    await http.post('/slims/v1/chemical_rel_purchase/', data).then(function (resp) {
+    await http.post('/consumablePurchase/', data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   async detailChemical({commit}, id) { //回显
-    await http.get('/slims/v1/chemical_rel_purchase/' + id).then(function (resp) {
+    await http.get('/consumablePurchase/' + id).then(function (resp) {
       commit('LIST', resp);
     });
   },
   async editChemical({commit}, data) { //编辑提交
-    await http.put('/slims/v1/chemical_rel_purchase/' + data.id, data.obj).then(function (resp) {
+    await http.put('/consumablePurchase/' + data.id, data.obj).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   async chemicalPage({commit}, data) {
-    await http.post('/slims/v1/chemical_rel_purchase/page', data).then(function (resp) {
+    await http.post('/consumablePurchase/page', data).then(function (resp) {
       commit('PURCHASE_PAGE', resp);
     });
   },
   async chemicalPageTemp({commit}, data) {
-    await http.post('/slims/v1/chemical_rel_purchase/page_temp', data).then(function (resp) {
+    await http.post('/consumablePurchase/page_temp', data).then(function (resp) {
       commit('PURCHASE_PAGE', resp);
     });
   },
   async rejectPurchase({commit}, data) { //拒绝提交--删除
-    await http.post('/slims/v1/chemical_rel_purchase/reject_'+ data.id+ '?remark='+data.remark).then(function (resp) {
+    await http.post('/consumablePurchase/reject_'+ data.id+ '?remark='+data.remark).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   async endPurchase({commit}, data) { //结束采购单
-    await http.post('/slims/v1/chemical_rel_purchase/finish_'+ data.id+'?remark='+data.remark).then(function (resp) {
+    await http.post('/consumablePurchase/finish_'+ data.id+'?remark='+data.remark).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   async inStockPurchase({commit}, data) { //采购单单个入库
-    await http.post('/slims/v1/chemical_rel_purchase/in_stock_'+ data.id,data.obj).then(function (resp) {
+    await http.post('/consumablePurchase/in_stock_'+ data.id,data.obj).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
   //编辑数量要提交的数据
   async changeQuantity({commit}, data) {
-    await http.put('/slims/v1/chemical_rel_purchase/'+ data.id+'?quantity='+data.quantity).then(function (resp) {
+    await http.put('/consumablePurchase/'+ data.id+'?quantity='+data.quantity).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
@@ -124,7 +121,7 @@ const actions = {
     });
   },
   async addNewChemical({commit}, data) { //添加采购新耗材
-    await http.post('/slims/v1/chemical_rel_purchase/add_new_chemical', data).then(function (resp) {
+    await http.post('/consumablePurchase/add_new_chemical', data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },

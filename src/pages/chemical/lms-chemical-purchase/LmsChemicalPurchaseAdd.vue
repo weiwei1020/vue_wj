@@ -1,29 +1,20 @@
 <template>
   <div>
-    <Modal v-model="showEditModal" :mask-closable="false" :width="700">
+    <Modal v-model="showEditModal" :mask-closable="false" :width="400">
       <p slot="header">{{modalTitle}}</p>
       <div>
         <Form id="edit-add-purform-add" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
-          <!--<Form-item label="供应商" prop="supplierId" class="width-48">
-            <Select name="supplierId" v-model="formObj.supplierId" filterable clearable style="width: 100%"
-                    placeholder="请选择供应商" @on-change="_selSupplier">
-              <Option v-for="item in supplierList" :value="item.supplierId" :key="item.supplierId">{{ item.supplier }}
-              </Option>
-            </Select>
-            <input name="supplier" hidden v-model="formObj.supplier">
-          </Form-item>-->
-          <Form-item label="单价" prop="price" class="width-48">
+          <Form-item label="单价" prop="price" style="width: 100%">
             <InputNumber :min="1" v-model.number="formObj.price" style="width: 100%"></InputNumber>
-           <!-- <InputNumber :min="1" v-model.number="formObj.price" style="width: 100%"></InputNumber>-->
           </Form-item>
-         <!-- <Form-item label="规格" prop="spec" class="width-48">
-            <Input name="spec" v-model="formObj.spec" readonly></Input>
-          </Form-item>-->
-          <Form-item label="采购数量" prop="quantity" class="width-48">
-            <InputNumber :min="1" v-model.number="formObj.quantity" style="width: 100%"></InputNumber>
+          <Form-item label="采购数量" prop="consunmableStock" style="width: 100%">
+            <InputNumber :min="1" v-model.number="formObj.consunmableStock" style="width: 100%"></InputNumber>
           </Form-item>
-          <Form-item label="备注" prop="remark" class="width-48">
-            <Input name="remark" v-model="formObj.remark" placeholder="请输入备注"></Input>
+          <Form-item label="采购原因" prop="reason" style="width: 100%">
+            <Input name="reason" v-model="formObj.reason" placeholder="请输入原因"></Input>
+          </Form-item>
+          <Form-item label="备注" prop="purchaseRemark" style="width: 100%">
+            <Input name="purchaseRemark" v-model="formObj.purchaseRemark" placeholder="请输入备注"></Input>
           </Form-item>
         </Form>
       </div>
@@ -39,13 +30,13 @@
    * 添加编辑
    */
   const defVal = {
-    chemicalIds: '',
-    supplier: '',
-    supplierId: '',
+    purchaseId:'',
+    purchaseConsumableId:'',
+    consumableName:'',
     price: 1,
-    spec: '',
-    quantity: 1,
-    remark: ''
+    consunmableStock: 1,
+    reason:'',
+    purchaseRemark: ''
   };
   export default {
     data() {
@@ -64,12 +55,10 @@
         showEditModal: false,
         supplierList: [],
         ruleValidate: {
-          quantity: [
+          consunmableStock: [
             {validator: validateNumber, trigger: 'blur', type: 'number'}
           ],
-          price: [
-            {validator: validateNumber, trigger: 'blur', type: 'number'}
-          ],
+          reason: [{required: true, message: '采购原因不能为空', trigger: 'change'}],
           price: [{required: true, message: '仪器价格不能为空', trigger: 'change', type: 'number'}],
         }
       }
@@ -79,11 +68,15 @@
         this.$refs['formObj'].validate((valid) => {
           if (valid) {
             var data = this.$serialize('edit-add-purform-add');
-            data.chemicalIds = this.chemicalIds;
+            data.purchaseId= this.formObj.purchaseId;
+            data.purchaseConsumableId= this.formObj.purchaseConsumableId;
+            data.consumableName = this.formObj.consumableName;
             data.price = this.formObj.price;
-            data.quantity = this.formObj.quantity;
+            data.consunmableStock = this.formObj.consunmableStock;
+            data.reason = this.formObj.reason;
+            data.purchaseRemark =this.formObj.purchaseRemark;
             // 添加
-            this.$store.dispatch('LmsChemicalPurchase/addChemical', data).then(() => {
+            this.$store.dispatch('LmsChemicalPurchase/add', data).then(() => {
               if (this.$store.state.LmsChemicalPurchase.success) {
                 this.showEditModal = false;
                 this.$Message.success('添加成功！');
@@ -98,34 +91,18 @@
       _cancel() {
         this.showEditModal = false;
       },
-      _open(id, name, spec) {
+      _open(obj) {
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
-        this.chemicalId = id; //耗材id
-        this.chemicalIds = id; //需要提交的数据id
-        this.modalTitle = '耗材名称 一 ' + name;//耗材名称
-        this.formObj.spec = spec; //规格
-        this.supplierList = [];
-        this.formObj.supplier = '';
-        this.formObj.supplierId = '';
+        this.modalTitle = '耗材名称 一 ' + obj.name;//耗材名称
+        this.formObj.purchaseConsumableId = obj.id;
+        this.formObj.consumableName = obj.name;
         this.formObj.price = '';
-        this._getSupplier();
+        this.formObj.consunmableStock = 1;
+        this.formObj.purchaseRemark = '';
+        this.formObj.reason='';
+
       },
-      _getSupplier() {  //获取供应商
-        this.$store.dispatch('LmsChemicalPurchase/getSupplier', this.chemicalId).then(() => {
-          this.supplierList = this.$store.state.LmsChemicalPurchase.supplierList;
-        });
-      },
-      _selSupplier(id) { //选择供应商
-        let list = [];
-        for (var i = 0; i < this.supplierList.length; i++) {
-          if (id == this.supplierList[i].supplierId) {
-            list = this.supplierList[i];
-          }
-        }
-        this.formObj.supplier = list.supplier;
-        this.formObj.price = list.price;
-      }
     }
   }
 </script>
