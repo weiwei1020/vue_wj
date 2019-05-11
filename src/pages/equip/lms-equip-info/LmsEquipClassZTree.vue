@@ -59,6 +59,9 @@
               enable: true,
               idKey: "id",
               pIdKey: "pid",
+            },
+            key: {
+              name: "apparatusSortName"
             }
           },
           check:{

@@ -41,13 +41,10 @@
     <LmsEquipOrderDetail ref="LmsEquipOrderDetail"></LmsEquipOrderDetail>
     <!--电子文档-->
     <LmsEquipInfoRecord ref="docModal"></LmsEquipInfoRecord>
-    <!--上级类别弹出树-->
-   <!-- <LmsEquipClassZTree ref="ztreeModal" @on-result-change="_ztree"></LmsEquipClassZTree>-->
 
   </div>
 </template>
 <script>
- // import LmsEquipClassTree from './LmsEquipClassTree.vue'
   import BtnList from '../../../../components/base/BtnList.vue'
   import IconList from '../../../../components/base/IconList1.vue'
   import LmsEquipOrderDetail from '../LmsEquipOrderDetail.vue'
@@ -56,7 +53,6 @@
     components: {
       IconList,
       BtnList,
-     // LmsEquipClassTree,
       LmsEquipOrderDetail,
     },
     data() {

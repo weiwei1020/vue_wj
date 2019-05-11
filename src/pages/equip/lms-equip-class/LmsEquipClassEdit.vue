@@ -4,11 +4,11 @@
       <p slot="header">{{modalTitle}}</p>
       <div>
         <Form id="edit-form" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80">
-          <Form-item label="类别名称" prop="name">
-            <Input name="name" v-model="formObj.name" placeholder="请输入类别名称"></Input>
+          <Form-item label="类别名称" prop="apparatusSortName">
+            <Input name="apparatusSortName" v-model="formObj.apparatusSortName" placeholder="请输入类别名称"></Input>
           </Form-item>
-          <Form-item label="描述" prop="remark">
-            <Input name="remark" v-model="formObj.remark" placeholder="请输入描述" type="textarea" :rows="5"></Input>
+          <Form-item label="描述" prop="apparatusSortRemark">
+            <Input name="apparatusSortRemark" v-model="formObj.apparatusSortRemark" placeholder="请输入描述" type="textarea" :rows="5"></Input>
           </Form-item>
         </Form>
       </div>
@@ -24,9 +24,9 @@
    * 添加编辑
    */
   const defVal = {
-    name: '',
-    pid: '',
-    remark: '',
+    apparatusSortName: '',
+    apparatusSortId: '',
+    apparatusSortRemark: '',
   };
   export default {
     components: {},
@@ -36,7 +36,7 @@
         modalTitle: '添加仪器分类',
         formObj: defVal,
         ruleValidate: {
-          name: [{required: true, message: '类别名称不能为空', trigger: 'blur'}],
+          apparatusSortName: [{required: true, message: '类别名称不能为空', trigger: 'blur'}],
         },
         showEditModal: false,
         pname: ''
@@ -56,11 +56,9 @@
         this.$refs['formObj'].validate((valid) => {
           if (valid) {
             var data = this.$serialize('edit-form');
-            if (data.pname === undefined) {
-              this.$extend(data, {pid: 0});
-            } else {
-              this.$extend(data, {pid: this.formObj.pid});
-            }
+            this.$extend(data, {
+              apparatusSortId: this.formObj.apparatusSortId,
+            });
             if (this.$string(this.id).isEmpty()) {
               // 添加
               this.$store.dispatch('LmsEquipClass/add', data).then(() => {
@@ -87,13 +85,12 @@
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
         if (this.$string(formObj).isEmpty()) {
+          this.id = '';
           this.formObj = defVal;
-          this.pname = '';
         } else {
-          this.id = formObj.id;
+          this.id = formObj.apparatusSortId;
           this.formObj = formObj;
-          this.pname = formObj.pname;
-          this.modalTitle = '编辑';
+          this.modalTitle = '编辑仪器分类';
         }
       },
     }

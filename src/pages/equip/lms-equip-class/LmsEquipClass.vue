@@ -1,34 +1,16 @@
 <template>
   <div>
+    <!-- 面包屑 -->
+    <BreadCrumbs :crumbs="$showBread()"></BreadCrumbs>
     <!--内容-->
     <div class="layout-content-padding">
       <div class="layout-content-main tree-position">
-        <div class="position-left" :style="treeStyleObj" v-show="isTree">
-          <Card dis-hover class="card_tree">
-            <p slot="title" style="width: 60%">仪器类别列表</p>
-            <p slot="title" style="width: 40%;text-align: right">
-              <a @click="_refresh">
-                <Icon type="refresh" size="20"></Icon>
-              </a>
-            </p>
-            <div>
-              <LmsEquipClassTree ref="classTree" @on-result-change="_classData"></LmsEquipClassTree>
-            </div>
-          </Card>
-        </div>
-        <div style="position: absolute;left: 196px;top: 50%;cursor:pointer" @click="_treeHide" v-if="isTree">
-          <div class="navbarImgShow"></div>
-        </div>
-        <div style="position: absolute;left:10px;top: 50%;cursor:pointer" @click="_treeShow" v-else="isTree">
-          <div class="navbarImgHide"></div>
-        </div>
-        <div class="position-right" :style="tableStyleObj">
           <Row>
             <Col span="24" style="margin-top: 15px;">
               <Form id="search-form" inline onsubmit="return false" :label-width="70">
                 <label class="label-sign"></label>
-                <Form-item class="width-21" label="仪器名称:">
-                  <Input v-model="apparatusName" placeholder="请输入仪器名称" @on-enter="_pageChange(1)"/>
+                <Form-item class="width-21" label="类别名称:">
+                  <Input v-model="apparatusSortName" placeholder="请输入类别名称" @on-enter="_pageChange(1)"/>
                 </Form-item>
                 <Form-item class="search-btn">
                   <Button type="primary" @click="_pageChange(1)">搜索</Button>
@@ -53,30 +35,27 @@
                     placement="top" show-elevator show-total show-sizer></Page>
             </Col>
           </Row>
-        </div>
       </div>
     </div>
     <!-- 添加、编辑 -->
     <LmsEquipClassEdit ref="editModal" @on-result-change="_search"></LmsEquipClassEdit>
     <!-- 查看详情 -->
     <LmsEquipClassDetail ref="detailModal"></LmsEquipClassDetail>
-    <!--上级类别弹出树-->
-    <LmsEquipClassZTree ref="ztreeModal" @on-result-change="_ztree"></LmsEquipClassZTree>
   </div>
 </template>
 <script>
   import LmsEquipClassEdit from './LmsEquipClassEdit.vue'
   import LmsEquipClassDetail from './LmsEquipClassDetail.vue'
-  import LmsEquipClassTree from './LmsEquipClassTree.vue'
   import BtnList from '../../../components/base/BtnList.vue'
   import IconList from '../../../components/base/IconList1.vue'
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
   export default {
     components: {
       IconList,
       BtnList,
+      BreadCrumbs,
       LmsEquipClassEdit,
       LmsEquipClassDetail,
-      LmsEquipClassTree,
     },
     data() {
       return {
@@ -89,10 +68,7 @@
         ],
         loading: true,
         id: '',
-        apparatusName: '',
-        className: '',
-        pname: '',
-        classId: '',
+        apparatusSortName: '',
         selectIds: [],
         selectObj: [],
         pageParams: {
@@ -101,20 +77,20 @@
         pageColumns: [
           {type: 'selection', width: 60, align: 'center', fixed: 'left'},
           {
-            title: '类别名称', key: 'apparatusName', width: 160, align: 'center', ellipsis: true, fixed: 'left', sortable: 'true',
+            title: '类别名称', key: 'apparatusSortName', width: 160, align: 'center', ellipsis: true, fixed: 'left', sortable: 'true',
             render: (h, data) => {
               return h('div', [
                 h('a', {
                   on: {
                     click: () => {
-                      this._detailModal(data.row.apparatusId);
+                      this._detailModal(data.row.apparatusSortId);
                     }
                   }
-                }, data.row.apparatusName),
+                }, data.row.apparatusSortName),
               ]);
             }
           },
-          {title: '描述', key: 'apparatusRemark', width: 180, align: 'center', ellipsis: true,},
+          {title: '描述', key: 'apparatusSortRemark', align: 'center', ellipsis: true,},
           {
             title: '操作', key: 'action', width: 160, fixed: 'right', align: 'center',
             render: (h, data) => {
@@ -133,22 +109,16 @@
           },
         ],
         getPage: {},
-        treeStyleObj: {
-          'width': '210px',
-          'height': ''
-        },
-        tableStyleObj: {
-          'margin-left': '215px',
-        },
-        isTree: true,
         contLength: 0,
-        treeObj: {},
       }
     },
     computed: {
       tableHeight: function () {
         return this.$tableHeight('tabSearch');
       }
+    },
+    mounted(){
+      this._page();
     },
     methods: {
       _btnClick(msg) {
@@ -161,10 +131,10 @@
       _iconClick(res, data) {
         switch (res) {
           case '编辑' :
-            this._editModal(true, data.row.apparatusId);
+            this._editModal(true, data.row.apparatusSortId);
             break;
           case '删除' :
-            this._deleteById(data.row.apparatusId);
+            this._deleteById(data.row.apparatusSortId);
             break;
         }
       },
@@ -194,14 +164,8 @@
         });
       },
       _refresh() { //刷新
-        this.classId = '';
-        this.apparatusName = '';
+        this.apparatusSortName = '';
         this._search();
-        this._classTree();
-      },
-      _open() {
-        this._page();
-        this._classTree();
       },
       _page() {
         this.$store.dispatch('LmsEquipClass/page', this._searchParams()).then(() => {
@@ -240,11 +204,11 @@
         if (edit) {
           // 编辑
           this.$store.dispatch('LmsEquipClass/getById', id).then(() => {
-            this.$refs.editModal._open('',this.$store.state.LmsEquipClass.model);
+            this.$refs.editModal._open(this.$store.state.LmsEquipClass.model);
           });
         } else {
           // 添加
-          this.$refs.editModal._open(this.treeObj, '');
+          this.$refs.editModal._open();
         }
       },
       _search() {
@@ -252,47 +216,10 @@
       },
       _searchParams() {
         var data = this.$serialize('search-form');
-        if (this.apparatusName !== '') {
-          this.$extend(data, {apparatusName: this.apparatusName.trim()});
-        }
-        if (this.classId != null && this.classId !== '') {
-          this.$extend(data, {classId: this.classId});
+        if (this.apparatusSortName !== '') {
+          this.$extend(data, {apparatusSortName: this.apparatusSortName.trim()});
         }
         return this.$extend(data, this.pageParams);
-      },
-      _classTree() {
-        this.$refs.classTree._Ztree();
-      },
-      _classData(data) {
-        // $('input[apparatusName=classId]').val(data);
-        this.classId = data.id;
-        this.treeObj=data;
-        this._pageChange(1);
-      },
-      _treeHide() { //左侧树隐藏
-        this.isTree = false;
-        this.tableStyleObj.marginLeft = '20px'
-      },
-      _treeShow() {
-        this.isTree = true;
-        this.tableStyleObj.marginLeft = '215px'
-      },
-      _selectZtree() {
-        if (this.$string(this.id).isEmpty()) {
-          this.$refs.ztreeModal._openZtree();  //打开上ztreeModel
-        } else {
-          this.$refs.ztreeModal._openZtree(this.formObj.pid);  //打开上ztreeModel
-        }
-      },
-      _ztree(result) {
-        this.pname = '';
-        if (result === undefined) {
-          this.formObj.pid = '0';
-          this.pname = '';
-        } else {
-          this.formObj.pid = result.id;
-          this.pname = result.name;
-        }
       },
     },
   }

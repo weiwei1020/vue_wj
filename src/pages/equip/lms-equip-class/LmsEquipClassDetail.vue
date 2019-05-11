@@ -5,12 +5,12 @@
                 <table class="tableClass">
                     <tbody>
                         <tr>
-                            <th>类别名</th>
-                            <td>{{obj.name}}</td>
+                            <th>类别名称</th>
+                            <td>{{obj.apparatusSortName}}</td>
                         </tr>
                         <tr>
-                            <th>备注</th>
-                            <td>{{obj.remark}}</td>
+                            <th>描述</th>
+                            <td>{{obj.apparatusSortRemark}}</td>
                         </tr>
                     </tbody>
                 </table>
