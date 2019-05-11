@@ -42,7 +42,6 @@
 </template>
 <script>
   import Editor from '../../../components/editor/Editor.vue'
-  import RelLmsEquipProduct from './RelLmsEquipProduct.vue'
   import LmsEquipClassZTree from './LmsEquipClassZTree.vue'
   /**
    * 添加编辑仪器资产信息表
@@ -60,7 +59,6 @@
   };
   export default {
     components: {
-      RelLmsEquipProduct,
       Editor,
       LmsEquipClassZTree,
     },
@@ -139,7 +137,7 @@
           this.formObj = defVal;
           this.modalTitle = '添加仪器资产信息表';
           if (JSON.stringify(treeObj) !== '{}') {
-            this.formObj.apparatusSortName = treeObj.apparatusName;
+            this.formObj.apparatusSortName = treeObj.apparatusSortName;
             this.formObj.apparatusSortId = treeObj.apparatusSortId;
           } else {
             this.formObj.apparatusSortName = '';

@@ -53,6 +53,9 @@
               enable: true,
               idKey: "id",
               pIdKey: "pid",
+            },
+            key: {
+              name: "apparatusSortName"
             }
           },
           callback: {
@@ -72,7 +75,7 @@
 
       },
       zTreeOnClick(event, treeId, treeNode) {
-        this.$emit("on-result-change",treeNode.id);
+        this.$emit("on-result-change",treeNode);
       },
       _search(){
         if(this.key !==''){

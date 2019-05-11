@@ -98,7 +98,6 @@
           this.isTree = false;
           this.$store.dispatch('LmsEquipClass/getTreeKeyword',this.key).then(() => {
             treeObj=$.fn.zTree.init($("#tree"), setting, this.$store.state.LmsEquipClass.list);
-
             setTimeout(()=>{
               this.isloading = false;
               this.isTree = true;

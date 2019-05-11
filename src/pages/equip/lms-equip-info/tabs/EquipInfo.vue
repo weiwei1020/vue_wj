@@ -29,6 +29,7 @@
                 <label class="label-sign"></label>
                 <Form-item class="width-21" label="仪器名称:">
                   <Input v-model="apparatusName" placeholder="请输入仪器名称" @on-enter="_pageChange(1)"/>
+                  <input v-model="apparatusSortName" type="hidden"/>
                 </Form-item>
                 <Form-item class="search-btn">
                   <Button type="primary" @click="_pageChange(1)">搜索</Button>
@@ -60,8 +61,6 @@
     <LmsEquipInfoEdit ref="editModal" @on-result-change="_search"></LmsEquipInfoEdit>
     <!-- 查看详情 -->
     <LmsEquipInfoDetail ref="detailModal"></LmsEquipInfoDetail>
-    <!--上级类别弹出树-->
-    <LmsEquipClassZTree ref="ztreeModal" @on-result-change="_ztree"></LmsEquipClassZTree>
   </div>
 </template>
 <script>
@@ -91,9 +90,7 @@
         loading: true,
         id: '',
         apparatusName: '',
-        className: '',
-        pname: '',
-        classId: '',
+        apparatusSortName: '',
         selectIds: [],
         selectObj: [],
         pageParams: {
@@ -203,7 +200,7 @@
         });
       },
       _refresh() { //刷新
-        this.classId = '';
+        this.apparatusSortName = '';
         this.apparatusName = '';
         this._search();
         this._classTree();
@@ -264,8 +261,8 @@
         if (this.apparatusName !== '') {
           this.$extend(data, {apparatusName: this.apparatusName.trim()});
         }
-        if (this.classId != null && this.classId !== '') {
-          this.$extend(data, {classId: this.classId});
+        if (this.apparatusSortName != null && this.apparatusSortName !== '') {
+          this.$extend(data, {apparatusSortName: this.apparatusSortName});
         }
         return this.$extend(data, this.pageParams);
       },
@@ -273,8 +270,8 @@
         this.$refs.classTree._Ztree();
       },
       _classData(data) {
-       // $('input[apparatusName=classId]').val(data);
-        this.classId = data.id;
+       $('input[name=apparatusSortName]').val(data.apparatusSortName);
+        this.apparatusSortName = data.apparatusSortName;
         this.treeObj=data;
         this._pageChange(1);
       },
@@ -285,23 +282,6 @@
       _treeShow() {
         this.isTree = true;
         this.tableStyleObj.marginLeft = '215px'
-      },
-      _selectZtree() {
-        if (this.$string(this.id).isEmpty()) {
-          this.$refs.ztreeModal._openZtree();  //打开上ztreeModel
-        } else {
-          this.$refs.ztreeModal._openZtree(this.formObj.pid);  //打开上ztreeModel
-        }
-      },
-      _ztree(result) {
-        this.pname = '';
-        if (result === undefined) {
-          this.formObj.pid = '0';
-          this.pname = '';
-        } else {
-          this.formObj.pid = result.id;
-          this.pname = result.name;
-        }
       },
     },
   }

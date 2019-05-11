@@ -42,12 +42,11 @@ const actions = {
       commit('LIST', resp);
     });
   },
-    async getTreeKeyword({commit},data) {
-      await http.post('/apparatusSort/list?name=' + data).then(function (resp) {
-        commit('LIST', resp);
-      });
-    },
-
+  async getTreeKeyword({commit},data) {
+    await http.post('/apparatusSort/selectAll',{apparatusSortName:data}).then(function (resp) {
+      commit('LIST', resp);
+    });
+  },
 };
 
 const mutations = {

@@ -32,6 +32,7 @@
                 <label class="label-sign"></label>
                 <Form-item class="width-21" label="仪器名称:">
                   <Input v-model="apparatusName" placeholder="请输入仪器名称" @on-enter="_pageChange(1)"/>
+                  <input v-model="apparatusSortName" type="hidden"/>
                 </Form-item>
                 <Form-item class="search-btn">
                   <Button type="primary" @click="_pageChange(1)">搜索</Button>
@@ -64,10 +65,6 @@
     <LmsEquipInfoDetail ref="detailModal"></LmsEquipInfoDetail>
     <!--仪器预约-->
     <LmsEquipPurchaseAdd ref="addModal"></LmsEquipPurchaseAdd>
-    <!--上级类别弹出树-->
-    <LmsEquipClassZTree ref="ztreeModal" @on-result-change="_ztree"></LmsEquipClassZTree>
-    <!--排程图-->
-    <LmsEquipSchedule ref="scheduleModal"></LmsEquipSchedule>
   </div>
 </template>
 <script>
@@ -75,7 +72,6 @@
   import LmsEquipPurchaseAdd from'../LmsEquipPurchaseAdd.vue'
 
   import LmsEquipClassTree from '../LmsEquipClassTree.vue'
-  import LmsEquipClassZTree from '../LmsEquipClassZTree.vue'
   import BtnList from '../../../../components/base/BtnList.vue'
   import PageTable from '../../../../components/table/PageTable'
   import BreadCrumbs from '../../../../components/base/BreadCrumbs'
@@ -87,7 +83,6 @@
       LmsEquipPurchaseAdd,
 
       LmsEquipClassTree,
-      LmsEquipClassZTree,
       BtnList,
       PageTable,
       BreadCrumbs,
@@ -148,12 +143,10 @@
          'margin-left': '230px'
         },
         isTree: true,
-        categoryId: '',
         getPage: {},
         loading :true,
         apparatusName: '',
-        className:'',
-        classId: '',
+        apparatusSortName: '',
         selectIds: [],
         selectObj: [],
         pname:'',
@@ -178,7 +171,7 @@
         }
       },
       _refresh() { //刷新
-        this.classId = '';
+        this.apparatusSortName = '';
         this.apparatusName = '';
         this._search();
         this._classTree();
@@ -222,16 +215,17 @@
         if (this.apparatusName !== '') {
           this.$extend(data, {apparatusName: this.apparatusName.trim()});
         }
-        if (this.classId != null && this.classId !== '') {
-          this.$extend(data, {classId: this.classId});
+        if (this.apparatusSortName != null && this.apparatusSortName !== '') {
+          this.$extend(data, {apparatusSortName: this.apparatusSortName});
         }
         return this.$extend(data, this.pageParams);
       },
       _classTree() {
         this.$refs.classTree._Ztree();
       },
-      _classData(result, msg) {
-        this.classId = result;
+      _classData(data) {
+        $('input[name=apparatusSortName]').val(data.apparatusSortName);
+        this.apparatusSortName = data.apparatusSortName;
         this._pageChange(1);
       },
       _detailModal(data) {
@@ -239,8 +233,6 @@
         this.$store.dispatch('LmsEquipInfo/getById', data).then(() => {
           this.$refs.detailModal._open(this.$store.state.LmsEquipInfo.model);
         });
-       //查看排程
-       //  this.$refs.scheduleModal._initForm(data);
       },
       _addModal(id, name) {
         this.$refs.addModal._open(id, name);
@@ -254,23 +246,6 @@
         this.tableStyleObj.marginLeft = '230px'
       },
       _btnClick(msg) {
-      },
-      _selectZtree() {
-        if (this.$string(this.id).isEmpty()){
-          this.$refs.ztreeModal._openZtree();
-        }else{
-          this.$refs.ztreeModal._openZtree(this.formObj.pid);
-        }
-      },
-      _ztree(result) {
-        this.pname = '';
-        if (result === undefined) {
-          this.formObj.pid = '0';
-          this.pname = '';
-        } else {
-          this.formObj.pid = result.id;
-          this.pname = result.name;
-        }
       },
     },
   }
