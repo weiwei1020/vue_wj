@@ -5,34 +5,13 @@
     <!--内容-->
     <div class="layout-content-padding">
       <div class="layout-content-main tree-position">
-       <div class="position-left" :style="treeStyleObj" v-show="isTree">
-          <Card dis-hover class="card_tree">
-            <p slot="title" style="width: 60%">耗材类别列表</p>
-            <p slot="title" style="width: 40%;text-align: right">
-              <a @click="_refresh">
-                <Icon type="refresh" size="20"></Icon>
-              </a>
-            </p>
-            <div>
-              <RelCategoryZtree ref="categorytree" @on-result-change="_categoryData"></RelCategoryZtree>
-            </div>
-          </Card>
-        </div>
-        <div style="position: absolute;left: 196px;top: 50%;cursor:pointer" @click="_treeHide" v-if="isTree">
-          <div class="navbarImgShow"></div>
-        </div>
-        <div style="position: absolute;left:0;top: 50%;cursor:pointer" @click="_treeShow" v-else="isTree">
-          <div class="navbarImgHide"></div>
-        </div>
-        <div class="position-right" :style="tableStyleObj">
           <Row>
             <!--查询-->
             <Col span="24" style="margin-top: 15px">
             <Form id="search-form" inline onsubmit="return false" :label-width="90">
               <label class="label-sign"></label>
               <Form-item class="width-23" label="分类名称:">
-                <Input name="name" placeholder="请输入分类名称" @on-enter="_formSearch"></Input>
-                <input name="id" type="hidden">
+                <Input name="consumableSortName" placeholder="请输入分类名称" @on-enter="_formSearch"></Input>
               </Form-item>
               <Form-item class="marleft-90">
                 <Button type="primary" @click="_formSearch">搜索</Button>
@@ -52,7 +31,6 @@
             </PageTable>
             </Col>
           </Row>
-        </div>
       </div>
     </div>
     <!-- 添加、编辑 -->
@@ -64,7 +42,6 @@
 <script>
   import LmsChemicalCategoryEdit from './LmsChemicalCategoryEdit.vue'
   import LmsChemicalCategoryDetail from './LmsChemicalCategoryDetail.vue'
-  import RelCategoryZtree from './RelCategoryZtree.vue'
   import PageTable from '../../../components/table/PageTable'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
   import IconList from '../../../components/base/IconList1.vue'
@@ -73,7 +50,6 @@
     components: {
       LmsChemicalCategoryEdit,
       LmsChemicalCategoryDetail,
-      RelCategoryZtree,
       PageTable,
       BreadCrumbs,
       IconList,
@@ -92,31 +68,29 @@
           {type: 'edit', id: '', name: '编辑'},
           {type: 'close', id: '', name: '删除'},
         ],
-        heightSearch: '',
-        tableHeight: '300',
         selectIds: [],
+        consumableSortName:'',
         pageColumns: [
           {type: 'selection', width: 60, align: 'center'},
-          {title: '编号', key: 'num', width: 100, ellipsis: true},
+          {title: '编号', key: 'consumableSortNumber', width: 200, ellipsis: true},
           {
-            title: '分类名称', key: 'name', width: 140, ellipsis: true,
+            title: '分类名称', key: 'consumableSortName', width: 240, ellipsis: true,
             render: (h, data) => {
               let operate = [];
               let btnView = h('a', {
                 on: {
                   click: () => {
-                    this._detailModal(data.row.id);
+                    this._detailModal(data.row.consumableSortId);
                   }
                 }
-              }, data.row.name);
+              }, data.row.consumableSortName);
               if (this.$showBtn(this.btnObj.view)) {
                 operate.push(btnView);
               }
-              return h('div', operate.length > 0 ? operate : data.row.name);
+              return h('div', operate.length > 0 ? operate : data.row.consumableSortName);
             }
           },
-          {title: '上级类别', key: 'parentName', width: 140, ellipsis: true},
-          {title: '备注', key: 'remark', ellipsis: true},
+          {title: '备注', key: 'consumableSortRemark', ellipsis: true},
           {
             title: '操作', key: 'action', width: 120, fixed: 'right', align: 'center',
             render: (h, data) => {
@@ -134,57 +108,27 @@
             }
           },
         ],
-        treeStyleObj: {
-          'width': '210px',
-          'height': ''
-        },
-        tableStyleObj: {
-          'margin-left': '230px'
-        },
-        isTree: true,
         getPage: {},
-        contLength: null,
-        noBtnVal: 238,
-        btnVal: 292,
-        dVal: 90,
-        treeObj: {}
+      }
+    },
+    computed: {
+      tableHeight: function () {
+        return this.$tableHeight('search');
       }
     },
     mounted() {
-      this._contHide();
+      this._search();
     },
     methods: {
       _iconClick(res, data) {
         switch (res) {
           case '编辑' :
-            this._editModal(true, data.row.id);
+            this._editModal(true, data.row.consumableSortId);
             break;
           case '删除' :
-            this._deleteById(data.row.id);
+            this._deleteById(data.row.consumableSortId);
             break;
         }
-      },
-      _contHide() {
-        this.contLength = $(".contHide").find('button').length;
-        this._search();
-      },
-      _panelChange(rel) { //点击折叠面板
-        this._judgePanel(rel.length);
-      },
-      _judgePanel(val) {
-        this.treeStyleObj.height = document.documentElement.clientHeight - 110 + 'px';
-        switch (this.contLength) {
-          case 0 :
-            this.tableHeight = this.$tableHeight(val, this.noBtnVal, this.dVal);
-            break;
-          default:
-            this.tableHeight = this.$tableHeight(val, this.btnVal, this.dVal);
-        }
-      },
-      _refresh() { //刷新
-        $('input[name=id]').val('');
-        this._page();
-        this.treeObj = {};
       },
       _page() {
         this.$refs.pageTable._page('search-form', 'LmsChemicalCategory/page');
@@ -213,7 +157,7 @@
           title: '提示',
           content: content ? content : '确定删除该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsChemicalCategory/deleteById', ids).then(() => {
+            this.$store.dispatch('LmsChemicalCategory/deleteById', ids.join(',')).then(() => {
               if (this.$store.state.LmsChemicalCategory.success) {
                 this._search();
                 this.$Message.success('删除成功！');
@@ -227,43 +171,20 @@
         if (edit) {
           // 编辑
           this.$store.dispatch('LmsChemicalCategory/getById', id).then(() => {
-            this.$refs.editModal._open('', this.$store.state.LmsChemicalCategory.model);
+            this.$refs.editModal._open(this.$store.state.LmsChemicalCategory.model);
           });
         } else {
           // 添加
-          this.$refs.editModal._open(this.treeObj, '');
+          this.$refs.editModal._open();
         }
       },
       _search() {
-        this._categoryTree();
         this._page();
-      },
-      _selectStatus(data) {
-        $('input[name=status]').val(data);
-      },
-      _categoryTree() {
-        this.$refs.categorytree._Ztree();
-      },
-      _categoryData(data) {
-        $('input[name=id]').val(data.id);
-        this.treeObj = data;
-        this._formSearch();
-      },
-      _treeHide() { //左侧树隐藏
-        this.isTree = false;
-        this.tableStyleObj.marginLeft = '15px'
-      },
-      _treeShow() {
-        this.isTree = true;
-        this.tableStyleObj.marginLeft = '230px'
       },
       _btnClick(msg) {
         switch (msg) {
           case '添加' :
             this._editModal(false);
-            break;
-          case '删除' :
-            this._deleteSelected();
             break;
         }
       },
@@ -279,4 +200,12 @@
     },
   }
 </script>
+<style>
+  a {
+     color: #007bff !important;
+     text-decoration: none;
+     background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+  }
+</style>
 

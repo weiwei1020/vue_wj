@@ -10,12 +10,8 @@ import LmsTestSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSched
 import LmsEquipClass from "../pages/equip/lms-equip-class/LmsEquipClass.vue"//仪器分类信息
 import LmsEquipInfo from "../pages/equip/lms-equip-info/LmsEquipInfo.vue"//仪器资产信息
 import LmsEquipOrderTab from "../pages/equip/lms-equip-order/LmsEquipOrderTab.vue"//仪器预约信息
-import LmsEquipOrderQuery from "../pages/equip/lms-equip-order-query/LmsEquipOrderQuery.vue"//仪器预约查询
 import LmsEquipSchedule from "../pages/equip/lms-equip-schedule/LmsEquipSchedule.vue"//仪器排程查询
-import LmsEquipProduct from "../pages/equip/lms-equip-product/LmsEquipProduct.vue"//仪器产品信息
-import LmsEquipPurchase from "../pages/equip/lms-equip-purchase/LmsEquipPurchase.vue"//仪器采购订单
 import LmsEquipAudit from "../pages/equip/lms-equip-audit/LmsEquipAudit.vue"//仪器预约审批
-import LmsEquipReturn from '../pages/equip/lms-equip-return-manage/LmsEquipReturnManage'; // 仪器归还管理
 // 耗材管理
 import LmsChemicalCategory from '../pages/chemical/lms-chemical-category/LmsChemicalCategory.vue'//耗材分类管理
 import LmsChemicalManage from '../pages/chemical/lms-chemicals-manage/LmsChemicalManage.vue'//耗材台账管理
@@ -132,12 +128,8 @@ export default [
   {path: 'equip_class', component: LmsEquipClass},
   {path: 'equip_info', component: LmsEquipInfo},
   {path: 'equip_order', component: LmsEquipOrderTab},
-  {path: 'equip_order_query', component: LmsEquipOrderQuery},
   {path: 'equip_schedule', component: LmsEquipSchedule},
-  {path: 'equip_product', component: LmsEquipProduct},
-  {path: 'equip_purchase', component: LmsEquipPurchase},
   {path: 'equip_audit', component: LmsEquipAudit},
-  {path: 'equip_return', component: LmsEquipReturn},
   // 耗材管理
   {path: 'chemical_category', component: LmsChemicalCategory},//耗材类别管理
   {path: 'chemical_manage', component: LmsChemicalManage},//耗材台账管理

@@ -6,19 +6,15 @@
           <tbody>
           <tr>
             <th>分类名称</th>
-            <td>{{obj.name}}</td>
+            <td>{{obj.consumableSortName}}</td>
           </tr>
-          <!--<tr>
-            <th>上级分类</th>
-            <td>{{obj.parentName}}</td>
-          </tr>-->
           <tr>
             <th>编号</th>
-            <td>{{obj.num}}</td>
+            <td>{{obj.consumableSortNumber}}</td>
           </tr>
           <tr>
             <th>备注</th>
-            <td>{{obj.remark}}</td>
+            <td>{{obj.consumableSortRemark}}</td>
           </tr>
           </tbody>
         </table>

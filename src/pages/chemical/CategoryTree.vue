@@ -41,6 +41,9 @@
               enable: true,
               idKey: "id",
               pIdKey: "pid",
+            },
+            key: {
+              name: "consumableSortName"
             }
           },
           callback: {

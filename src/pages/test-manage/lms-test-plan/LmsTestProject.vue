@@ -160,10 +160,6 @@
             // {testName:'111',remark:'111',beginDate:'111',endDate:'111',}
           ]
         },
-        contLength: null,
-        noBtnVal: 250,
-        btnVal: 292,
-        dVal: 57,
         project: '',
         projectTitle:'',
       }

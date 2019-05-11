@@ -9,12 +9,8 @@ import LmsTestSchedule from "./modules/lims/lms-test-schedule";
 import LmsEquipClass from "./modules/lims/lms-equip-class";
 import LmsEquipInfo from "./modules/lims/lms-equip-info";
 import LmsEquipOrder from "./modules/lims/lms-equip-order";
-import LmsEquipProduct from "./modules/lims/lms-equip-product";
-import LmsEquipPurchase from "./modules/lims/lms-equip-purchase";
-import LmsEquipPurchaseDetail from "./modules/lims/lms-equip-purchase-detail";
 import LmsEquipSchedule from './modules/lims/lms-equip-schedule';
 import LmsEquipUseRecord from "./modules/lims/lms-equip-use-record";
-import LmsEquipAudit from './modules/lims/lms-equip-audit';
 //耗材管理
 import LmsChemicalCategory from "./modules/lims/lms-chemical-category";
 import LmsProductManage from './modules/lims/lms-product-manage'
@@ -28,12 +24,8 @@ export default {
   LmsEquipClass,
   LmsEquipInfo,
   LmsEquipOrder,
-  LmsEquipProduct,
-  LmsEquipPurchase,
-  LmsEquipPurchaseDetail,
   LmsEquipSchedule,
   LmsEquipUseRecord,
-  LmsEquipAudit,
   //耗材管理
   LmsChemicalCategory,
   LmsProductManage,
@@ -90,16 +82,6 @@ import LmsEnvMicrobeMonitor from "./modules/lims/lms-env-microbe-monitor";
 //订单管理
 import LmsOrderManage from './modules/lims/lms-order-manage'
 
-//体系管理
-import LmsFrameCheckPlan from "./modules/lims/lms-frame-check-plan";
-import LmsFrameCheckManage from "./modules/lims/lms-frame-check-manage";
-import LmsFrameInnerCheckPlan from "./modules/lims/lms-frame-inner-check-plan";
-import LmsFrameInnerCheckManage from "./modules/lims/lms-frame-inner-check-manage";
-import LmsFrameComplaintManage from "./modules/lims/lms-frame-complaint-manage";
-import LmsFrameComplaintRegister from "./modules/lims/lms-frame-complaint-register";
-import LmsFrameCustomerInvestigate from "./modules/lims/lms-frame-customer-investigate";
-import LmsFrameCustomerInvestigateDetail from "./modules/lims/lms-frame-customer-investigate-detail";
-import LmsFrameUnconformRegister from "./modules/lims/lms-frame-unconform-register";
 import LmsYearPlan from "./modules/lims/lms-year-plan";
 import LmsMonthPlan from './modules/lims/lms-month-plan';
 import LmsQcMainPlan from './modules/lims/lms-qc-main-plan'
