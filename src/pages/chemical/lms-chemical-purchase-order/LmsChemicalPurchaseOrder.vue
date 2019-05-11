@@ -11,7 +11,8 @@
               <Form id="search-form" inline onsubmit="return false" :label-width="70">
                 <label class="label-sign"></label>
                 <Form-item class="width-23" label="申请原因:">
-                  <Input name="remark" placeholder="请输入申请原因" @on-enter="_formSearch"></Input>
+                  <input name="purchaseType" v-model="purchaseType" type="hidden"/>
+                  <Input name="reason" placeholder="请输入申请原因" @on-enter="_formSearch"></Input>
                 </Form-item>
                 <Form-item class="search-btn">
                   <Button type="primary" @click="_formSearch">搜索</Button>
@@ -19,322 +20,129 @@
               </Form>
           </Col>
           <Col span="24" style="margin-bottom: 10px">
-          <PageTable :pageColumns="pageColumns" :tableHeight="tableHeight" @on-result-change="_tableResultChange"
-                     ref="pageTable" :getPage="getPage">
-
-          </PageTable>
+            <ElementTable :pageColumns="pageColumns" :tableHeight="tableHeight" @on-result-change="_tableResultChange"
+                          ref="pageTable" :getPage="getPage" hideCheckbox
+                          :warnKey="'testEndTime'">
+              <el-table-column
+                show-overflow-tooltip
+                :prop="item.key"
+                :label="item.title"
+                :min-width="item.width"
+                :align="item.align"
+                :fixed="item.fixed?item.fixed:undefined"
+                v-for="item in pageColumns" :key="item.id">
+                <template slot-scope="scope">
+                  <a v-if="item.key==='name'"
+                     @click="_detailModal(scope.row.id)">{{scope.row[item.key]}}</a>
+                  <span v-else-if="item.status">
+                    <span v-if="scope.row[item.key]===0" class="yellow-color">
+                      待审批
+                    </span>
+                    <span v-else-if="scope.row[item.key]===1" class="green-color">
+                      已通过
+                    </span>
+                     <span v-else-if="scope.row[item.key]===2" class="red-color">
+                      已驳回
+                    </span>
+                    <span v-else-if="scope.row[item.key]===3" class="blue-color">
+                      已入库
+                    </span>
+                  </span>
+                  <span v-else>{{scope.row[item.key]}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="操作"
+                align="center"
+                :width="180"
+                fixed="right">
+                <template slot-scope="scope">
+                  <IconList :msg="scope.row.status =='0'?iconMsg:scope.row.status =='1'?iconMsgDis:iconMsgDis1" @on-result-change="_iconClick"
+                            :rowData="scope.row"
+                            :rowIndex="scope.$index"></IconList>
+                </template>
+              </el-table-column>
+            </ElementTable>
           </Col>
         </Row>
       </div>
     </div>
-    <!-- 申请原因 -->
-    <LmsChemicalPurchaseOrderEdit ref="editModal" @on-result-change="_search"></LmsChemicalPurchaseOrderEdit>
-    <!-- 通过原因 -->
-    <LmsChemicalPurchaseOrderApproveEdit ref="approveModal" @on-result-change="_search"></LmsChemicalPurchaseOrderApproveEdit>
-    <!-- 驳回原因 -->
-    <LmsChemicalPurchaseOrderDelEdit ref="delModal" @on-result-change="_search"></LmsChemicalPurchaseOrderDelEdit>
-    <!-- 采购详情 -->
-    <LmsChemicalPurchaseOrderDetail ref="chemicalPurchaseOrderDetail"
-                                    @on-result-change="_search"></LmsChemicalPurchaseOrderDetail>
   </div>
 </template>
 <script>
-  import LmsChemicalPurchaseOrderApproveEdit from './LmsChemicalPurchaseOrderApproveEdit.vue'
-  import LmsChemicalPurchaseOrderDelEdit from './LmsChemicalPurchaseOrderDelEdit.vue'
-  import LmsChemicalPurchaseOrderEdit from './LmsChemicalPurchaseOrderEdit.vue'
-  import LmsChemicalPurchaseOrderDetail from './LmsChemicalPurchaseOrderDetail.vue'
-  import PageTable from '../../../components/table/PageTable'
-  import IconList from '../../../components/base/IconList1.vue'
+  import ElementTable from '../../../components/table/ElementTable'
+  import IconList from '../../../components/base/IconList.vue'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
 
   export default {
     components: {
-      LmsChemicalPurchaseOrderApproveEdit,
-      LmsChemicalPurchaseOrderDelEdit,
-      LmsChemicalPurchaseOrderEdit,
-      LmsChemicalPurchaseOrderDetail,
-      PageTable,
+      ElementTable,
       IconList,
       BreadCrumbs
     },
     data() {
       return {
-        btnObj: { //按钮权限
-          reason: '', //申请原因
-          approve: '', //提交审批
-          del: '', //删除
-          detail: '',//采购单详情
-          putStorage:'',//入库
-        },
+        iconMsg: [
+          { type: 'checkmark-circled', id: '', name: '通过' },
+          { type: 'close-circled', id: '', name: '驳回' },
+          { type: 'home', id: '', name: '入库' ,disabled:true},
+
+        ],
+        iconMsgDis: [
+          { type: 'checkmark-circled', id: '', name: '通过',disabled:true },
+          { type: 'close-circled', id: '', name: '驳回',disabled:true },
+          { type: 'home', id: '', name: '入库'},
+        ],
+        iconMsgDis1: [
+          { type: 'checkmark-circled', id: '', name: '通过',disabled:true },
+          { type: 'close-circled', id: '', name: '驳回',disabled:true },
+          { type: 'home', id: '', name: '入库' ,disabled:true},
+        ],
+        purchaseType:'0',
         heightSearch: '',
-        tableHeight: '300',
         pageColumns: [
-          {title: '订单编号', key: 'num', width: 220, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
-          {title: '申请人', key: 'applyer', width: 180, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
-
-          {
-            title: '状态', key: 'status', width: 150,sortable:'true',
-            render: (h, data) => {
-              let val = data.row.status.value;
-              return h('div', {
-                style: {
-                  color: val == 'WAIT_APPROVAL' || val == 'WAIT_PURCHASE' ? '#00a0e9' : val == 'IN_APPROVAL' ? '#F8BB2C' : val == 'APPROVAL_FAILED' ? 'red' : '#6FBA2C'
-                }
-              }, data.row.status.display);
-            }
+          {title: '订单编号', key: 'purchaseNumber', width: 150, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
+          {title: '申请人', key: 'purchasePerson', width: 120, align: 'center', ellipsis: true,sortable:'true', },
+          {title: '耗材名称', key: 'consumableName', width: 180, align: 'center', ellipsis: true,sortable:'true', },
+          {title: '采购数量', key: 'consunmableStock', width: 140, align: 'center', ellipsis: true,sortable:'true', },
+          {title: '单价', key: 'price', width: 180, align: 'center', ellipsis: true,sortable:'true', },
+          {title: '状态', key: 'status', width: 150,sortable:'true',status:true,
           },
-          {
-            title: '申请原因', key: 'remark', ellipsis: true, width: 350,sortable:'true',
-            render: (h, data) => {
-              return h('Tooltip', {
-                props: {
-                  placement: 'top-start'
-                },
-                style: {
-                  cursor: 'pointer'
-                }
-              }, [
-                h('div', {
-                  style: {
-                    display: 'block',
-                    maxWidth: '360px',
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis'
-                  }
-                }, data.row.remark),
-                h('div', {
-                  slot: 'content',
-                  style: {
-                    padding: '3px',
-                    whiteSpace: 'normal'
-                  }
-                }, [
-                  h('div', data.row.remark)
-                ])
-
-              ]);
-            }
-          },
-
-          {
-            title: '创建时间', key: 'ctime', width: 160,sortable:'true',
-            render: (h, params) => {
-              return h('div', this.$dateformat(params.row.ctime, "yyyy-mm-dd HH:MM:ss"));
-            }
-          },
-          {
-            title: '最后修改时间', key: 'ltime', width: 160,sortable:'true',
-            render: (h, params) => {
-              return h('div', this.$dateformat(params.row.ltime, "yyyy-mm-dd HH:MM:ss"));
-            }
-          },
-          {
-            title: '审批批注', key: 'postil', ellipsis: true, width: 420,sortable:'true',
-            render: (h, data) => {
-              return h('Tooltip', {
-                props: {
-                  placement: 'top-start'
-                },
-                style: {
-                  cursor: 'pointer'
-                }
-              }, [
-                h('div', {
-                  style: {
-                    display: 'block',
-                    maxWidth: '380px',
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    textOverflow: 'ellipsis'
-                  }
-                }, data.row.postil),
-                h('div', {
-                  slot: 'content',
-                  style: {
-                    padding: '3px',
-                    whiteSpace: 'normal'
-                  }
-                }, [
-                  h('div', data.row.postil)
-                ])
-
-              ]);
-            }
-          },
-          {
-            title: '操作', key: 'action', width: 160, align: 'left', fixed: 'right',
-            render: (h, data) => {
-              let status = data.row.status.value;
-              let stockStatus = data.row.stockStatus;
-              let operate = [];
-              let btnDetail =
-                h('Tooltip', {
-                  props: {
-                    content: '采购单详情',
-                    key: '采购单详情',
-                    transfer: true
-                  }
-                }, [
-                  h('div', {
-                    on: {
-                      click: () => {
-                        this._chemicalPurchaseOrderDetail(data.row);
-                      }
-                    }
-                  }, [h('Icon', {
-                    props: {
-                      type: 'android-document',
-                      size: 20,
-                    },
-                    class:'icons',
-                    style: {marginRight: '10px',marginTop:'3px'},
-                    attrs: {id: this.btnObj.detail}, //添加自定义属性
-                  })
-                  ])
-                ]);
-              let btnReason =
-                h('Tooltip', {
-                  props: {
-                    content: '申请原因',
-                    key: '申请原因',
-                    transfer: true
-                  }
-                }, [
-                  h('div', {
-                    on: {
-                      click: () => {
-                        this._editModal(data.row.id);
-                      }
-                    }
-                  }, [h('Icon', {
-                    props: {
-                      type: 'android-list',
-                      size: 20,
-                    },
-                    class:'icons',
-                    style: {marginRight: '10px',marginTop:'3px'},
-                    attrs: {id: this.btnObj.reason}, //添加自定义属性
-                  })
-                  ])
-                ]);
-              let btnApprove =
-                h('Tooltip', {
-                  props: {
-                    content: '通过审批',
-                    key: '通过审批',
-                    transfer: true
-                  }
-                }, [
-                  h('div', {
-                    on: {
-                      click: () => {
-                        this._approveModal(data.row.id);
-                      }
-                    }
-                  }, [h('Icon', {
-                    props: {
-                      type: 'android-send',
-                      size: 20,
-                    },
-                    class:'icons',
-                    style: {marginRight: '10px',marginTop:'3px'},
-                    attrs: {id: this.btnObj.approve}, //添加自定义属性
-                  })
-                  ])
-                ]);
-              let btnDel =
-                h('Tooltip', {
-                  props: {
-                    content: '驳回审批',
-                    key: '驳回审批',
-                    transfer: true
-                  }
-                }, [
-                  h('div', {
-                    on: {
-                      click: () => {
-                        this._delModal(data.row.id);
-                      }
-                    }
-                  }, [h('Icon', {
-                    props: {
-                      type: 'close',
-                      size: 20,
-                    },
-                    class:'icons',
-                    style: {marginRight: '10px',marginTop:'3px'},
-                    attrs: {id: this.btnObj.del}, //添加自定义属性
-                  })
-                  ])
-                ]);
-              let  putStorage =
-                h('Tooltip', {
-                  props: {
-                    content: '入库',
-                    key: '入库',
-                    transfer: true
-                  }
-                }, [
-                  h('div', {
-                    on: {
-                      click: () => {
-                        this._putStorage(data.row.id);
-                      }
-                    }
-                  }, [h('Icon', {
-                    props: {
-                      type: 'soup-can',
-                      size: 20,
-                    },
-                    class:'icons',
-                    style: {marginRight: '10px',marginTop:'3px'},
-                    attrs: {id: this.btnObj.putStorage}, //添加自定义属性
-                  })
-                  ])
-                ]);
-              if (this.$showBtn(this.btnObj.detail)) {
-                operate.push(btnDetail);
-              }
-              // 待审批状态可以操作
-              if (this.$showBtn(this.btnObj.reason) == true && status == 'WAIT_APPROVAL') {
-                operate.push(btnReason);
-              }
-            //审批中可以操作
-              if (this.$showBtn(this.btnObj.approve) == true && status == 'IN_APPROVAL') {
-                operate.push(btnApprove);
-              }
-              if (this.$showBtn(this.btnObj.del) == true && status == 'IN_APPROVAL') {
-                operate.push(btnDel);
-              }
-              if (this.$showBtn(this.btnObj.putStorage) == true && stockStatus == '0') {
-                operate.push(putStorage);
-              }
-              return h('div', operate.length > 0 ? operate : '--');
-            }
-          }
+          {title: '采购原因', key: 'reason', ellipsis: true, width: 350,sortable:'true',},
+          {title: '备注', key: 'purchaseRemark', width: 180, align: 'center', ellipsis: true,sortable:'true', },
+          {title: '创建时间', key: 'ctime', width: 160,sortable:'true',},
+          {title: '最后修改时间', key: 'ltime', width: 160,sortable:'true',},
         ],
         noBtnVal: 250,
         dVal: 57,
         getPage: {}
       }
     },
+    computed: {
+      tableHeight: function () {
+        return this.$tableHeight('search');
+      }
+    },
     mounted() {
-      this._contHide();
+      this._search();
     },
     methods: {
-      _contHide() {
-        this._judgePanel(0);
-        this._page();
-      },
-      _panelChange(rel) { //点击折叠面板
-        this._judgePanel(rel.length);
-      },
-      _judgePanel(val) {
-        this.tableHeight = this.$tableHeight(val, this.noBtnVal, this.dVal);
+      _iconClick(res, data) {
+        switch (res) {
+          case '通过':
+            this._submitApprove(data.purchaseId);
+            break;
+          case '驳回':
+            this._rejectById(data.purchaseId);
+            break;
+          case '入库':
+            this._putStorage(data);
+            break;
+
+        }
       },
       _page() {
-        this.$refs.pageTable._page('search-form', 'LmsChemicalPurchaseOrder/page');
+        this.$refs.pageTable._page('search-form', 'LmsChemicalPurchase/page');
       },
       _formSearch() {
         this.$refs.pageTable._pageChange(1);
@@ -344,23 +152,22 @@
           title: '提示',
           content: '确定通过采购审批？',
           onOk: () => {
-            this.$store.dispatch('LmsChemicalPurchaseOrder/flowSubmit', id).then(() => {
-              if (this.$store.state.LmsChemicalPurchaseOrder.success) {
+            this.$store.dispatch('LmsChemicalPurchase/passById', id).then(() => {
+              if (this.$store.state.LmsChemicalPurchase.success) {
                 this.$Message.success('审批通过成功！');
-                // 刷新分页
                 this._search();
               }
             });
           }
         });
       },
-      _deleteById(id) {
+      _rejectById(id) {
         this.$Modal.confirm({
           title: '提示',
           content: '确定驳回该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsChemicalPurchaseOrder/deleteById', id).then(() => {
-              if (this.$store.state.LmsChemicalPurchaseOrder.success) {
+            this.$store.dispatch('LmsChemicalPurchase/rejectById', id).then(() => {
+              if (this.$store.state.LmsChemicalPurchase.success) {
                 this._search();
                 this.$Message.success('驳回成功！');
               }
@@ -368,34 +175,19 @@
           }
         });
       },
-      _chemicalPurchaseOrderDetail(purchaseOrder) {
-        this.$refs.chemicalPurchaseOrderDetail._open(purchaseOrder);
-      },
       _editModal(id) {
         // 编辑
-        this.$store.dispatch('LmsChemicalPurchaseOrder/getById', id).then(() => {
-          this.$refs.editModal._open(this.$store.state.LmsChemicalPurchaseOrder.model);
+        this.$store.dispatch('LmsChemicalPurchase/getById', id).then(() => {
+          this.$refs.editModal._open(this.$store.state.LmsChemicalPurchase.model);
         });
       },
-      _approveModal(id) {
-        // 通过原因
-        this.$store.dispatch('LmsChemicalPurchaseOrder/getById', id).then(() => {
-          this.$refs.approveModal._open(this.$store.state.LmsChemicalPurchaseOrder.model);
-        });
-      },
-      _delModal(id) {
-        // 驳回原因
-        this.$store.dispatch('LmsChemicalPurchaseOrder/getById', id).then(() => {
-          this.$refs.delModal._open(this.$store.state.LmsChemicalPurchaseOrder.model);
-        });
-      },
-      _putStorage(id){
+      _putStorage(data){
         this.$Modal.confirm({
           title: '提示',
           content: '确定入库？',
           onOk: () => {
-            this.$store.dispatch('LmsChemicalPurchaseOrder/inStock', id).then(() => {
-              if (this.$store.state.LmsChemicalPurchaseOrder.success) {
+            this.$store.dispatch('LmsChemicalPurchase/inStock', {id:data.id,purchaseId:data.purchaseId}).then(() => {
+              if (this.$store.state.LmsChemicalPurchase.success) {
                 this._search();
                 this.$Message.success('入库成功！');
               }
@@ -409,7 +201,7 @@
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
-            this.getPage = this.$store.state.LmsChemicalPurchaseOrder.page;
+            this.getPage = this.$store.state.LmsChemicalPurchase.page;
             break;
           default :
             this._page();
@@ -418,3 +210,8 @@
     },
   }
 </script>
+<style>
+  .yellow-color{
+    color:#F8BB2C;
+  }
+</style>

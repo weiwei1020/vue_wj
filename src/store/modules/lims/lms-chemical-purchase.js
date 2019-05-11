@@ -18,14 +18,24 @@ const actions = {
       commit('SUCCESS', resp);
     });
   },
-  async addPro({commit}, data) { //批量添加
-    await http.post('/consumablePurchase/?chemicalIds=' + data.id + '&quantity=' + data.quantity).then(function (resp) {
+  async page({commit}, data) {
+    await http.post('/consumablePurchase/page' , data).then(function (resp) {
+      commit('PAGE', resp);
+    });
+  },
+  async rejectById({commit}, ids) {
+    await http.post('/consumablePurchase/purchaseReject',{purchaseId: ids}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
-  async purchaseChemicalPage({commit}, data) {
-    await http.post('/consumablePurchase/page?orderId=' + data.purchaseId, data.obj).then(function (resp) {
-      commit('PAGE', resp);
+  async passById({commit}, ids) {
+    await http.post('/consumablePurchase/purchaseAudit',{purchaseId: ids}).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
+  async inStock({commit}, data) {
+    await http.post('/consumablePurchase/purchaseOut',{purchaseId: data.purchaseId,id:data.id}).then(function (resp) {
+      commit('SUCCESS', resp);
     });
   },
   async purchaseChemicalPages({commit}, data) {
