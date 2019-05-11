@@ -14,38 +14,27 @@ const state = {
 
 const actions = {
   async page({commit}, data) {
-    await http.post('/slims/v1/chemical_receive/page_receive', data).then(function (resp) {
+    await http.post('/consumableApply/page', data).then(function (resp) {
       commit('PAGE', resp);
     });
   },
-  async addPros({commit}, ids) {//添加到申请单(多条)
-    await http.post('/slims/v1/chemical_receive/add_receive/' + ids).then(function (resp) {
+  async add({commit}, data) { //领用
+    await http.post('/consumableApply/add',data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
-  async addReceiveOne({commit}, data) {//添加到申请单
-    await http.post('/slims/v1/chemical_receive/add_receiveOne?ChemicalId=' + data.id,data.obj).then(function (resp) {
+  async rejectById({commit}, ids) {
+    await http.post('/consumableApply/purchaseReject',{purchaseId: ids}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
-  //生成申请单
-  async pageTemp({commit}, data) {
-    await http.post('/slims/v1/chemical_receive/page', data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  async editChemical({commit}, data) { //申请单编辑
-    await http.put('/slims/v1/chemical_receive/' + data.id, data.obj).then(function (resp) {
+  async passById({commit}, ids) {
+    await http.post('/consumableApply/purchaseAudit',{purchaseId: ids}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
-  async deletePurIds({commit}, ids) { //移除
-    await http.delete('/slims/v1/chemical_receive/?ids='+ids).then(function (resp) {
-      commit('SUCCESS', resp);
-    });
-  },
-  async purOrder({commit}, data) {//提交
-    await http.post('/slims/v1/chemical_receive/push_receive', {remark: data.remark}).then(function (resp) {
+  async inStock({commit}, data) {
+    await http.post('/consumableApply/purchaseOut',{purchaseId: data.purchaseId,id:data.id}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },

@@ -16,7 +16,7 @@ import LmsEquipAudit from "../pages/equip/lms-equip-audit/LmsEquipAudit.vue"//�
 import LmsChemicalCategory from '../pages/chemical/lms-chemical-category/LmsChemicalCategory.vue'//耗材分类管理
 import LmsChemicalManage from '../pages/chemical/lms-chemicals-manage/LmsChemicalManage.vue'//耗材台账管理
 import LmsChemicalPurchase from '../pages/chemical/lms-chemical-purchase/LmsChemicalPurchase.vue'//耗材采购申请
-import LmsChemicalPurchaseOrder from '../pages/chemical/lms-chemical-purchase-order/LmsChemicalPurchaseOrder.vue'//耗材采购审批
+import LmsChemicalPurchaseOrder from '../pages/chemical/lms-chemical-purchase-audit/LmsChemicalPurchaseOrder.vue'//耗材采购审批
 import LmsChemicalApply from '../pages/chemical/lms-chemical-apply/LmsChemicalApply.vue'//耗材领用申请
 import LmsChemicalUse from '../pages/chemical/lms-chemical-use/LmsChemicalUse.vue'//耗材领用审批
 import LmsChemicalUseHistory from '../pages/chemical/lms-chemical-use-history/LmsChemicalUseHistory.vue'//耗材使用记录
@@ -54,7 +54,7 @@ import LmsRoleChemicalCategory from '../pages/chemical/lms-role-chemical-categor
 // import LmsStandardTitration from '../pages/lims/chemical/lms-titration/LmsStandardTitration.vue'// 标准滴定液记录 add by wwd 170912
 // import LmsChemicalClassify from '../pages/lims/chemical/lms-chemical-classify/LmsChemicalClassify.vue'//耗材库存归类管理
 // import LmsChemicalPurchase from '../pages/lims/chemical/lms-chemical-purchase/LmsChemicalPurchase.vue'//耗材采购管理
-// import LmsChemicalPurchaseOrder from '../pages/lims/chemical/lms-chemical-purchase-order/LmsChemicalPurchaseOrder.vue'//耗材采购单管理
+// import LmsChemicalPurchaseOrder from '../pages/lims/chemical/lms-chemical-purchase-audit/LmsChemicalPurchaseOrder.vue'//耗材采购单管理
 // import LmsChemicalDeliveryOrder from '../pages/lims/chemical/lms-chemical-delivery-order/LmsChemicalDeliveryOrder.vue'//耗材出库单管理
 // import LmsChemicalInStorage from '../pages/lims/chemical/lms-chemical-instorage/LmsChemicalInStorage.vue'//耗材入库管理
 // import LmsChemicalOutStorage from '../pages/lims/chemical/lms-chemical-outstorage/LmsChemicalOutStorage.vue'//耗材出库管理

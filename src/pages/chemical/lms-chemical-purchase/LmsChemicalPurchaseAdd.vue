@@ -94,7 +94,7 @@
       _open(obj) {
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
-        this.modalTitle = '耗材名称 一 ' + obj.name;//耗材名称
+        this.modalTitle = '采购单：耗材名称 一 ' + obj.name;//耗材名称
         this.formObj.purchaseConsumableId = obj.id;
         this.formObj.consumableName = obj.name;
         this.formObj.price = '';

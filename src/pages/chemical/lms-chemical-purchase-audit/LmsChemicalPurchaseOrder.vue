@@ -101,7 +101,7 @@
         purchaseType:'0',
         heightSearch: '',
         pageColumns: [
-          {title: '订单编号', key: 'purchaseNumber', width: 150, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
+          {title: '采购单编号', key: 'purchaseNumber', width: 150, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
           {title: '申请人', key: 'purchasePerson', width: 120, align: 'center', ellipsis: true,sortable:'true', },
           {title: '耗材名称', key: 'consumableName', width: 180, align: 'center', ellipsis: true,sortable:'true', },
           {title: '采购数量', key: 'consunmableStock', width: 140, align: 'center', ellipsis: true,sortable:'true', },

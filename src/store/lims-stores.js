@@ -14,7 +14,8 @@ import LmsEquipUseRecord from "./modules/lims/lms-equip-use-record";
 //耗材管理
 import LmsChemicalCategory from "./modules/lims/lms-chemical-category";
 import LmsChemicalManage from "./modules/lims/lms-chemical";
-import LmsChemicalPurchase from "./modules/lims/lms-chemical-purchase"
+import LmsChemicalPurchase from "./modules/lims/lms-chemical-purchase";
+import LmsChemicalApply from "./modules/lims/lms-chemical-apply"
 import LmsProductManage from './modules/lims/lms-product-manage'
 
 
@@ -32,7 +33,7 @@ export default {
   LmsChemicalCategory,
   LmsChemicalManage,
   LmsChemicalPurchase,
-
+  LmsChemicalApply,
   LmsProductManage,
 }
 
@@ -56,7 +57,7 @@ import LmsCustomerAttachment from './modules/lims/lms-customer-attachment'
 
 import LmsChemicalClassify from "./modules/lims/lms-chemical-classify";
 import LmsChemicalPurchase from "./modules/lims/lms-chemical-purchase";
-import LmsChemicalPurchaseOrder from "./modules/lims/lms-chemical-purchase-order";
+import LmsChemicalPurchaseOrder from "./modules/lims/lms-chemical-purchase-audit";
 import LmsChemicalDeliveryOrder from "./modules/lims/lms-chemical-delivery-order";
 import LmsChemicalRelDelivery from "./modules/lims/lms-chemical-rel-delivery";
 import LmsStorehouse from "./modules/lims/lms-storehouse";
