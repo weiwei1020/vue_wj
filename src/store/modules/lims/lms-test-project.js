@@ -73,47 +73,6 @@ const actions = {
         commit('LIST', resp);
       });
     },
-
-  //实验修改记录
-  async testChange({commit},data) {
-    await http.post('/slims/v1/staff_history_operation/page', data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  //实验修改记录byID
-  async testChangeById({commit},data) {
-    await http.post('/slims/v1/staff_test_history/page',data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  // //实验修改记录byID
-  // async testChangeById({commit},data) {
-  //   await http.post('/slims/v1/staff_test_history/page', data).then(function (resp) {
-  //     commit('PAGE', resp);
-  //   });
-  // },
-  //获取所有人员
-  async orgTreeList({commit}, data) { //组织树
-    await http.post('/base/v1/org/org_tree', data).then(function (resp) {
-      commit('ORG_TREE', resp);
-    });
-  },
-
-  async getUser({commit},data) {
-    await http.post('/base/v1/user/list',data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  async addUser({commit},data) {
-    await http.post('/base/v1/user/page_org',data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
-  async delUser({commit},data) {
-    await http.post('/base/v1/user/page_org',data).then(function (resp) {
-      commit('PAGE', resp);
-    });
-  },
 };
 
 const mutations = {

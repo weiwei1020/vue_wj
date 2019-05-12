@@ -31,6 +31,7 @@
                 <Form-item class="width-23" label="实验名称:">
                   <Input name="testName" placeholder="请输入实验名称" style="width: 100px;" @on-enter="_formSearch"></Input>
                   <input name="testProjectId" type="hidden">
+                  <input name="testUname" v-model="testUname" type="hidden">
                 </Form-item>
                 <Form-item class="search-btn" style="margin-left: 20px;">
                   <Button type="primary" @click="_formSearch">搜索</Button>
@@ -156,12 +157,11 @@
         ],
         isTree: true,
         getPage: {
-          records: [
-            // {testName:'111',remark:'111',beginDate:'111',endDate:'111',}
-          ]
+          records: []
         },
         project: '',
         projectTitle:'',
+        testUname:localStorage.getItem('personName')
       }
     },
     computed: {
