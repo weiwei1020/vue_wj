@@ -9,10 +9,10 @@
                       <input name="testProjectId" v-model="formObj.testProjectId" type="hidden"></input>
                       <input name="testProjectName" v-model="formObj.testProjectName" type="hidden"></input>
                     </Form-item>
-                    <Form-item label="计划开始日期" prop="testBrginDate" >
-                      <Date-picker name="testBrginDate" type="datetime"
+                    <Form-item label="计划开始日期" prop="testBeginDate" >
+                      <Date-picker name="testBeginDate" type="datetime"
                                    placeholder="开始日期" format="yyyy-MM-dd HH:mm:ss"
-                                  v-model="formObj.testBrginDate" style="width:100%;">
+                                  v-model="formObj.testBeginDate" style="width:100%;">
                       </Date-picker>
                     </Form-item>
                     <Form-item label="计划结束日期" prop="testEndDate" >
@@ -40,7 +40,7 @@
         testProjectName:'',
         testId:'',
         testName: '',
-        testBrginDate:'',
+        testBeginDate:'',
         testEndDate:'',
         testRemark: '',
     };
@@ -78,6 +78,7 @@
                         testProjectId:this.formObj.testProjectId,//年度计划id
                         testProjectName:this.formObj.testProjectName,//年度计划
                         testId:this.formObj.testId,//实验id
+                        testUname:localStorage.getItem('personName'),
                       });
                     if (this.$string(this.id).isEmpty()) {
                         // 添加
@@ -116,11 +117,15 @@
                 } else {
                   this.id = formObj.testId;
                   this.formObj = formObj;
-                  if(formObj.testBrginDate=undefined){
-                    this.formObj.testBrginDate='';
+                  if(formObj.testBeginDate == undefined){
+                    this.formObj.testBeginDate='';
+                  }else{
+                    this.formObj.testBeginDate= formObj.testBeginDate.slice(0,19);
                   }
-                  if(formObj.testEndDate=undefined){
+                  if(formObj.testEndDate==undefined){
                     this.formObj.testEndDate='';
+                  }else{
+                    this.formObj.testEndDate=formObj.testEndDate.slice(0,19);
                   }
                   this.modalTitle = '编辑实验安排';
                 }

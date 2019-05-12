@@ -94,7 +94,7 @@
         btn: [
           {type: 'success', id: '', name: '添加'},
           {type: 'error', id: '', name: '删除'},
-          {id: '', name: '实验修改记录'},
+          // {id: '', name: '实验修改记录'},
         ],
         searchOpen:false,
         iconMsg: [
@@ -127,14 +127,14 @@
           {title: '创建人', key: 'testUname', sortable: 'true', width: 120},
           {title: '备注', key: 'testRemark', sortable: 'true', width: 160},
           {
-            title: '计划开始时间 ', key: 'testbrginDate', sortable: 'true', width: 160,
+            title: '计划开始时间 ', key: 'testBeginDate', sortable: 'true', width: 160,
             render: (h, params) => {
-              return h('div', params.row.testbrginDate ? this.$dateformat(params.row.testbrginDate, "yyyy-mm-dd HH" + ':00:00') : '');
+              return h('div', params.row.testBeginDate ? this.$dateformat(params.row.testBeginDate, "yyyy-mm-dd HH:MM:ss") : '');
             }
           },
           {
             title: '计划结束时间 ', key: 'testEndDate', width: 160, sortable: 'true', render: (h, params) => {
-              return h('div', params.row.testEndDate ? this.$dateformat(params.row.testEndDate, "yyyy-mm-dd HH" + ':00:00') : '');
+              return h('div', params.row.testEndDate ? this.$dateformat(params.row.testEndDate, "yyyy-mm-dd HH:MM:ss") : '');
             }
           },
           {

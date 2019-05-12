@@ -8,7 +8,7 @@
         <label class="label-sign"></label>
         <Form-item class="width-23"  label="项目名称:">
           <Input name="projectName" v-model="projectName" placeholder="请输入项目名称" style="width: 100px;" @on-enter="_search" ></Input>
-          <input name="id" type="hidden">
+          <input name="projectPersonId" v-model="projectPersonId" type="hidden">
         </Form-item>
         <Form-item class="marleft-70">
           <Button type="primary" @click="_search">搜索</Button>
@@ -56,6 +56,7 @@
         },
         key:'',
         projectName:'',
+        projectPersonId:localStorage.getItem('personId'),
         isTree:false,
         pageColumns: [
           {type: 'selection', width: 60, align: 'center'},
@@ -73,7 +74,7 @@
               ]);
             }
           },
-      {title: '负责人 ', key: 'projectPerson',sortable:'true',width:120,},
+      {title: '创建人 ', key: 'projectPerson',sortable:'true',width:120,},
       {title: '备注 ', key: 'projectRemark',sortable:'true',width:120,},
           {title: '创建时间 ', key: 'projectCtime',sortable:'true',width:140,
             render: (h, params) => {

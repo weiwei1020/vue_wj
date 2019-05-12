@@ -129,7 +129,6 @@
         this.$router.push(next)
       },
       _logout() {
-        //todo
         this.$Modal.confirm({
           title: '提示',
           content: '<p>确定要退出系统？</p>',

@@ -7,8 +7,8 @@
                     <Form-item label="项目名称" prop="projectName">
                         <Input name="projectName" v-model="formObj.projectName" placeholder="请输入项目名称"></Input>
                     </Form-item>
-                  <Form-item label="负责人" prop="projectPerson">
-                    <Input name="projectPerson" v-model="formObj.projectPerson" placeholder="请输入负责人"></Input>
+                  <Form-item label="创建人" prop="projectPerson">
+                    <Input name="projectPerson" v-model="formObj.projectPerson" readonly></Input>
                   </Form-item>
                     <Form-item label="备注" prop="projectRemark">
                         <Input name="projectRemark" v-model="formObj.projectRemark" placeholder="请输入备注"></Input>
@@ -30,8 +30,8 @@
         projectId:'',
         projectName:'',
         projectRemark: '',
-        projectPerson:'',
-        projectPersonId:'121'
+        projectPerson:localStorage.getItem('personName'),
+        projectPersonId:localStorage.getItem('personId')
   };
   var dateFormat = require('dateformat');
     export default {
@@ -65,6 +65,8 @@
                     this.$extend(data,
                       {
                         projectId:this.formObj.projectId,//年度计划id
+                        projectPerson:this.formObj.projectPerson,
+                        projectPersonId:this.formObj.projectPersonId,
                       });
                     if (this.$string(this.id).isEmpty()) {
                         // 添加
