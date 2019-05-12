@@ -12,21 +12,8 @@ export default {
   headersJson: {
     'Content-Type': 'application/json'
   },
-  // setLogin: function (user) {
-  //   Store.session('loginUser', user);
-  // },
-  // getLogin: function () {
-  //   return Store.session('loginUser');
-  // },
-  //用户信息
-  setUserInfo: function (userInfo) {
-    Store.session('userInfo', userInfo);
-  },
-  getUserInfo: function () {
-    return Store.session('userInfo');
-  },
   getLn: function () {
-    return this.getCookie('ln');
+    return localStorage.getItem('personRole');
   },
   //code
   getCode:function(){
@@ -42,7 +29,7 @@ export default {
         return document.cookie.substring(start, end)
       }
     }
-    return null;
+    return true;
   },
   logout: function () {
     // 清空所有缓存数据，保留主题选择、用户名、密码

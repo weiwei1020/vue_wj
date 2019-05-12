@@ -47,7 +47,7 @@ const actions = {
     });
   },
   async changePassword({commit}, data) {
-    await http.post('/person/revampPassword', data).then(function (resp) {
+    await http.post('/person/updatePassword', data).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
