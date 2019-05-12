@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 面包屑 -->
+    <BreadCrumbs :crumbs="$showBread()"></BreadCrumbs>
     <!--内容-->
     <div class="layout-content-padding">
       <div class="layout-content-main">
@@ -8,11 +10,8 @@
           <Col span="24">
             <Form id="search-form" style="height: 43px;" inline onsubmit="return false" :label-width="70">
               <label class="label-sign"></label>
-              <Form-item class="width-22" label="公司名称:">
-                <Input name="userCompanyName" placeholder="请输入公司名称" @on-enter="_search"/>
-              </Form-item>
-              <Form-item class="width-22" label="员工名称:">
-                <Input name="userName" placeholder="请输入员工名称" @on-enter="_search"/>
+              <Form-item class="width-22" label="人员名称:">
+                <Input name="userName" placeholder="请输入人员名称" @on-enter="_search"/>
               </Form-item>
               <Form-item class="search-btn">
                 <Button type="primary" @click="_search">搜索</Button>
@@ -62,10 +61,14 @@
 </template>
 <script>
   import personnelManageEdit from './personnelManageEdit'
+  import IconList from '../../components/base/IconList.vue'
+  import BreadCrumbs from '../../components/base/BreadCrumbs'
 
   export default {
     components: {
-      personnelManageEdit
+      personnelManageEdit,
+      IconList,
+      BreadCrumbs
     },
     data() {
       return {
@@ -79,13 +82,10 @@
         selectIds: [],
         getPage:{},
         pageColumns: [
-          {title: '员工名称', key: 'userName', width: 160, },
-          {title: '手机号', key: 'userMobile', width: 160, },
-          {title: '入职日期', key: 'userEntryDate', width: 160, },
-          {title: '电子邮箱', key: 'userEmail', width: 160, },
-          {title: '所在公司', key: 'userCompanyName',  width: 200,},
-          {title: '所在部门', key: 'userDepartmentName', width: 120,},
-          {title: '职位', key: 'userJobName', width: 200, },
+          {title: '人员名称', key: 'personName', width: 160, },
+          {title: '年龄', key: 'personAge', width: 160, },
+          {title: '性别', key: 'personGender', width: 160, },
+          {title: '所属角色', key: 'personRoleName',  width: 200,},
         ],
       }
     },
@@ -126,19 +126,18 @@
       _iconClick(res, data) {
         switch (res) {
           case '编辑' :
-            this._editModal(true,data.userId);
+            this._editModal(true,data.personId);
             break;
           case '删除' :
-            this._deleteById(data.userId);
+            this._deleteById(data.personId);
             break;
         }
       },
       _editModal(edit,id){
-        let that =this;
         if (edit) {
           // 编辑
           this.$store.dispatch('PersonnelManage/getById', id).then(() => {
-            this.$refs.editModal._open(that.$store.state.PersonnelManage.model);
+            this.$refs.editModal._open(this.$store.state.PersonnelManage.model);
           });
         } else {
           // 添加

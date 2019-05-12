@@ -17,6 +17,9 @@ import LmsChemicalManage from "./modules/lims/lms-chemical";
 import LmsChemicalPurchase from "./modules/lims/lms-chemical-purchase";
 import LmsChemicalApply from "./modules/lims/lms-chemical-apply";
 import LmsChemicalReturn from "./modules/lims/lms-chemical-return"
+//人员
+import PersonnelManage from "./modules/lims/personnel-manage.js"
+
 
 export default {
   LmsTestProject,
@@ -34,6 +37,7 @@ export default {
   LmsChemicalPurchase,//采购
   LmsChemicalApply,//使用
   LmsChemicalReturn,//归还
+  PersonnelManage,
 }
 
 /*import LmsChemical from "./modules/lims/lms-chemical";
