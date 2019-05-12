@@ -25,10 +25,8 @@
    */
   const defVal = {
     purchaseId:'',
-    purchaseConsumableId:'',
-    name:'',
     consunmableStock: 1,
-    purchaseRemark: ''
+    purchaseRemark:'',
   };
   export default {
     data() {
@@ -59,15 +57,13 @@
           if (valid) {
             var data = this.$serialize('edit-add-purform-add');
             data.purchaseId= this.formObj.purchaseId;
-            data.purchaseConsumableId= this.formObj.purchaseConsumableId;
-            data.name = this.formObj.name;
             data.consunmableStock = this.formObj.consunmableStock;
             data.purchaseRemark =this.formObj.purchaseRemark;
-            // 添加  todo
+            // 添加
             this.$store.dispatch('LmsChemicalReturn/add', data).then(() => {
               if (this.$store.state.LmsChemicalReturn.success) {
                 this.showEditModal = false;
-                this.$Message.success('添加成功！');
+                this.$Message.success('归还单提交成功！');
                 this.$emit("on-result-change")
               }
             });
@@ -83,11 +79,9 @@
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
         this.modalTitle = '归还单：耗材名称 一 ' + obj.name;//耗材名称
-        this.formObj.purchaseConsumableId = obj.id;
-        this.formObj.name = obj.name;
+        this.formObj.purchaseId=obj.purchaseId;
         this.formObj.consunmableStock = 1;
         this.formObj.purchaseRemark = '';
-
       },
     }
   }

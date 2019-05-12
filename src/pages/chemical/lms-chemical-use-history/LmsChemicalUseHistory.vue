@@ -96,7 +96,7 @@
           { type: 'trash-b', id: '', name: '用尽',disabled:true },
         ],
         purchaseType:'1',
-        status:'3',
+        status:'',
         name:'',
         heightSearch: '',
         pageColumns: [
@@ -118,7 +118,7 @@
     },
     computed: {
       tableHeight: function () {
-        return this.$tableHeight('search');
+        return this.$tableHeight('noSearch');
       }
     },
     mounted() {

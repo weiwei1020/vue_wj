@@ -64,6 +64,15 @@
                   {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
                   {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/role_chemical_category"}],"uri":"/"},
+              {"name":"人员管理","icon":"person-stalker","code":"400110",
+                "subMenus":[
+                  {"name":"人员管理","icon":"person-stalker","code":"400110","subMenus":[],"uri":"/lims/personnel_manage"},
+                ],"uri":"/"},
+              {"name":"个人中心","icon":"gear-b","id":"","code":"60001",
+                "subMenus":[
+                  {"name":"修改密码","icon":"ios-barcode","id":"","code":"500000", "subMenus":[],"uri":"/lims/change_password"},
+                  {"name":"基本信息","icon":"gear-b","id":"","code":"60001", "subMenus":[],"uri":"/lims/user_info"},
+                ],"uri":"/"},
               {"name":"系统设置","icon":"gear-b","id":"","code":"60001",
                 "subMenus":[
                   {"name":"编码规则","icon":"at","id":"","code":"60102","uri":"/lims/codeRule"}],"uri":"/"}],

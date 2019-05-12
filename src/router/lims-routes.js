@@ -24,99 +24,10 @@ import LmsChemicalUseQuery from '../pages/chemical/lms-chemical-use-query/LmsChe
 import LmsChemicalReturn from '../pages/chemical/lms-chemical-return/LmsChemicalReturn.vue'//耗材归还管理
 import LmsChemicalStatistic from '../pages/chemical/lms-chemical-statistic/LmsChemicalStatistic.vue'//耗材采购统计功能
 import LmsRoleChemicalCategory from '../pages/chemical/lms-role-chemical-category/LmsRoleChemicalCategory.vue'//耗材金额统计
-// import LmsCustomer from '../pages/chemical/lms-customer/LmsCustomer.vue'// 客户管理
-// import LmsSupplier from '../pages/chemical/lms-supplier/LmsSupplier.vue'// 供应商管理
-// import LmsSupplierType from '../pages/chemical/lms-supplier-type/LmsSupplierType.vue'// 供应商分类管理
-// import LmsSupplierChemical from '../pages/chemical/lms-supplier-chemical/LmsSupplierChemical.vue'// 供应商耗材管理
-// import LmsChemicalUserecord from '../pages/chemical/lms-chemical-userecord/LmsChemicalUserecord.vue'// 耗材库存流水
-// import LmsChemicalClassify from '../pages/chemical/lms-chemical-classify/LmsChemicalClassify.vue'//耗材库存归类管理
-// import LmsChemicalDeliveryOrder from '../pages/chemical/lms-chemical-delivery-order/LmsChemicalDeliveryOrder.vue'//耗材出库单管理
-// import LmsChemicalInStorage from '../pages/chemical/lms-chemical-instorage/LmsChemicalInStorage.vue'//耗材入库管理
-// import LmsChemicalOutStorage from '../pages/chemical/lms-chemical-outstorage/LmsChemicalOutStorage.vue'//耗材出库管理
-// import LmsChemicalOutStorageApply from '../pages/chemical/lms-chemical-outstorage-apply/LmsChemicalOutStorageApply.vue'//耗材出库管理
-// import LmsStorehouse from '../pages/chemical/lms-storehouse/LmsStorehouse.vue'//仓库管理
-// import LmsUnit from '../pages/chemical/lms-unit/LmsUnit.vue'// 单位管理
-//标准管理
-//import Labmis from '../pages/lims/Labmis.vue' //标准查询kkkkkkkkk
-// 耗材管理
-// import LmsChemicalCategory from '../pages/lims/chemical/lms-chemical-category/LmsChemicalCategory.vue'//耗材分类管理
-// import LmsRoleChemicalCategory from '../pages/lims/chemical/lms-role-chemical-category/LmsRoleChemicalCategory.vue'//角色耗材分类管理
-// import LmsChemicalCompound from '../pages/lims/chemical/lms-chemical-compound/LmsChemicalCompound.vue'//耗材试剂原始值记录
-// import LmsBacterial from '../pages/lims/chemical/lms-bacterial/LmsBacterial.vue'// 菌种管理
-// import LmsCustomer from '../pages/lims/chemical/lms-customer/LmsCustomer.vue'// 客户管理
-// import LmsEffluent from '../pages/lims/chemical/lms-effluent/LmsEffluent.vue'// 废液管理
-// import LmsSupplier from '../pages/lims/chemical/lms-supplier/LmsSupplier.vue'// 供应商管理
-// import LmsServiceType from '../pages/lims/chemical/lms-service-type/LmsServiceType.vue'//服务类型管理
-// import LmsSupplierType from '../pages/lims/chemical/lms-supplier-type/LmsSupplierType.vue'// 供应商分类管理
-// import LmsSupplierChemical from '../pages/lims/chemical/lms-supplier-chemical/LmsSupplierChemical.vue'// 供应商耗材管理
-// import LmsCommonly from '../pages/lims/chemical/lms-chemicals-manage/LmsChemicalManage.vue'// 一般化学品管理 add by wwd 170901
-// import LmsChemicalUserecord from '../pages/lims/chemical/lms-chemical-userecord/LmsChemicalUserecord.vue'// 耗材库存流水
-// import LmsStandardTitration from '../pages/lims/chemical/lms-titration/LmsStandardTitration.vue'// 标准滴定液记录 add by wwd 170912
-// import LmsChemicalClassify from '../pages/lims/chemical/lms-chemical-classify/LmsChemicalClassify.vue'//耗材库存归类管理
-// import LmsChemicalPurchase from '../pages/lims/chemical/lms-chemical-purchase/LmsChemicalPurchase.vue'//耗材采购管理
-// import LmsChemicalPurchaseOrder from '../pages/lims/chemical/lms-chemical-purchase-audit/LmsChemicalPurchaseOrder.vue'//耗材采购单管理
-// import LmsChemicalDeliveryOrder from '../pages/lims/chemical/lms-chemical-delivery-order/LmsChemicalDeliveryOrder.vue'//耗材出库单管理
-// import LmsChemicalInStorage from '../pages/lims/chemical/lms-chemical-instorage/LmsChemicalInStorage.vue'//耗材入库管理
-// import LmsChemicalOutStorage from '../pages/lims/chemical/lms-chemical-outstorage/LmsChemicalOutStorage.vue'//耗材出库管理
-// import LmsChemicalOutStorageApply from '../pages/lims/chemical/lms-chemical-outstorage-apply/LmsChemicalOutStorageApply.vue'//耗材出库管理
-// import LmsStorehouse from '../pages/lims/chemical/lms-storehouse/LmsStorehouse.vue'//仓库管理
-// import LmsUnit from '../pages/lims/chemical/lms-unit/LmsUnit.vue'// 单位管理
-// import LmsChemicalStatistic from '../pages/lims/chemical/lms-chemical-statistic/LmsChemicalStatistic.vue'//耗材采购统计功能
-// import LmsChemicalApply from '../pages/lims/chemical/lms-chemical-apply/LmsChemicalApply.vue'
-// import LmsChemicalUse from '../pages/lims/chemical/lms-chemical-use/LmsChemicalUse.vue'
-// import LmsChemicalUseHistory from '../pages/lims/chemical/lms-chemical-use-history/LmsChemicalUseHistory.vue'
-// import LmsChemicalUseQuery from '../pages/lims/chemical/lms-chemical-use-query/LmsChemicalUseQuery.vue'
-// import LmsChemicalReturn from '../pages/lims/chemical/lms-chemical-return/LmsChemicalReturn.vue'
-// import LmsStaffInfo from "../pages/lims/staff/lms-staff-info/LmsStaffInfo.vue"//人员信息
-// import LmsStaffStatus from "../pages/lims/staff/lms-staff-status/LmsStaffStatus.vue"//人员状态
-// import LmsStaffTask from "../pages/lims/staff/lms-staff-task/LmsStaffTask.vue"//人员任务
-// import LmsStaffTrainPlan from "../pages/lims/staff/lms-staff-train-plan/LmsStaffTrainPlan.vue"//人员培训计划
-// import LmsStaffTrainRecord from "../pages/lims/staff/lms-staff-train-record/LmsStaffTrainRecord.vue"//人员培训记录
-// //用户编组
-// import LmsMarshalManage from "../pages/lims/marshal/lms-marshal-manage/LmsMarshalManage" //用户编组
-// //环境管理
-// import LmsEnvNormalMonitor from "../pages/lims/env/lms-env-normal-monitor/LmsEnvNormalMonitor.vue"//环境监测管理
-// import LmsEnvMicrobeMonitor from "../pages/lims/env/lms-env-microbe-monitor/LmsEnvMicrobeMonitor.vue"//环境监测管理
-// //报告管理
-// import LmsReportTemplate from '../pages/lims/base/lms-report-template/LmsReportTemplate.vue' //报告模板
-// import LmsTemplateClass from '../pages/lims/base/lms-template-classify/LmsTemplateClassify.vue'
-// //订单管理
-// import LmsOrderManage from "../pages/lims/order-manage/LmsOrderManage.vue"
-// import LmsHistoryRecord from "../pages/lims/order-manage/LmsHistoryRecord.vue"
-// import LmsPickingListManage from "../pages/lims/order-manage/LmsPickingListManage.vue"
-// //车辆管理
-// import LmsCarInfo from '../pages/lims/car/lms-car-info/LmsCarInfo.vue'
-// //体系管理
-// import LmsFrameCheckManage from "../pages/lims/frame/lms-frame-check-manage/LmsFrameCheckManage.vue"
-// import LmsFrameCheckPlan from "../pages/lims/frame/lms-frame-check-plan/LmsFrameCheckPlan.vue"
-// import LmsFrameComplaintManage from "../pages/lims/frame/lms-frame-complaint-manage/LmsFrameComplaintManage.vue"
-// import LmsFrameComplaintRegister from "../pages/lims/frame/lms-frame-complaint-register/LmsFrameComplaintRegister.vue"
-// import LmsFrameCustomerInvestigate from "../pages/lims/frame/lms-frame-customer-investigate/LmsFrameCustomerInvestigate.vue"
-// import LmsFrameInnerCheckManage from "../pages/lims/frame/lms-frame-inner-check-manage/LmsFrameInnerCheckManage.vue"
-// import LmsFrameInnerCheckPlan from "../pages/lims/frame/lms-frame-inner-check-plan/LmsFrameInnerCheckPlan.vue"
-// import LmsFrameUnconformRegister from "../pages/lims/frame/lms-frame-unconform-register/LmsFrameUnconformRegister.vue"
-// import LmsFrameUncertaintyPlan from "../pages/lims/frame/lms-frame-uncertainty-plan/LmsFrameUncertaintyPlan.vue"
-// import LmsFrameUncertaintyReport from "../pages/lims/frame/lms-frame-uncertainty-report/LmsFrameUncertaintyReport.vue"
-// import LmsQcMainPlan from '../pages/lims/frame/lms-main-qc-plan/LmsQcMainPlan.vue'
-// import LmsQcMainRecord from '../pages/lims/frame/lms-main-qc-record/LmsQcMainRecord.vue'
-// import LmsAbilityMainPlan from '../pages/lims/frame/lms-main-ability-plan/LmsAbilityMainPlan.vue'
-// import LmsAbilityMainRecord from '../pages/lims/frame/lms-main-ability-record/LmsAbilityMainRecord.vue'
-// import LmsFrameProblemApprove from '../pages/lims/frame/lms-frame-problem-approve/LmsFrameProblemApprove.vue'
-// import LmsFrameCustomerInvestigateClass from '../pages/lims/frame/lms-frame-customer-investigate-class/LmsFrameCustomerInvestigateClass.vue'
-// //字典管理
-// import LmsBaseDict from "../pages/lims/base/lms-base-dict/LmsBaseDict.vue"
-// //模块管理
-// import LmsPrintModule from "../pages/lims/print/lms-print-module/LmsPrintModule.vue"
-// //模板管理
-// import LmsPrintTemplate from "../pages/lims/print/lms-print-template/LmsPrintTemplate.vue"
-// //统计查询
-// //编号管理
-// import LmsCodeRule from "../pages/lims/code-rule/lims-code-rule/LmsCodeRule.vue"
-// //采样部任务
-// //客商管理
-// import LmsProductQuery from '../pages/lims/chemical/lms-product-query/LmsProductQuery.vue'
-// import LmsProduct from '../pages/lims/chemical/lms-product/LmsProduct.vue'
-// import LmsProductClass from '../pages/lims/chemical/lms-product-class/LmsProductClass.vue'
+//个人信息
+import personnelManage from '../pages/personnel-manage/personnelManage'
+import changePassword from '../pages/personal-center/change-password/passwordEdit.vue'
+import userInfo from '../pages/personal-center/user-info/userInfo.vue'
 
 export default [
   {path:'hello_world',component:helloWorld},
@@ -142,6 +53,9 @@ export default [
   {path:'chemical_return',component:LmsChemicalReturn},//耗材归还管理
   {path:'statistic',component:LmsChemicalStatistic},//耗材采购统计功能
   {path: 'role_chemical_category', component: LmsRoleChemicalCategory},//耗材金额统计
+  {path:'personnel_manage',component:personnelManage},  //人员管理
+  {path: 'change_password', component:changePassword},//修改密码
+  {path: 'user_info', component:userInfo},//基本信息
 
   // {path: 'customer', component: LmsCustomer},
   // {path: 'supplier', component: LmsSupplier},
