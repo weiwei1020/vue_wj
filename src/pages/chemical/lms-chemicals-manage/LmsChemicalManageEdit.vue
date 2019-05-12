@@ -16,6 +16,9 @@
                    icon="plus-circled" readonly placeholder="请选中耗材类别"></Input>
             <input name="consumableId" v-model="formObj.consumableId" type="hidden"/>
           </Form-item>
+          <Form-item label="单价" prop="price" class="width-48">
+            <Input name="price" v-model="formObj.price" placeholder="请输入单价"></Input>
+          </Form-item>
           <Form-item label="仓库位置" prop="storehouse" class="width-48">
             <Input name="storehouse" v-model="formObj.storehouse" placeholder="请填写仓库位置" ></Input>
           </Form-item>
@@ -56,6 +59,7 @@
     stock:'',//库存量
     storehouse:'',
     remark: '',
+    price:'',
   };
   import LmsSelectCategoryZtree from './LmsSelectCategoryZtree.vue'
 
@@ -71,6 +75,7 @@
         formObj: defVal,
         ruleValidate: {
           name: [{required: true, message: '耗材名称不能为空', trigger: 'blur'}],
+          price: [{required: true, message: '耗材单价不能为空', trigger: 'blur'}],
           consumable: [{required: true, message: '耗材类别不能为空', trigger: 'change'}],
         },
         showEditModal: false,

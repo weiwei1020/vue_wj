@@ -5,7 +5,7 @@
       <div>
         <Form id="edit-add-purform-add" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
           <Form-item label="单价" prop="price" style="width: 100%">
-            <InputNumber :min="1" v-model.number="formObj.price" style="width: 100%"></InputNumber>
+            <Input v-model="formObj.price" name="price" style="width: 100%" readonly></Input>
           </Form-item>
           <Form-item label="采购数量" prop="consunmableStock" style="width: 100%">
             <InputNumber :min="1" v-model.number="formObj.consunmableStock" style="width: 100%"></InputNumber>
@@ -33,10 +33,10 @@
     purchaseId:'',
     purchaseConsumableId:'',
     name:'',
-    price: 1,
+    price: '',
     consunmableStock: 1,
     reason:'',
-    purchaseRemark: ''
+    purchaseRemark: '',
   };
   export default {
     data() {
@@ -59,7 +59,7 @@
             {validator: validateNumber, trigger: 'blur', type: 'number'}
           ],
           reason: [{required: true, message: '采购原因不能为空', trigger: 'change'}],
-          price: [{required: true, message: '仪器价格不能为空', trigger: 'change', type: 'number'}],
+          // price: [{required: true, message: '仪器价格不能为空', trigger: 'change', type: 'number'}],
         }
       }
     },
@@ -97,7 +97,7 @@
         this.modalTitle = '采购单：耗材名称 一 ' + obj.name;//耗材名称
         this.formObj.purchaseConsumableId = obj.id;
         this.formObj.name = obj.name;
-        this.formObj.price = '';
+        this.formObj.price = obj.price;
         this.formObj.consunmableStock = 1;
         this.formObj.purchaseRemark = '';
         this.formObj.reason='';
