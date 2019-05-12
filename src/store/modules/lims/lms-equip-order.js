@@ -30,7 +30,7 @@ const actions = {
     });
   },
   async page({commit}, data) {
-    await http.post('/apparatusPurchase/page', data).then(function (resp) {
+    await http.post('/apparatusPurchase/apparatusPurchaseManage', data).then(function (resp) {
       commit('PAGE', resp);
     });
   },
