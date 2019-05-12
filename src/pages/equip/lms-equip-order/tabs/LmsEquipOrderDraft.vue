@@ -12,6 +12,7 @@
               <label class="label-sign"></label>
               <Form-item class="width-21" label="仪器名称:">
                 <Input v-model="apparatusName" name="apparatusName" placeholder="请输入仪器名称" @on-enter="_pageChange(1)"/>
+                <input name="apparatusPurchasePersonId" v-model="apparatusPurchasePersonId" type="hidden"/>
               </Form-item>
               <Form-item class="search-btn">
                 <Button type="primary" @click="_pageChange(1)">搜索</Button>
@@ -93,7 +94,6 @@
           },
           {title: '仪器名称', key: 'apparatusName', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '申请人', key: 'apparatusPurchasePerson', width: 180, align: 'center', ellipsis: true,sortable:'true',},
-          {title: '审批人', key: 'apparatusPurchaseAuditPerson', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '预约原因', key: 'apparatusPurchaseReason', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '使用开始时间', key: 'apparatusPurchaseCtime', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '使用结束时间', key: 'apparatusPurchaseLtime', width: 180, align: 'center', ellipsis: true,sortable:'true',},
@@ -116,6 +116,7 @@
           }
         ],
         getPage: {},
+        apparatusPurchasePersonId:localStorage.getItem('personId')
       }
     },
     computed: {
@@ -183,7 +184,7 @@
           title: '提示',
           content: content ? content : '确定删除该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsEquipOrder/deletePros', ids).then(() => {
+            this.$store.dispatch('LmsEquipOrder/deletePros', ids.join(',')).then(() => {
               if (this.$store.state.LmsEquipOrder.success) {
                 this._search();
                 this.$Message.success('删除成功！');

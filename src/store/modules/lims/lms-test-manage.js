@@ -34,11 +34,6 @@ const actions = {
       commit('SUCCESS', resp);
     });
   },
-  async process({commit}, data) {
-    await http.post('/slims/v1/staff_process/',data).then(function (resp) {
-      commit('SUCCESS', resp);
-    });
-  },
 };
 
 const mutations = {

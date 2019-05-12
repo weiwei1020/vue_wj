@@ -12,6 +12,7 @@
             <label class="label-sign"></label>
             <Form-item class="width-22" label="仪器名称:">
               <Input name="apparatusName" v-model="apparatusName" placeholder="请输仪器名称" @on-enter="_search"/>
+              <input name="apparatusPurchasePersonId" v-model="apparatusPurchasePersonId" type="hidden"/>
             </Form-item>
             <Form-item class="search-btn">
               <Button type="primary" @click="_search">搜索</Button>
@@ -79,7 +80,6 @@
           },
           {title: '仪器名称', key: 'apparatusName', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '申请人', key: 'apparatusPurchasePerson', width: 180, align: 'center', ellipsis: true,sortable:'true',},
-          {title: '审批人', key: 'apparatusPurchaseAuditPerson', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '预约原因', key: 'apparatusPurchaseReason', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '备注', key: 'apparatusPurchaseRemark', width: 180, align: 'center', ellipsis: true,sortable:'true',},
           {title: '使用开始时间', key: 'apparatusPurchaseCtime', width: 180, align: 'center', ellipsis: true,sortable:'true',},
@@ -87,6 +87,7 @@
         ],
         getPage:{},
         apparatusName:'',
+        apparatusPurchasePersonId:localStorage.getItem('personId')
       }
     },
     computed: {

@@ -1,28 +1,24 @@
 <template>
   <div>
-    <Modal v-model="showEditModal" :mask-closable="false" :width="700">
+    <Modal v-model="showEditModal" :mask-closable="false" :width="500">
       <p slot="header">{{modalTitle}}</p>
       <div>
         <Form id="edit-add-purform" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
-          <Form-item label="申请人" prop="apparatusPurchasePerson" class="width-48">
-            <Input name="apparatusPurchasePerson" v-model="formObj.apparatusPurchasePerson" placeholder="请输入申请人"></Input>
+          <Form-item label="申请人" prop="apparatusPurchasePerson" style="width: 100%;">
+            <Input name="apparatusPurchasePerson" v-model="formObj.apparatusPurchasePerson" placeholder="请输入申请人" readonly></Input>
             <input name="apparatusPurchasePersonId" v-model="formObj.apparatusPurchasePersonId" type="hidden"/>
           </Form-item>
-          <Form-item label="审批人" prop="apparatusPurchaseAuditPerson" class="width-48">
-            <Input name="apparatusPurchaseAuditPerson" v-model="formObj.apparatusPurchaseAuditPerson" placeholder="请输入审批人"></Input>
-            <input name="apparatusPurchaseAuditPersonId" v-model="formObj.apparatusPurchaseAuditPersonId" type="hidden"/>
-          </Form-item>
-          <Form-item label="预约时间" prop="quantity" class="width-48">
+          <Form-item label="预约时间" prop="dateValue" style="width: 100%;">
             <DatePicker :value="dateValue" format="yyyy-MM-dd" type="daterange" placement="bottom-end"
                         placeholder="请选择预约时间" style="width: 100%" @on-change="_dateChange">
             </DatePicker>
             <input name="apparatusPurchaseCtime" type="hidden" v-model="formObj.apparatusPurchaseCtime"/>
             <input name="apparatusPurchaseLtime" type="hidden" v-model="formObj.apparatusPurchaseLtime"/>
           </Form-item>
-          <Form-item label="预约原因" prop="apparatusPurchaseReason" class="width-48">
+          <Form-item label="预约原因" prop="apparatusPurchaseReason" style="width: 100%;">
             <Input name="apparatusPurchaseReason" v-model="formObj.apparatusPurchaseReason" placeholder="请输入原因"></Input>
           </Form-item>
-          <Form-item label="备注" prop="apparatusPurchaseRemark" class="width-48">
+          <Form-item label="备注" prop="apparatusPurchaseRemark" style="width: 100%;">
             <Input name="apparatusPurchaseRemark" v-model="formObj.apparatusPurchaseRemark" placeholder="请输入备注"></Input>
           </Form-item>
         </Form>
@@ -42,9 +38,7 @@
     id:'',
     apparatusPurchaseApparatusId:'',
     apparatusPurchasePerson:'',
-    apparatusPurchasePersonId:'1',
-    apparatusPurchaseAuditPerson:'',
-    apparatusPurchaseAuditPersonId:'1',
+    apparatusPurchasePersonId:'',
     apparatusPurchaseReason: '',
     apparatusPurchaseCtime:'',
     apparatusPurchaseLtime:'',
@@ -85,8 +79,6 @@
             data.apparatusPurchaseApparatusId = this.formObj.apparatusPurchaseApparatusId;
             data.apparatusPurchasePerson = this.formObj.apparatusPurchasePerson;
             data.apparatusPurchasePersonId = this.formObj.apparatusPurchasePersonId;
-            data.apparatusPurchaseAuditPerson = this.formObj.apparatusPurchaseAuditPerson;
-            data.apparatusPurchaseAuditPersonId = this.formObj.apparatusPurchaseAuditPersonId;
             data.apparatusPurchaseCtime = this.formObj.apparatusPurchaseCtime;
             data.apparatusPurchaseLtime = this.formObj.apparatusPurchaseLtime;
             data.apparatusPurchaseReason = this.formObj.apparatusPurchaseReason;
@@ -114,9 +106,7 @@
         this.formObj.id=obj.id;
         this.formObj.apparatusPurchaseApparatusId=obj.apparatusPurchaseApparatusId;
         this.formObj.apparatusPurchasePerson=obj.apparatusPurchasePerson;
-        this.formObj.apparatusPurchasePersonId='1';
-        this.formObj.apparatusPurchaseAuditPerson=obj.apparatusPurchaseAuditPerson;
-        this.formObj.apparatusPurchaseAuditPersonId='1';
+        this.formObj.apparatusPurchasePersonId=obj.apparatusPurchasePersonId;
         this.formObj.apparatusPurchaseReason= obj.apparatusPurchaseReason;
         this.formObj.apparatusPurchaseCtime=obj.apparatusPurchaseCtime;
         this.formObj.apparatusPurchaseLtime=obj.apparatusPurchaseLtime;
