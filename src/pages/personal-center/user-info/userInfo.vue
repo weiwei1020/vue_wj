@@ -10,13 +10,10 @@
             </div>
             </Col>
             <Col span="24">
-              <p><span>用户名：</span>{{userName}}</p>
-              <p><span>所在公司：</span>{{userCompanyName}}</p>
-              <p><span>所在部门：</span>{{userDepartmentName}}</p>
-              <p><span>职位：</span>{{userJobName}}</p>
-              <p><span>电子邮箱：</span>{{userEmail}}</p>
-              <p><span>手机号：</span>{{userMobile}}</p>
-              <p><span>入职时间：</span>{{userEntryDate}}</p>
+              <p><span>用户名：</span>{{personName}}</p>
+              <p><span>性别：</span>{{personGender}}</p>
+              <p><span>年龄：</span>{{personAge}}</p>
+              <p><span>所属角色：</span>{{personRoleName}}</p>
               <div style="text-align: center;" class="margin-top-30">
               <modal-footer ref="footerModal" :footer="footerList" @on-result-change="_footerResult" />
             </div>
@@ -35,13 +32,10 @@
 export default {
   data() {
     return {
-      userName:'',
-      userCompanyName:'',
-      userDepartmentName:'',
-      userJobName:'',
-      userEmail:'',
-      userMobile:'',
-      userEntryDate:'',
+      personName:'',
+      personAge:'',
+      personGender:'',
+      personRoleName:'',
       height: document.documentElement.clientHeight - 120 + 'px'
     }
   },
@@ -50,18 +44,14 @@ export default {
   },
   methods: {
     _getUserInfo() {
-      let id=localStorage.getItem('userId');
-      let that =this;
+      let id=localStorage.getItem('personId');
       this.$store.dispatch('PersonnelManage/getById',id).then(() => {
         let result;
-        result =that.$store.state.PersonnelManage.model;
-        this.userName=result.userName;
-        this.userCompanyName=result.userCompanyName;
-        this.userDepartmentName=result.userDepartmentName;
-        this.userJobName=result.userJobName;
-        this.userEmail=result.userEmail;
-        this.userMobile=result.userMobile;
-        this.userEntryDate=result.userEntryDate;
+        result =this.$store.state.PersonnelManage.model;
+        this.personName=result.personName;
+        this.personAge=result.personAge;
+        this.personGender=result.personGender;
+        this.personRoleName=result.personRoleName;
       });
     },
   }
