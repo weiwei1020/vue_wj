@@ -11,7 +11,7 @@
             <Form id="search-form" style="height: 43px;" inline onsubmit="return false" :label-width="70">
               <label class="label-sign"></label>
               <Form-item class="width-22" label="人员名称:">
-                <Input name="userName" placeholder="请输入人员名称" @on-enter="_search"/>
+                <Input name="personName" placeholder="请输入人员名称" @on-enter="_search"/>
               </Form-item>
               <Form-item class="search-btn">
                 <Button type="primary" @click="_search">搜索</Button>
