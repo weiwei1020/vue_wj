@@ -39,6 +39,20 @@ const actions = {
       commit('SUCCESS', resp);
     });
   },
+  async useUpById({commit}, data) {
+    await http.post('/consumableReturn/useUp',{
+      purchaseId: data.purchaseId,
+      purchaseConsumableId: data.purchaseConsumableId,
+      consunmableStock:0,
+      price:data.price,
+      ctime:data.ctime,
+      purchaseRemark:data.purchaseRemark,
+      reason:data.reason,
+      purchasePerson:data.purchasePerson,
+    }).then(function (resp) {
+      commit('SUCCESS', resp);
+    });
+  },
 };
 
 const mutations = {

@@ -10,9 +10,10 @@
           <Col span="24" style="margin-top: 20px">
             <Form id="search-form" inline onsubmit="return false" :label-width="70">
               <label class="label-sign"></label>
-              <Form-item class="width-23" label="申请原因:">
+              <Form-item class="width-23" label="耗材名称:">
                 <input name="purchaseType" v-model="purchaseType" type="hidden"/>
-                <Input name="reason" placeholder="请输入申请原因" @on-enter="_formSearch"></Input>
+                <input name="status" v-model="status" type="hidden"/>
+                <Input name="name" placeholder="请输入耗材名称" @on-enter="_formSearch"></Input>
               </Form-item>
               <Form-item class="search-btn">
                 <Button type="primary" @click="_formSearch">搜索</Button>
@@ -33,17 +34,17 @@
                 v-for="item in pageColumns" :key="item.id">
                 <template slot-scope="scope">
                   <span v-if="item.status">
-                    <span v-if="scope.row[item.key]===0" class="yellow-color">
+                    <span v-if="scope.row[item.key]==0" class="yellow-color">
                       待审批
                     </span>
-                    <span v-else-if="scope.row[item.key]===1" class="green-color">
+                    <span v-else-if="scope.row[item.key]==1" class="green-color">
                       已通过
                     </span>
-                     <span v-else-if="scope.row[item.key]===2" class="red-color">
+                     <span v-else-if="scope.row[item.key]==2" class="red-color">
                       已驳回
                     </span>
-                    <span v-else-if="scope.row[item.key]===3" class="blue-color">
-                      已出库
+                    <span v-else-if="scope.row[item.key]==3" class="yellow-color">
+                      待归还
                     </span>
                   </span>
                   <span v-else>{{scope.row[item.key]}}</span>
@@ -95,6 +96,8 @@
           { type: 'trash-b', id: '', name: '用尽',disabled:true },
         ],
         purchaseType:'1',
+        status:'3',
+        name:'',
         heightSearch: '',
         pageColumns: [
           {title: '领用单编号', key: 'purchaseNumber', width: 150, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
@@ -128,7 +131,7 @@
             this._submitApprove(data);
             break;
           case '用尽':
-            this._useUpById(data.purchaseId);
+            this._useUpById(data);
             break;
         }
       },
@@ -141,14 +144,13 @@
       _submitApprove(data) {
         this.$refs.addModel._open(data);
       },
-      _useUpById(id) {
-        // todo
+      _useUpById(data) {
         this.$Modal.confirm({
           title: '提示',
-          content: '确定已用尽（无需归还）？',
+          content: '确定已用尽？',
           onOk: () => {
-            this.$store.dispatch('LmsChemicalApply/useUpById', id).then(() => {
-              if (this.$store.state.LmsChemicalApply.success) {
+            this.$store.dispatch('LmsChemicalReturn/useUpById', data).then(() => {
+              if (this.$store.state.LmsChemicalReturn.success) {
                 this._search();
                 this.$Message.success('操作成功！');
               }

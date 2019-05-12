@@ -33,16 +33,16 @@
                 v-for="item in pageColumns" :key="item.id">
                 <template slot-scope="scope">
                   <span v-if="item.status">
-                    <span v-if="scope.row[item.key]===0" class="yellow-color">
+                    <span v-if="scope.row[item.key]==0" class="yellow-color">
                       待审批
                     </span>
-                    <span v-else-if="scope.row[item.key]===1" class="green-color">
+                    <span v-else-if="scope.row[item.key]==1" class="green-color">
                       已通过
                     </span>
-                     <span v-else-if="scope.row[item.key]===2" class="red-color">
+                     <span v-else-if="scope.row[item.key]==2" class="red-color">
                       已驳回
                     </span>
-                    <span v-else-if="scope.row[item.key]===3" class="blue-color">
+                    <span v-else-if="scope.row[item.key]==3" class="blue-color">
                       已出库
                     </span>
                   </span>
