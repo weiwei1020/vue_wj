@@ -10,10 +10,9 @@
           <Col span="24" style="margin-top: 20px">
             <Form id="search-form" inline onsubmit="return false" :label-width="70">
               <label class="label-sign"></label>
-              <Form-item class="width-23" label="耗材名称:">
+              <Form-item class="width-23" label="申请原因:">
                 <input name="purchaseType" v-model="purchaseType" type="hidden"/>
-                <input name="purchasePerson" v-model="purchasePerson" type="hidden"/>
-                <Input name="name" placeholder="请输入耗材名称" @on-enter="_formSearch"></Input>
+                <Input name="reason" placeholder="请输入申请原因" @on-enter="_formSearch"></Input>
               </Form-item>
               <Form-item class="search-btn">
                 <Button type="primary" @click="_formSearch">搜索</Button>
@@ -43,8 +42,8 @@
                      <span v-else-if="scope.row[item.key]==2" class="red-color">
                       已驳回
                     </span>
-                    <span v-else-if="scope.row[item.key]==3" class="yellow-color">
-                      待归还
+                    <span v-else-if="scope.row[item.key]==3" class="blue-color">
+                      已出库
                     </span>
                   </span>
                   <span v-else>{{scope.row[item.key]}}</span>
@@ -56,7 +55,7 @@
                 :width="180"
                 fixed="right">
                 <template slot-scope="scope">
-                  <IconList :msg="scope.row.status =='3'?iconMsg:iconMsgDis" @on-result-change="_iconClick"
+                  <IconList :msg="scope.row.status =='0'?iconMsg:scope.row.status =='1'?iconMsgDis:iconMsgDis1" @on-result-change="_iconClick"
                             :rowData="scope.row"
                             :rowIndex="scope.$index"></IconList>
                 </template>
@@ -66,44 +65,45 @@
         </Row>
       </div>
     </div>
-    <!--添加进归还单-->
-    <LmsChemicalReturnAdd ref="addModel" @on-result-change="_search"></LmsChemicalReturnAdd>
   </div>
 </template>
 <script>
   import ElementTable from '../../../components/table/ElementTable'
   import IconList from '../../../components/base/IconList.vue'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
-  import LmsChemicalReturnAdd from './LmsChemicalReturnAdd.vue'
-
 
   export default {
     components: {
       ElementTable,
       IconList,
-      BreadCrumbs,
-      LmsChemicalReturnAdd
+      BreadCrumbs
     },
     data() {
       return {
         iconMsg: [
-          { type: 'ios-undo', id: '', name: '归还' },
-          { type: 'trash-b', id: '', name: '用尽' },
+          { type: 'checkmark-circled', id: '', name: '通过' },
+          { type: 'close-circled', id: '', name: '驳回' },
+          { type: 'home', id: '', name: '出库' ,disabled:true},
 
         ],
         iconMsgDis: [
-          { type: 'ios-undo', id: '', name: '归还',disabled:true },
-          { type: 'trash-b', id: '', name: '用尽',disabled:true },
+          { type: 'checkmark-circled', id: '', name: '通过',disabled:true },
+          { type: 'close-circled', id: '', name: '驳回',disabled:true },
+          { type: 'home', id: '', name: '出库'},
+        ],
+        iconMsgDis1: [
+          { type: 'checkmark-circled', id: '', name: '通过',disabled:true },
+          { type: 'close-circled', id: '', name: '驳回',disabled:true },
+          { type: 'home', id: '', name: '出库' ,disabled:true},
         ],
         purchaseType:'1',
-        purchasePerson:localStorage.getItem('personName'),
-        name:'',
         heightSearch: '',
         pageColumns: [
           {title: '领用单编号', key: 'purchaseNumber', width: 150, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
           {title: '申请人', key: 'purchasePerson', width: 120, align: 'center', ellipsis: true,sortable:'true', },
           {title: '耗材名称', key: 'name', width: 180, align: 'center', ellipsis: true,sortable:'true', },
           {title: '领用数量', key: 'consunmableStock', width: 140, align: 'center', ellipsis: true,sortable:'true', },
+          // {title: '单价', key: 'price', width: 180, align: 'center', ellipsis: true,sortable:'true', },
           {title: '状态', key: 'status', width: 150,sortable:'true',status:true,
           },
           {title: '领用原因', key: 'reason', ellipsis: true, width: 350,sortable:'true',},
@@ -118,7 +118,7 @@
     },
     computed: {
       tableHeight: function () {
-        return this.$tableHeight('noSearch');
+        return this.$tableHeight('search');
       }
     },
     mounted() {
@@ -127,32 +127,47 @@
     methods: {
       _iconClick(res, data) {
         switch (res) {
-          case '归还':
-            this._submitApprove(data);
+          case '通过':
+            this._submitApprove(data.purchaseId);
             break;
-          case '用尽':
-            this._useUpById(data);
+          case '驳回':
+            this._rejectById(data.purchaseId);
             break;
+          case '出库':
+            this._putStorage(data);
+            break;
+
         }
       },
       _page() {
-        this.$refs.pageTable._page('search-form', 'LmsChemicalUse/pageSelf');
+        this.$refs.pageTable._page('search-form', 'LmsChemicalUse/page');
       },
       _formSearch() {
         this.$refs.pageTable._pageChange(1);
       },
-      _submitApprove(data) {
-        this.$refs.addModel._open(data);
-      },
-      _useUpById(data) {
+      _submitApprove(id) {
         this.$Modal.confirm({
           title: '提示',
-          content: '确定已用尽？',
+          content: '确定通过领用审批？',
           onOk: () => {
-            this.$store.dispatch('LmsChemicalReturn/useUpById', data).then(() => {
-              if (this.$store.state.LmsChemicalReturn.success) {
+            this.$store.dispatch('LmsChemicalUse/passById', id).then(() => {
+              if (this.$store.state.LmsChemicalUse.success) {
+                this.$Message.success('审批通过成功！');
                 this._search();
-                this.$Message.success('操作成功！');
+              }
+            });
+          }
+        });
+      },
+      _rejectById(id) {
+        this.$Modal.confirm({
+          title: '提示',
+          content: '确定驳回该记录？',
+          onOk: () => {
+            this.$store.dispatch('LmsChemicalUse/rejectById', id).then(() => {
+              if (this.$store.state.LmsChemicalUse.success) {
+                this._search();
+                this.$Message.success('驳回成功！');
               }
             });
           }
@@ -162,6 +177,20 @@
         // 编辑
         this.$store.dispatch('LmsChemicalUse/getById', id).then(() => {
           this.$refs.editModal._open(this.$store.state.LmsChemicalUse.model);
+        });
+      },
+      _putStorage(data){
+        this.$Modal.confirm({
+          title: '提示',
+          content: '确定出库？',
+          onOk: () => {
+            this.$store.dispatch('LmsChemicalUse/inStock', {id:data.id,purchaseId:data.purchaseId}).then(() => {
+              if (this.$store.state.LmsChemicalUse.success) {
+                this._search();
+                this.$Message.success('出库成功！');
+              }
+            });
+          }
         });
       },
       _search() {

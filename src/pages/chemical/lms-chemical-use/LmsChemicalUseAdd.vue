@@ -75,8 +75,8 @@
             data.purchaseRemark =this.formObj.purchaseRemark;
             data.purchasePerson = this.formObj.purchasePerson;
             // 添加
-            this.$store.dispatch('LmsChemicalApply/add', data).then(() => {
-              if (this.$store.state.LmsChemicalApply.success) {
+            this.$store.dispatch('LmsChemicalUse/add', data).then(() => {
+              if (this.$store.state.LmsChemicalUse.success) {
                 this.showEditModal = false;
                 this.$Message.success('申请提交成功！');
                 this.$emit("on-result-change")

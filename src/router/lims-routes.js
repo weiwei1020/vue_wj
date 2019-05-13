@@ -17,11 +17,10 @@ import LmsChemicalCategory from '../pages/chemical/lms-chemical-category/LmsChem
 import LmsChemicalManage from '../pages/chemical/lms-chemicals-manage/LmsChemicalManage.vue'//耗材台账管理
 import LmsChemicalPurchase from '../pages/chemical/lms-chemical-purchase/LmsChemicalPurchase.vue'//耗材采购申请
 import LmsChemicalPurchaseOrder from '../pages/chemical/lms-chemical-purchase-audit/LmsChemicalPurchaseOrder.vue'//耗材采购审批
-import LmsChemicalApply from '../pages/chemical/lms-chemical-apply/LmsChemicalApply.vue'//耗材领用申请
-import LmsChemicalUse from '../pages/chemical/lms-chemical-use/LmsChemicalUse.vue'//耗材领用审批
+import LmsChemicalUse from '../pages/chemical/lms-chemical-use/LmsChemicalUse.vue'//耗材领用申请
+import LmsChemicalUseAudit from '../pages/chemical/lms-chemical-use-audit/LmsChemicalUseAudit.vue'//耗材领用审批
 import LmsChemicalUseHistory from '../pages/chemical/lms-chemical-use-history/LmsChemicalUseHistory.vue'//耗材使用记录
-import LmsChemicalUseQuery from '../pages/chemical/lms-chemical-use-query/LmsChemicalUseQuery.vue'//耗材使用查询
-import LmsChemicalReturn from '../pages/chemical/lms-chemical-return/LmsChemicalReturn.vue'//耗材归还管理
+import LmsChemicalReturn from '../pages/chemical/lms-chemical-return-audit/LmsChemicalReturn.vue'//耗材归还管理
 import LmsChemicalStatistic from '../pages/chemical/lms-chemical-statistic/LmsChemicalStatistic.vue'//耗材采购统计功能
 import LmsRoleChemicalCategory from '../pages/chemical/lms-role-chemical-category/LmsRoleChemicalCategory.vue'//耗材金额统计
 //个人信息
@@ -46,10 +45,9 @@ export default [
   {path: 'chemical_manage', component: LmsChemicalManage},//耗材台账管理
   {path: 'chemical_purchase', component: LmsChemicalPurchase},//耗材采购申请
   {path: 'chemical_purchase_order', component: LmsChemicalPurchaseOrder},//耗材采购单审批
-  {path:'chemical_apply',component:LmsChemicalApply},//耗材领用申请
-  {path:'chemical_use',component:LmsChemicalUse},//耗材领用审批
+  {path:'chemical_use',component:LmsChemicalUse},//耗材领用申请
+  {path:'chemical_use_audit',component:LmsChemicalUseAudit},//耗材领用审批
   {path:'chemical_ues_history',component:LmsChemicalUseHistory},//耗材使用记录
-  {path:'chemical_use_query',component:LmsChemicalUseQuery},//耗材使用查询
   {path:'chemical_return',component:LmsChemicalReturn},//耗材归还管理
   {path:'statistic',component:LmsChemicalStatistic},//耗材采购统计功能
   {path: 'role_chemical_category', component: LmsRoleChemicalCategory},//耗材金额统计

@@ -4,116 +4,135 @@
     <BreadCrumbs :crumbs="$showBread()"></BreadCrumbs>
     <!--内容-->
     <div class="layout-content-padding">
-      <div class="layout-content-main">
-        <Row>
-          <!--查询-->
-          <Col span="24" style="margin-top: 20px">
-            <Form id="search-form" inline onsubmit="return false" :label-width="70">
-              <label class="label-sign"></label>
-              <Form-item class="width-23" label="申请原因:">
-                <input name="purchaseType" v-model="purchaseType" type="hidden"/>
-                <Input name="reason" placeholder="请输入申请原因" @on-enter="_formSearch"></Input>
-              </Form-item>
-              <Form-item class="search-btn">
-                <Button type="primary" @click="_formSearch">搜索</Button>
-              </Form-item>
-            </Form>
-          </Col>
-          <Col span="24" style="margin-bottom: 10px">
-            <ElementTable :pageColumns="pageColumns" :tableHeight="tableHeight" @on-result-change="_tableResultChange"
-                          ref="pageTable" :getPage="getPage" hideCheckbox
-                          :warnKey="'testEndTime'">
-              <el-table-column
-                show-overflow-tooltip
-                :prop="item.key"
-                :label="item.title"
-                :min-width="item.width"
-                :align="item.align"
-                :fixed="item.fixed?item.fixed:undefined"
-                v-for="item in pageColumns" :key="item.id">
-                <template slot-scope="scope">
-                  <span v-if="item.status">
-                    <span v-if="scope.row[item.key]==0" class="yellow-color">
-                      待审批
-                    </span>
-                    <span v-else-if="scope.row[item.key]==1" class="green-color">
-                      已通过
-                    </span>
-                     <span v-else-if="scope.row[item.key]==2" class="red-color">
-                      已驳回
-                    </span>
-                    <span v-else-if="scope.row[item.key]==3" class="blue-color">
-                      已出库
-                    </span>
-                  </span>
-                  <span v-else>{{scope.row[item.key]}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                label="操作"
-                align="center"
-                :width="180"
-                fixed="right">
-                <template slot-scope="scope">
-                  <IconList :msg="scope.row.status =='0'?iconMsg:scope.row.status =='1'?iconMsgDis:iconMsgDis1" @on-result-change="_iconClick"
-                            :rowData="scope.row"
-                            :rowIndex="scope.$index"></IconList>
-                </template>
-              </el-table-column>
-            </ElementTable>
-          </Col>
-        </Row>
+      <div class="layout-content-main tree-position">
+        <div class="position-left" :style="treeStyleObj" v-show="isTree">
+          <Card dis-hover class="card_tree">
+            <p slot="title" style="width: 60%">耗材类别列表</p>
+            <p slot="title" style="width: 40%;text-align: right">
+              <a @click="_refresh">
+                <Icon type="refresh" size="20"></Icon>
+              </a>
+            </p>
+            <div>
+              <CategoryTree ref="tree" @on-result-change="_treeData"></CategoryTree>
+            </div>
+          </Card>
+        </div>
+        <div style="position: absolute;left: 196px;top: 50%;cursor:pointer" @click="_treeHide" v-if="isTree">
+          <div class="navbarImgShow"></div>
+        </div>
+        <div style="position: absolute;left:0;top: 50%;cursor:pointer" @click="_treeShow" v-else="isTree">
+          <div class="navbarImgHide"></div>
+        </div>
+        <div class="position-right" :style="tableStyleObj">
+          <Row>
+            <!--查询-->
+            <Col span="24" style="margin-top: 10px">
+              <Form id="search-form" inline onsubmit="return false" :label-width="70">
+                <label class="label-sign"></label>
+                <Form-item class="width-20" label="耗材名称:">
+                  <input name="consumable" type="hidden"/>
+                  <Input name="name" placeholder="请输入耗材名称" @on-enter="_formSearch"></Input>
+                </Form-item>
+                <Form-item>
+                  <Button type="primary" @click="_formSearch">搜索</Button>
+                </Form-item>
+              </Form>
+            </Col>
+            <Col span="24" style="margin-bottom: 10px">
+              <PageTable :pageColumns="pageColumns" :tableHeight="tableHeight" @on-result-change="_tableResultChange"
+                         ref="pageTable" :getPage="getPage">
+
+              </PageTable>
+            </Col>
+          </Row>
+        </div>
       </div>
     </div>
+    <!--耗材详情-->
+    <LmsChemicalApplyDetail ref="chemicalDetailModel"></LmsChemicalApplyDetail>
+    <!--添加进采购单-->
+    <LmsChemicalApplyAdd ref="addModel" @on-result-change="_search"></LmsChemicalApplyAdd>
   </div>
 </template>
 <script>
-  import ElementTable from '../../../components/table/ElementTable'
-  import IconList from '../../../components/base/IconList.vue'
+  import CategoryTree from '../CategoryTree.vue'
+  import LmsChemicalApplyDetail from './LmsChemicalUseDetail.vue'
+  import LmsChemicalApplyAdd from './LmsChemicalUseAdd.vue'
+  import PageTable from '../../../components/table/PageTable'
   import BreadCrumbs from '../../../components/base/BreadCrumbs'
+  import IconList from '../../../components/base/IconList1.vue'
+
 
   export default {
     components: {
-      ElementTable,
+      CategoryTree,
+      LmsChemicalApplyDetail,
+      LmsChemicalApplyAdd,
+      PageTable,
+      BreadCrumbs,
       IconList,
-      BreadCrumbs
     },
     data() {
       return {
-        iconMsg: [
-          { type: 'checkmark-circled', id: '', name: '通过' },
-          { type: 'close-circled', id: '', name: '驳回' },
-          { type: 'home', id: '', name: '出库' ,disabled:true},
-
+        iconMsg:[
+          {type:'plus-round',id:'',name:'领用'},
         ],
-        iconMsgDis: [
-          { type: 'checkmark-circled', id: '', name: '通过',disabled:true },
-          { type: 'close-circled', id: '', name: '驳回',disabled:true },
-          { type: 'home', id: '', name: '出库'},
-        ],
-        iconMsgDis1: [
-          { type: 'checkmark-circled', id: '', name: '通过',disabled:true },
-          { type: 'close-circled', id: '', name: '驳回',disabled:true },
-          { type: 'home', id: '', name: '出库' ,disabled:true},
-        ],
-        purchaseType:'1',
         heightSearch: '',
+        showInputNumber: false,
+        inputNum: 1,
+
+        selectIds: [],
         pageColumns: [
-          {title: '领用单编号', key: 'purchaseNumber', width: 150, align: 'center', ellipsis: true,sortable:'true', fixed: 'left'},
-          {title: '申请人', key: 'purchasePerson', width: 120, align: 'center', ellipsis: true,sortable:'true', },
-          {title: '耗材名称', key: 'name', width: 180, align: 'center', ellipsis: true,sortable:'true', },
-          {title: '领用数量', key: 'consunmableStock', width: 140, align: 'center', ellipsis: true,sortable:'true', },
-          // {title: '单价', key: 'price', width: 180, align: 'center', ellipsis: true,sortable:'true', },
-          {title: '状态', key: 'status', width: 150,sortable:'true',status:true,
+          {type: 'selection', width: 60, fixed: 'left', align: 'center'},
+          {title: '耗材编号', width: 140, key: 'num', ellipsis: true,sortable:'true',fixed:'left'},
+          {
+            title: '耗材名称', key: 'name', width: 200, align: 'left', ellipsis: true,sortable:'true',fixed:'left',
+            render: (h, data) => {
+              return h('div', [
+                h('a', {
+                  on: {
+                    click: () => {
+                      this._detailModal(data.row.id);
+                    }
+                  }
+                }, data.row.name),
+              ]);
+            }
           },
-          {title: '领用原因', key: 'reason', ellipsis: true, width: 350,sortable:'true',},
-          {title: '备注', key: 'purchaseRemark', width: 180, align: 'center', ellipsis: true,sortable:'true', },
-          {title: '创建时间', key: 'ctime', width: 160,sortable:'true',},
-          {title: '最后修改时间', key: 'ltime', width: 160,sortable:'true',},
+          {title: '耗材类别', width: 140, key: 'consumable', ellipsis: true,sortable:'true',},
+          {title: '仓库位置', width: 180, key: 'storehouse', ellipsis: true,sortable:'true',},
+          {title: '库存量', width: 100, key: 'stock', ellipsis: true,sortable:'true',},
+          {title: '备注', width: 140, key: 'remark', ellipsis: true},
+          {title: '计量单位', width: 120, key: 'unit', ellipsis: true,sortable:'true',},
+          {title: '备注', width: 200, key: 'remark', ellipsis: true,sortable:'true',},
+          {
+            title: '操作', key: 'action', width: 70, fixed: 'right',align:'center',
+            render: (h, data) => {
+              return h('div',
+                [
+                  h(IconList, {
+                    props: {msg: this. iconMsg},
+                    on: {
+                      'on-result-change': (res) => {
+                        this._iconClick(res,data)
+                      }
+                    }
+                  },),
+                ]);
+            }
+          },
         ],
-        noBtnVal: 250,
-        dVal: 57,
-        getPage: {}
+        treeStyleObj: {
+          'width': '210px',
+          'height': ''
+        },
+        tableStyleObj: {
+          'margin-left': '215px'
+        },
+        isTree: true,
+        consumable: '',
+        getPage: {},
       }
     },
     computed: {
@@ -125,81 +144,59 @@
       this._search();
     },
     methods: {
-      _iconClick(res, data) {
-        switch (res) {
-          case '通过':
-            this._submitApprove(data.purchaseId);
+      _iconClick(res,data){
+        switch (res){
+          case '领用' :
+            this._addModal(data.row);
             break;
-          case '驳回':
-            this._rejectById(data.purchaseId);
-            break;
-          case '出库':
-            this._putStorage(data);
-            break;
-
         }
       },
       _page() {
-        this.$refs.pageTable._page('search-form', 'LmsChemicalApply/page');
+        this.$refs.pageTable._page('search-form', 'LmsChemicalManage/page');
       },
       _formSearch() {
         this.$refs.pageTable._pageChange(1);
       },
-      _submitApprove(id) {
-        this.$Modal.confirm({
-          title: '提示',
-          content: '确定通过领用审批？',
-          onOk: () => {
-            this.$store.dispatch('LmsChemicalApply/passById', id).then(() => {
-              if (this.$store.state.LmsChemicalApply.success) {
-                this.$Message.success('审批通过成功！');
-                this._search();
-              }
-            });
-          }
-        });
-      },
-      _rejectById(id) {
-        this.$Modal.confirm({
-          title: '提示',
-          content: '确定驳回该记录？',
-          onOk: () => {
-            this.$store.dispatch('LmsChemicalApply/rejectById', id).then(() => {
-              if (this.$store.state.LmsChemicalApply.success) {
-                this._search();
-                this.$Message.success('驳回成功！');
-              }
-            });
-          }
-        });
-      },
-      _editModal(id) {
-        // 编辑
-        this.$store.dispatch('LmsChemicalApply/getById', id).then(() => {
-          this.$refs.editModal._open(this.$store.state.LmsChemicalApply.model);
-        });
-      },
-      _putStorage(data){
-        this.$Modal.confirm({
-          title: '提示',
-          content: '确定出库？',
-          onOk: () => {
-            this.$store.dispatch('LmsChemicalApply/inStock', {id:data.id,purchaseId:data.purchaseId}).then(() => {
-              if (this.$store.state.LmsChemicalApply.success) {
-                this._search();
-                this.$Message.success('出库成功！');
-              }
-            });
-          }
-        });
+      _refresh() { //刷新
+        $('input[name=consumable]').val('');
+        this._tree();
+        this._page();
       },
       _search() {
+        this._tree();
         this._page();
+      },
+      _treeData(data) {
+        $('input[name=consumable]').val(data.consumableSortName);
+        this._formSearch();
+      },
+      _tree() {
+        this.$refs.tree._Ztree();
+      },
+      _detailModal(id) {
+        // 查看
+        this.$store.dispatch('LmsChemicalManage/getById', id).then(() => {
+          this.$refs.chemicalDetailModel._open(this.$store.state.LmsChemicalManage.model);
+        });
+      },
+      _addModal(data) {
+        this.$refs.addModel._open(data);
+      },
+      _treeHide() { //左侧树隐藏
+        this.isTree = false;
+        this.tableStyleObj.marginLeft = '15px'
+      },
+      _treeShow() {
+        this.isTree = true;
+        this.tableStyleObj.marginLeft = '215px'
       },
       _tableResultChange(msg, data) {
         switch (msg) {
           case 'page':
-            this.getPage = this.$store.state.LmsChemicalApply.page;
+            this.getPage = this.$store.state.LmsChemicalManage.page;
+            break;
+          case 'selectIds':
+            this.selectIds = data;
             break;
           default :
             this._page();
@@ -208,8 +205,3 @@
     },
   }
 </script>
-<style>
-  .yellow-color{
-    color:#F8BB2C;
-  }
-</style>
