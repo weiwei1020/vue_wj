@@ -7,7 +7,7 @@
       <div class="layout-content-main tree-position">
           <Row>
             <!--查询-->
-            <Col span="24" style="margin-top: 15px">
+            <Col span="24">
             <Form id="search-form" inline onsubmit="return false" :label-width="90">
               <label class="label-sign"></label>
               <Form-item class="width-23" label="分类名称:">

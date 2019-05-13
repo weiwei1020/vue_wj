@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 面包屑 -->
+    <BreadCrumbs :crumbs="$showBread()"></BreadCrumbs>
     <Card style="width:100%;">
       <div class="config_meta">
         <p class="fl">耗材采购金额统计</p>
@@ -18,11 +20,12 @@
 </template>
 <script>
   import IEcharts from 'vue-echarts-v3/src/full.js';
+  import BreadCrumbs from '../../../components/base/BreadCrumbs'
 
   const month = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
   export default {
     components: {
-      IEcharts
+      IEcharts,BreadCrumbs
     },
     data() {
       return {

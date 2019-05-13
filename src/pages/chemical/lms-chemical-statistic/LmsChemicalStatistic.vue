@@ -57,14 +57,12 @@
     data() {
       return {
         isSearch: true,
-        tableHeight: '300',
+        tableHeight: '480',
         selectIds: [],
         pageColumns: [
           {type: 'selection', width: 60, align: 'center',},
           {title: '耗材编号', width: 240, key: 'chemicalNum', ellipsis: true,sortable:'true',},
-          {
-            title: '耗材名称', key: 'chemicalName',  align: 'left', ellipsis: true,sortable:'true',
-          },
+          {title: '耗材名称', key: 'chemicalName',  align: 'left', ellipsis: true,sortable:'true',},
           {title: '采购量', width: 220, key: 'stock', ellipsis: true,sortable:'true',},
           {title: '总价格', width: 220, key: 'total', ellipsis: true,sortable:'true',},
         ],

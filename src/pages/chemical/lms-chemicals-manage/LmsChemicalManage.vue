@@ -27,7 +27,7 @@
         <div class="position-right" :style="tableStyleObj">
           <Row>
             <!--查询-->
-            <Col span="24" style="margin-bottom: 15px;margin-top: 15px;">
+            <Col span="24" style="margin-bottom: 15px;">
             <div class="">
               <div class="coll-search" v-show="isSearch">
                 <Form id="search-form-chemical-manage" inline onsubmit="return false" :label-width="70">

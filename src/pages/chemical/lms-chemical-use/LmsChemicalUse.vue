@@ -137,7 +137,7 @@
     },
     computed: {
       tableHeight: function () {
-        return this.$tableHeight('search');
+        return this.$tableHeight('noSearch');
       }
     },
     mounted() {

@@ -61,7 +61,7 @@
                   // {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
                   {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
-                  {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/role_chemical_category"}],"uri":"/"},
+                  {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/chemical-amount-of-money"}],"uri":"/"},
               {"name":"人员管理","icon":"person-stalker","code":"400110",
                 "subMenus":[
                   {"name":"人员管理","icon":"person-stalker","code":"400110","subMenus":[],"uri":"/lims/personnel_manage"},
@@ -102,7 +102,7 @@
                   {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
                   // {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   // {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
-                  // {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/role_chemical_category"}
+                  // {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/chemical-amount-of-money"}
                   ],"uri":"/"},
               {"name":"个人中心","icon":"gear-b","id":"","code":"60001",
                 "subMenus":[
@@ -140,7 +140,7 @@
                   {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
                   // {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   // {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
-                  // {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/role_chemical_category"}
+                  // {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/chemical-amount-of-money"}
                   ],"uri":"/"},
               {"name":"个人中心","icon":"gear-b","id":"","code":"60001",
                 "subMenus":[
