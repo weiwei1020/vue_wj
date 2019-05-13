@@ -8,9 +8,6 @@ const state = {
     model: {},
     page: {},
     list:{},
-    treeList:{},
-    include:{},
-    exclude:{}
 };
 
 const actions = {
@@ -62,23 +59,11 @@ const mutations = {
     LIST(state, resp) {
       state.list = resp;
     },
-    INCLUDE_PAGE(state, resp) {
-      state.include = resp;
-    },
-    EXCLUDE_PAGE(state, resp) {
-      state.exclude = resp;
-    },
     GET_BY_ID(state, resp) {
         state.model = resp;
     },
     SUCCESS(state, resp) {
         state.success = resp;
-    },
-    TREE_LIST(state, resp) {
-      state.treeList = resp;
-    },
-    INCLUDE(state, resp) {
-      state.include = resp;
     },
 };
 

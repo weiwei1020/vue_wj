@@ -12,7 +12,7 @@
               <label class="label-sign"></label>
               <Form-item class="width-23" label="耗材名称:">
                 <input name="purchaseType" v-model="purchaseType" type="hidden"/>
-                <input name="status" v-model="status" type="hidden"/>
+                <input name="purchasePerson" v-model="purchasePerson" type="hidden"/>
                 <Input name="name" placeholder="请输入耗材名称" @on-enter="_formSearch"></Input>
               </Form-item>
               <Form-item class="search-btn">
@@ -96,7 +96,7 @@
           { type: 'trash-b', id: '', name: '用尽',disabled:true },
         ],
         purchaseType:'1',
-        status:'',
+        purchasePerson:localStorage.getItem('personName'),
         name:'',
         heightSearch: '',
         pageColumns: [
@@ -136,7 +136,7 @@
         }
       },
       _page() {
-        this.$refs.pageTable._page('search-form', 'LmsChemicalApply/page');
+        this.$refs.pageTable._page('search-form', 'LmsChemicalApply/pageSelf');
       },
       _formSearch() {
         this.$refs.pageTable._pageChange(1);

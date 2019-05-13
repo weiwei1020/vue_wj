@@ -12,7 +12,7 @@ const state = {
 
 const actions = {
   async page({commit}, data) {
-    await http.post('/consumableApply/page', data).then(function (resp) {
+    await http.post('/consumableApply/pageManage', data).then(function (resp) {
       commit('PAGE', resp);
     });
   },
@@ -34,6 +34,11 @@ const actions = {
   async inStock({commit}, data) {
     await http.post('/consumableApply/purchaseOut',{purchaseId: data.purchaseId,id:data.id}).then(function (resp) {
       commit('SUCCESS', resp);
+    });
+  },
+  async pageSelf({commit}, data) {
+    await http.post('/consumableApply/page', data).then(function (resp) {
+      commit('PAGE', resp);
     });
   },
 };

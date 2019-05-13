@@ -5,10 +5,10 @@
       <div>
         <Form id="edit-add-purform-add" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
           <Form-item label="申请人" prop="purchasePerson" style="width: 100%">
-            <Input v-model="formObj.purchasePerson" name="purchasePerson" style="width: 100%" readonly></Input>
+            <Input v-model="formObj.purchasePerson" name="purchasePerson" style="width: 100%" disabled></Input>
           </Form-item>
           <Form-item label="单价" prop="price" style="width: 100%">
-            <Input v-model="formObj.price" name="price" style="width: 100%" readonly></Input>
+            <Input v-model="formObj.price" name="price" style="width: 100%" disabled></Input>
           </Form-item>
           <Form-item label="采购数量" prop="consunmableStock" style="width: 100%">
             <InputNumber :min="1" v-model.number="formObj.consunmableStock" style="width: 100%"></InputNumber>

@@ -58,7 +58,7 @@
                   {"name":"耗材领用申请","icon":"edit","id":"","code":"12221","uri":"/lims/chemical_apply"},
                   {"name":"耗材领用审批","icon":"wand","id":"","code":"12221","uri":"/lims/chemical_use"},
                   {"name":"耗材使用记录","icon":"clipboard","id":"","code":"122221","uri":"/lims/chemical_ues_history"},
-                  {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
+                  // {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
                   {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
                   {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/role_chemical_category"}],"uri":"/"},

@@ -5,7 +5,7 @@
       <div>
         <Form id="edit-add-purform" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
           <Form-item label="申请人" prop="apparatusPurchasePerson" style="width: 100%;">
-            <Input name="apparatusPurchasePerson" v-model="formObj.apparatusPurchasePerson" placeholder="请输入申请人" readonly></Input>
+            <Input name="apparatusPurchasePerson" v-model="formObj.apparatusPurchasePerson" placeholder="请输入申请人" disabled></Input>
             <input name="apparatusPurchasePersonId" v-model="formObj.apparatusPurchasePersonId" type="hidden"/>
           </Form-item>
           <Form-item label="预约时间" prop="dateValue" style="width: 100%;">

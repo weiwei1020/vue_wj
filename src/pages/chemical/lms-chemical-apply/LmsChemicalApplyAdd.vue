@@ -4,6 +4,9 @@
       <p slot="header">{{modalTitle}}</p>
       <div>
         <Form id="edit-add-purform-add" ref="formObj" :model="formObj" :rules="ruleValidate" :label-width="80" inline>
+          <Form-item label="领用人" prop="purchasePerson" style="width: 100%">
+            <Input name="purchasePerson" v-model="formObj.purchasePerson" placeholder="请输入领用人" disabled></Input>
+          </Form-item>
           <Form-item label="领用数量" prop="consunmableStock" style="width: 100%">
             <InputNumber :min="1" v-model.number="formObj.consunmableStock" style="width: 100%"></InputNumber>
           </Form-item>
@@ -32,7 +35,8 @@
     name:'',
     consunmableStock: 1,
     reason:'',
-    purchaseRemark: ''
+    purchaseRemark: '',
+    purchasePerson:localStorage.getItem('personName')
   };
   export default {
     data() {
@@ -69,6 +73,7 @@
             data.consunmableStock = this.formObj.consunmableStock;
             data.reason = this.formObj.reason;
             data.purchaseRemark =this.formObj.purchaseRemark;
+            data.purchasePerson = this.formObj.purchasePerson;
             // 添加
             this.$store.dispatch('LmsChemicalApply/add', data).then(() => {
               if (this.$store.state.LmsChemicalApply.success) {
@@ -94,6 +99,7 @@
         this.formObj.consunmableStock = 1;
         this.formObj.purchaseRemark = '';
         this.formObj.reason='';
+        this.formObj.purchasePerson=localStorage.getItem('personName');
 
       },
     }
