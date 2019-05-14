@@ -41,6 +41,11 @@ const actions = {
       commit('LIST', resp);
     });
   },
+  async  getStatistic({commit}, data) {
+    await http.post('/consumablePurchase/consumablesPurchaseStatistics', data).then(function (resp) {
+      commit('PAGE', resp);
+    });
+  }
 };
 
 

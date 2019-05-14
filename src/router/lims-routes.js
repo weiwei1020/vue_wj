@@ -22,7 +22,6 @@ import LmsChemicalUseAudit from '../pages/chemical/lms-chemical-use-audit/LmsChe
 import LmsChemicalUseHistory from '../pages/chemical/lms-chemical-use-history/LmsChemicalUseHistory.vue'//耗材使用记录
 import LmsChemicalReturn from '../pages/chemical/lms-chemical-return-audit/LmsChemicalReturn.vue'//耗材归还管理
 import LmsChemicalStatistic from '../pages/chemical/lms-chemical-statistic/LmsChemicalStatistic.vue'//耗材采购统计功能
-import LmsChemicalAmountOfMoney from '../pages/chemical/lms-chemical-amount-of-money/LmsChemicalAmountOfMoney.vue'//耗材金额统计
 //个人信息
 import personnelManage from '../pages/personnel-manage/personnelManage'
 import changePassword from '../pages/personal-center/change-password/passwordEdit.vue'
@@ -50,7 +49,6 @@ export default [
   {path:'chemical_ues_history',component:LmsChemicalUseHistory},//耗材使用记录
   {path:'chemical_return',component:LmsChemicalReturn},//耗材归还管理
   {path:'statistic',component:LmsChemicalStatistic},//耗材采购统计功能
-  {path: 'chemical-amount-of-money', component: LmsChemicalAmountOfMoney},//耗材金额统计
   {path:'personnel_manage',component:personnelManage},  //人员管理
   {path: 'change_password', component:changePassword},//修改密码
   {path: 'user_info', component:userInfo},//基本信息
