@@ -49,9 +49,6 @@ export default {
      *
      */
     Vue.prototype.$showBtn = function (name) {
-      //todo
-      // console.log(Store.session('showBtnList')===null)
-      // session 初始化 有问题
       if (Store.session('showBtnList') !== null)
         var list = Store.session('showBtnList').split(',');
       // console.log("1212权限",list)

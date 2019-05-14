@@ -58,7 +58,6 @@
                 }
             },
             _ok() {
-              debugger
                 this.$refs['formObj'].validate((valid) => {
                 if (valid) {
                     var data = this.$serialize('edit-form1');
