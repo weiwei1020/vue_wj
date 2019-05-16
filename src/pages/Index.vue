@@ -260,8 +260,8 @@
   }
   .ivu-btn-primary:hover {
     color: #fff;
-    background-color: #00c485;
-    border-color: #00c485
+    background-color: #00b5ec;
+    border-color: #00b5ec
   }
   .label-sign {
     width: 3px;

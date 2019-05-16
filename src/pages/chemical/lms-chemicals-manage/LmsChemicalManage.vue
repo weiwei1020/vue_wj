@@ -111,7 +111,6 @@
           {title: '单价', width: 110, key: 'price', ellipsis: true,sortable:'true',},
           {title: '仓库位置', width: 180, key: 'storehouse', ellipsis: true,sortable:'true',},
           {title: '库存量', width: 100, key: 'stock', ellipsis: true,sortable:'true',},
-          {title: '备注', width: 140, key: 'remark', ellipsis: true},
           {title: '计量单位', width: 120, key: 'unit', ellipsis: true,sortable:'true',},
           {title: '备注', width: 200, key: 'remark', ellipsis: true,sortable:'true',},
           {

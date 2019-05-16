@@ -14,7 +14,6 @@
           <Form-item label="耗材类别" prop="consumable" class="width-48">
             <Input name="consumable" v-model="formObj.consumable" @on-click="_categoryZtree"
                    icon="plus-circled" readonly placeholder="请选中耗材类别"></Input>
-            <input name="consumableId" v-model="formObj.consumableId" type="hidden"/>
           </Form-item>
           <Form-item label="单价" prop="price" class="width-48">
             <Input name="price" v-model="formObj.price" placeholder="请输入单价"></Input>
@@ -33,6 +32,7 @@
           <Form-item label="备注" prop="remark" style="width: 96%;">
             <Input name="remark" v-model="formObj.remark" placeholder="请输入备注"></Input>
           </Form-item>
+          <input name="consumableId" v-model="formObj.consumableId" type="hidden"/>
         </Form>
       </div>
       <div slot="footer">
@@ -97,7 +97,8 @@
             this.$extend(data, {
               id:this.formObj.id,
               unit: this.formObj.unit,
-            });
+              consumableId:this.formObj.consumableId,
+          });
             if (this.$string(this.id).isEmpty()) {
               // 添加);
               this.$store.dispatch('LmsChemicalManage/add', data).then(() => {
@@ -137,9 +138,10 @@
           }
         } else {
           this.id = formObj.id;
+          this.formObj = formObj;
           this.formObj.consumable = formObj.consumable;
           this.formObj.consumableId = formObj.consumableId;
-          this.formObj = formObj;
+          this.formObj.price = formObj.price.toString();
           this.modalTitle = '编辑试验耗材';
           this.formObj.storehouse = formObj.storehouse;
         }
@@ -148,8 +150,8 @@
         this.$refs.ztreeModal._openZtree();  //打开上ztreeModel
       },
       _ztree(result) {
-        this.formObj.consumableId = result.consumableSortId;
         this.formObj.consumable = result.consumableSortName;
+        this.formObj.consumableId = result.consumableSortId;
       },
     }
   }
