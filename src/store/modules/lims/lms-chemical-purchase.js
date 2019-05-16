@@ -32,7 +32,7 @@ const actions = {
     });
   },
   async inStock({commit}, data) {
-    await http.post('/consumablePurchase/purchaseOut',{purchaseId: data.purchaseId,id:data.id}).then(function (resp) {
+    await http.post('/consumablePurchase/purchaseIn',{purchaseId: data.purchaseId,id:data.id}).then(function (resp) {
       commit('SUCCESS', resp);
     });
   },
