@@ -43,7 +43,6 @@ export default {
     Store.set('username', username);
     Store.set('password', password);
   },
-  // env: process.env.NODE_ENV,
   baseURL: process.env.BASE_URL,
   transformRequest: [// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream
     function (data) {

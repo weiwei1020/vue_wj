@@ -40,15 +40,15 @@
                 "subMenus":[
                   {"name":"实验计划","icon":"navicon-round","code":"400110","uri":"/lims/staff_level"},
                   {"name":"实验管理","icon":"help-buoy","id":"","code":"400120","uri":"/lims/staff_manage"},
-                  {"name":"实验安排","icon":"navicon","id":"","code":"400130","uri":"/lims/staff_schedule"}],"uri":"/"},
+                  ],"uri":"/"},
               {"name":"仪器管理","icon":"ios-barcode","id":"","code":"500000",
                 "subMenus":[
                   {"name":"仪器类别管理","icon":"navigate","id":"","code":"500002","uri":"/lims/equip_class"},
                   {"name":"仪器资产管理","icon":"ios-rose-outline","id":"","code":"500001","uri":"/lims/equip_info"},
                   {"name":"仪器预约申请","icon":"clock","id":"","code":"500007","uri":"/lims/equip_order"},
-                  // {"name":"仪器预约查询","icon":"skip-forward","id":"","code":"5000015","uri":"/lims/equip_order_query"},
                   {"name":"仪器预约审批","icon":"help-buoy","id":"","code":"500020","uri":"/lims/equip_audit"},
-                  {"name":"仪器排程查询","icon":"image","id":"","code":"500251","uri":"/lims/equip_schedule"}],"uri":"/"},
+                  // {"name":"仪器排程查询","icon":"image","id":"","code":"500251","uri":"/lims/equip_schedule"}
+                  ],"uri":"/"},
               {"name":"耗材管理","icon":"erlenmeyer-flask","id":"","code":"300100",
                 "subMenus":[
                   {"name":"耗材类别管理","icon":"android-options","id":"","code":"1000120210","uri":"/lims/chemical_category"},
@@ -58,10 +58,8 @@
                   {"name":"耗材领用申请","icon":"edit","id":"","code":"12221","uri":"/lims/chemical_use"},
                   {"name":"耗材领用审批","icon":"wand","id":"","code":"12221","uri":"/lims/chemical_use_audit"},
                   {"name":"耗材使用记录","icon":"clipboard","id":"","code":"122221","uri":"/lims/chemical_ues_history"},
-                  // {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
                   {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
-                  // {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/chemical-amount-of-money"}
                   ],"uri":"/"},
               {"name":"人员管理","icon":"person-stalker","code":"400110",
                 "subMenus":[
@@ -83,27 +81,25 @@
                 "subMenus":[
                   {"name":"实验计划","icon":"navicon-round","code":"400110","uri":"/lims/staff_level"},
                   {"name":"实验管理","icon":"help-buoy","id":"","code":"400120","uri":"/lims/staff_manage"},
-                  {"name":"实验安排","icon":"navicon","id":"","code":"400130","uri":"/lims/staff_schedule"}],"uri":"/"},
+                  ],"uri":"/"},
               {"name":"仪器管理","icon":"ios-barcode","id":"","code":"500000",
                 "subMenus":[
                   {"name":"仪器类别管理","icon":"navigate","id":"","code":"500002","uri":"/lims/equip_class"},
                   {"name":"仪器资产管理","icon":"ios-rose-outline","id":"","code":"500001","uri":"/lims/equip_info"},
                   {"name":"仪器预约申请","icon":"clock","id":"","code":"500007","uri":"/lims/equip_order"},
-                  // {"name":"仪器预约审批","icon":"help-buoy","id":"","code":"500020","uri":"/lims/equip_audit"},
-                  {"name":"仪器排程查询","icon":"image","id":"","code":"500251","uri":"/lims/equip_schedule"}],"uri":"/"},
+                  // {"name":"仪器排程查询","icon":"image","id":"","code":"500251","uri":"/lims/equip_schedule"}
+                  ],"uri":"/"},
               {"name":"耗材管理","icon":"erlenmeyer-flask","id":"","code":"300100",
                 "subMenus":[
                   {"name":"耗材类别管理","icon":"android-options","id":"","code":"1000120210","uri":"/lims/chemical_category"},
                   {"name":"耗材台账管理","icon":"calculator","id":"","code":"100001","uri":"/lims/chemical_manage"},
                   {"name":"耗材采购申请","icon":"ios-folder","id":"","code":"10","uri":"/lims/chemical_purchase"},
-                  // {"name":"耗材采购单审批","icon":"social-buffer-outline","id":"","code":"10001","uri":"/lims/chemical_purchase_order"},
                   {"name":"耗材领用申请","icon":"edit","id":"","code":"12221","uri":"/lims/chemical_use"},
                   // {"name":"耗材领用审批","icon":"wand","id":"","code":"12221","uri":"/lims/chemical_use_audit"},
                   {"name":"耗材使用记录","icon":"clipboard","id":"","code":"122221","uri":"/lims/chemical_ues_history"},
                   {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
                   // {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   // {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
-                  // {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/chemical-amount-of-money"}
                   ],"uri":"/"},
               {"name":"个人中心","icon":"gear-b","id":"","code":"60001",
                 "subMenus":[
@@ -121,14 +117,15 @@
                 "subMenus":[
                   {"name":"实验计划","icon":"navicon-round","code":"400110","uri":"/lims/staff_level"},
                   {"name":"实验管理","icon":"help-buoy","id":"","code":"400120","uri":"/lims/staff_manage"},
-                  {"name":"实验安排","icon":"navicon","id":"","code":"400130","uri":"/lims/staff_schedule"}],"uri":"/"},
+                  ],"uri":"/"},
               {"name":"仪器管理","icon":"ios-barcode","id":"","code":"500000",
                 "subMenus":[
                   {"name":"仪器类别管理","icon":"navigate","id":"","code":"500002","uri":"/lims/equip_class"},
                   {"name":"仪器资产管理","icon":"ios-rose-outline","id":"","code":"500001","uri":"/lims/equip_info"},
                   {"name":"仪器预约申请","icon":"clock","id":"","code":"500007","uri":"/lims/equip_order"},
                   // {"name":"仪器预约审批","icon":"help-buoy","id":"","code":"500020","uri":"/lims/equip_audit"},
-                  {"name":"仪器排程查询","icon":"image","id":"","code":"500251","uri":"/lims/equip_schedule"}],"uri":"/"},
+                  // {"name":"仪器排程查询","icon":"image","id":"","code":"500251","uri":"/lims/equip_schedule"}
+                  ],"uri":"/"},
               {"name":"耗材管理","icon":"erlenmeyer-flask","id":"","code":"300100",
                 "subMenus":[
                   {"name":"耗材类别管理","icon":"android-options","id":"","code":"1000120210","uri":"/lims/chemical_category"},
@@ -141,7 +138,6 @@
                   {"name":"耗材使用查询","icon":"search","id":"","code":"122221","uri":"/lims/chemical_use_query"},
                   // {"name":"耗材归还管理","icon":"archive","id":"","code":"12221","uri":"/lims/chemical_return"},
                   // {"name":"耗材采购统计","icon":"calendar","id":"","code":"21333","uri":"/lims/statistic"},
-                  // {"name":"耗材金额统计","icon":"locked","id":"","code":"12221","uri":"/lims/chemical-amount-of-money"}
                   ],"uri":"/"},
               {"name":"个人中心","icon":"gear-b","id":"","code":"60001",
                 "subMenus":[
@@ -155,7 +151,7 @@
         openedSubmenuArr: [],
         activeName: '',
         ishow:Global.getCode(),
-        classTheme: 'light_b',
+        classTheme: 'black_b',
         menuTheme: 'dark',
         isleftMenu: false, //判断是否是首页
         themeWhiteColor: false,
@@ -251,5 +247,43 @@
     },
   }
 </script>
-<style scoped>
+<style>
+  .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active, .ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover {
+    border-right: none;
+    color: #fff;
+    background: #00a0e9  !important;
+  }
+  .ivu-btn-primary {
+    color: #fff;
+    background-color: #0099cc;
+    border-color: #0099cc
+  }
+  .ivu-btn-primary:hover {
+    color: #fff;
+    background-color: #00c485;
+    border-color: #00c485
+  }
+  .label-sign {
+    width: 3px;
+    height: 20px;
+    background: #0099cc;
+    margin-bottom: 0;
+    margin-top: 5px;
+  }
+  .icons {
+    color: #0099cc;
+  }
+  .ivu-page-item-active a {
+    color: #fff !important;
+  }
+  .ivu-page-item-active {
+    background-color: #0099cc;
+    border-color: #0099cc;
+  }
+  .navMenu li a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #fff !important;
+  }
+
 </style>

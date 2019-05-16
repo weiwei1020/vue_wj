@@ -10,7 +10,6 @@ import LmsTestSchedule from "../pages/test-manage/lms-test-schedule/LmsTestSched
 import LmsEquipClass from "../pages/equip/lms-equip-class/LmsEquipClass.vue"//仪器分类信息
 import LmsEquipInfo from "../pages/equip/lms-equip-info/LmsEquipInfo.vue"//仪器资产信息
 import LmsEquipOrderTab from "../pages/equip/lms-equip-order/LmsEquipOrderTab.vue"//仪器预约信息
-import LmsEquipSchedule from "../pages/equip/lms-equip-schedule/LmsEquipSchedule.vue"//仪器排程查询
 import LmsEquipAudit from "../pages/equip/lms-equip-audit/LmsEquipAudit.vue"//仪器预约审批
 // 耗材管理
 import LmsChemicalCategory from '../pages/chemical/lms-chemical-category/LmsChemicalCategory.vue'//耗材分类管理
@@ -37,7 +36,6 @@ export default [
   {path: 'equip_class', component: LmsEquipClass},
   {path: 'equip_info', component: LmsEquipInfo},
   {path: 'equip_order', component: LmsEquipOrderTab},
-  {path: 'equip_schedule', component: LmsEquipSchedule},
   {path: 'equip_audit', component: LmsEquipAudit},
   // 耗材管理
   {path: 'chemical_category', component: LmsChemicalCategory},//耗材类别管理

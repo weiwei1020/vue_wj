@@ -11,7 +11,6 @@ import Store from 'store2'
 import iView from 'iview';
 import plugins from './lib/plugins'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import DebugLogger from './lib/logger'
 //ztree
 import './lib/zTree_v3-3.5.29/css/metroStyle/metroStyle.css'
 import './lib/zTree_v3-3.5.29/js/jquery.ztree.all.min'
@@ -42,14 +41,6 @@ import ElementTableData from "./components/table/ElementTableData"
 import ElTableNoPage from "./components/table/ElTableNoPage"
 import ModalFooter from './components/base/ModalFooter'
 import IconList from "./components/base/IconList1"
-
-//gantt
-import './lib/dhtmlxgantt/codebase/dhtmlxgantt.js'
-import './lib/dhtmlxgantt/codebase/ext/dhtmlxgantt_tooltip.js'
-import './lib/dhtmlxgantt/codebase/dhtmlxgantt.css'
-import './lib/dhtmlxgantt/codebase/locale/locale_cn'
-
-
 Vue.component('BtnList', BtnList);
 Vue.component('ElementTable', ElementTable);
 Vue.component('ElementTableData', ElementTableData);
@@ -61,7 +52,6 @@ Vue.component('IconList', IconList);
 import VueBus from 'vue-bus';
 
 Vue.use(VueBus);
-// Vue.use(DebugLogger);
 Vue.use(iView);
 Vue.use(plugins);
 

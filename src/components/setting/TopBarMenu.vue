@@ -69,12 +69,11 @@
   export default {
     data() {
       return {
-        loginUser: 'http://static.patzn.com/img/loginUser.jpg',
+        loginUser: '../../../static/img/logo-min.png',
         isExpand: false, //控制是否全屏
         admin: '',
-        imgUri: 'http://static.patzn.com/img/notice/notice.png',
         themeLink: '',
-        path: '',
+        path: 'http://static.patzn.com/theme/g.css',
         themeFile: '',
         themeList: [
           {name: 'light_b', element: '#1c2438', menu: '#495060',},
@@ -97,7 +96,7 @@
     methods: {
       //获取头像
       _getMyAvatar() {
-        this.loginUser = 'http://static.patzn.com/img/loginUser.jpg';
+        this.loginUser = '../../../static/img/logo-min.png';
       },
       _toggleScreen() { //是否全屏
         if (!this.isExpand) {
