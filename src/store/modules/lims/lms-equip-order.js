@@ -29,8 +29,15 @@ const actions = {
       commit('PAGE', resp);
     });
   },
-  async page({commit}, data) {
+  /*个人预约*/
+  async pageSelf({commit}, data) {
     await http.post('/apparatusPurchase/page', data).then(function (resp) {
+      commit('PAGE', resp);
+    });
+  },
+  /*预约审批*/
+  async page({commit}, data) {
+    await http.post('/apparatusPurchase/apparatusPurchaseManage', data).then(function (resp) {
       commit('PAGE', resp);
     });
   },

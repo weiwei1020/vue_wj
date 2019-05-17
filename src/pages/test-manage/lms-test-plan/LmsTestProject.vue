@@ -94,7 +94,7 @@
       return {
         btn: [
           {type: 'success', id: '', name: '添加'},
-          {type: 'error', id: '', name: '删除'},
+          // {type: 'error', id: '', name: '删除'},
           // {id: '', name: '实验修改记录'},
         ],
         searchOpen:false,
@@ -207,7 +207,7 @@
           title: '提示',
           content: content ? content : '确定删除该记录？',
           onOk: () => {
-            this.$store.dispatch('LmsTestProject/deleteByIds', ids.join(',')).then(() => {
+            this.$store.dispatch('LmsTestProject/deleteByIdsTest', ids.join(',')).then(() => {
               if (this.$store.state.LmsTestProject.success) {
                 this._search();
                 this.$Message.success('删除成功！');

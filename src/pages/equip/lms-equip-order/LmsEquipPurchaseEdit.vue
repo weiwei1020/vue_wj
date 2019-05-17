@@ -62,13 +62,13 @@
         if (data[0] == '') { //开始和结束为同一天
           $('input[name=apparatusPurchaseCtime]').val(data[0]);
           this.formObj.apparatusPurchaseCtime=data[0];
-          $('input[name=apparatusPurchaseLtime]').val(data[0]);
-          this.formObj.apparatusPurchaseLtime=data[0];
+          $('input[name=apparatusPurchaseLtime]').val(data[1]);
+          this.formObj.apparatusPurchaseLtime=data[1];
         } else {
           $('input[name=apparatusPurchaseCtime]').val(data[0]);
           this.formObj.apparatusPurchaseCtime=data[0];
           $('input[name=apparatusPurchaseLtime]').val(data[1]);
-          this.formObj.apparatusPurchaseLtime=data[0];
+          this.formObj.apparatusPurchaseLtime=data[1];
         }
       },
       _ok() {

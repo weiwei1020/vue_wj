@@ -100,7 +100,7 @@
     },
     methods: {
       _page() {
-        this.$store.dispatch('LmsEquipOrder/page', this._searchParams()).then(() => {
+        this.$store.dispatch('LmsEquipOrder/pageSelf', this._searchParams()).then(() => {
           this.loading = false;
           this.getPage= this.$store.state.LmsEquipOrder.page;
         });
