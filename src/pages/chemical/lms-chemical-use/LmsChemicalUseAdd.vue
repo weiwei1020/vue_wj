@@ -7,8 +7,11 @@
           <Form-item label="领用人" prop="purchasePerson" style="width: 100%">
             <Input name="purchasePerson" v-model="formObj.purchasePerson" placeholder="请输入领用人" disabled></Input>
           </Form-item>
+          <Form-item label="当前库存" style="width: 100%">
+            <Input name="stock" v-model="stock" disabled></Input>
+          </Form-item>
           <Form-item label="领用数量" prop="consunmableStock" style="width: 100%">
-            <InputNumber :min="1" v-model.number="formObj.consunmableStock" style="width: 100%"></InputNumber>
+            <InputNumber :max="stock" :min="1" v-model.number="formObj.consunmableStock" style="width: 100%"></InputNumber>
           </Form-item>
           <Form-item label="领用原因" prop="reason" style="width: 100%">
             <Input name="reason" v-model="formObj.reason" placeholder="请输入原因"></Input>
@@ -59,7 +62,8 @@
             {validator: validateNumber, trigger: 'blur', type: 'number'}
           ],
           reason: [{required: true, message: '领用原因不能为空', trigger: 'change'}],
-        }
+        },
+        stock:'',
       }
     },
     methods: {
@@ -90,6 +94,12 @@
       _cancel() {
         this.showEditModal = false;
       },
+      _check(consunmableStock){
+         if(consunmableStock>this.stock){
+           this.$Message.warning('库存不足！');
+           this.formObj.consunmableStock = 1;
+         }
+      },
       _open(obj) {
         this.showEditModal = true;
         this.$refs['formObj'].resetFields();
@@ -100,7 +110,7 @@
         this.formObj.purchaseRemark = '';
         this.formObj.reason='';
         this.formObj.purchasePerson=localStorage.getItem('personName');
-
+        this.stock=obj.stock
       },
     }
   }

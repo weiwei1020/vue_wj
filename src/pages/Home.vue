@@ -5,7 +5,7 @@
     <div>
       <div class="ivu-breadcrumb breadcrumb_bg">
         <Breadcrumb>
-          <Breadcrumb-item>高校系统</Breadcrumb-item>
+          <Breadcrumb-item>LabServer</Breadcrumb-item>
           <Breadcrumb-item>首页</Breadcrumb-item>
         </Breadcrumb>
       </div>

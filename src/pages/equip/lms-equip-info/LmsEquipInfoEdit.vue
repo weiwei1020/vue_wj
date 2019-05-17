@@ -19,7 +19,7 @@
             <Input name="apparatusBrand" v-model="formObj.apparatusBrand" placeholder="请输入品牌"/>
           </Form-item>
           <Form-item label="仪器价格" prop="apparatusPrice" class="width-48">
-            <InputNumber name="apparatusPrice"  v-model="formObj.apparatusPrice" style="width:100%"></InputNumber>
+            <InputNumber min="1" name="apparatusPrice"  v-model="formObj.apparatusPrice" style="width:100%"></InputNumber>
           </Form-item>
           <Form-item label="购买日期" prop="apparatusBuyTime" class="width-48">
             <Date-picker name="apparatusBuyTime" type="date" placeholder="购买日期" format="yyyy-MM-dd" v-model="formObj.apparatusBuyTime"
@@ -53,7 +53,7 @@
     apparatusSortName: '',
     apparatusSortId: '',
     apparatusBrand: '',
-    apparatusPrice: 0,
+    apparatusPrice: 1,
     apparatusBuyTime: new Date(),
     apparatusRemark: '',
   };
@@ -122,7 +122,7 @@
       },
       _reset(){
         this.formObj=[];
-        this.formObj.apparatusPrice=0;
+        this.formObj.apparatusPrice=1;
         this.formObj.apparatusBuyTime=new Date();
       },
       _cancel() {
